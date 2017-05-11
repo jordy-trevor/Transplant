@@ -3,6 +3,7 @@ var foreground = true; //variable to keep track of which layer player will be in
 var group1;
 var group2;
 var group3;
+var enemyGroup;
 
 var playState = {
 	preload: function(){
@@ -16,6 +17,7 @@ var playState = {
 		group1 = game.add.group();//layer above background
 		group2 = game.add.group();//middle layer
 		group3 = game.add.group();//top layer
+		enemyGroup = game.add.group(); // enemies
 
 		//Object to hide behind
 		var object = game.add.sprite(400,game.world.height-175, 'box');
@@ -36,6 +38,13 @@ var playState = {
 		player.animations.add('walkLeft', [13,12,11,3,7], 10, true);
 		group3.add(player); //set player to top layer
 
+		// TEMP: Enemy Creation
+		var enemyTest = new Enemy(game, 'box', 400, 400, 20, 0, 0, player);
+
+		game.add.existing(enemyTest);
+		enemyTest.scale.setTo(0.15, 0.15);
+		enemyGroup.add(enemyTest);
+
 		
 
 		//Creating a ground to stand on
@@ -52,6 +61,7 @@ var playState = {
 	},
 	update: function(){
 		var hitPlatform = game.physics.arcade.collide(player, platforms);
+		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 
 		player.body.velocity.x = 0; //reset player velocity
 
