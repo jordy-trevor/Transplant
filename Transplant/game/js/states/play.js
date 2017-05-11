@@ -39,7 +39,7 @@ var playState = {
 		group3.add(player); //set player to top layer
 
 		// TEMP: Enemy Creation
-		var enemyTest = new Enemy(game, 'box', 400, 400, 20, 0, 0, player);
+		var enemyTest = new Enemy(game, 'box', 500, 400, 30, 150, 0, 'left', player);
 
 		game.add.existing(enemyTest);
 		enemyTest.scale.setTo(0.15, 0.15);
