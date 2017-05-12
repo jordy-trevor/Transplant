@@ -38,7 +38,6 @@ Enemy.prototype.update = function() {
 	// if you are within 100 sight range of the player, you see them
 	if (((this.body.position.x - this.target.body.position.x > -100 && this.body.position.x - this.target.body.position.x < 0 && this.facing == 'right' )
 		|| (this.body.position.x - this.target.body.position.x < 100 && this.body.position.x - this.target.body.position.x > 0 && this.facing == 'left')) && foreground == true) {
-		console.log(this.facing + '  ' + this.body.position.x + '   ' + this.target.body.position.x);
 		seesPlayer = true;
 	}
 

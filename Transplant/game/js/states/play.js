@@ -4,6 +4,7 @@ var group1;
 var group2;
 var group3;
 var enemyGroup;
+var obstacleGroup;
 
 var playState = {
 	preload: function(){
@@ -18,6 +19,7 @@ var playState = {
 		group2 = game.add.group();//middle layer
 		group3 = game.add.group();//top layer
 		enemyGroup = game.add.group(); // enemies
+		obstacleGroup = game.add.group(); // obstacles
 
 		//Object to hide behind
 		var object = game.add.sprite(400,game.world.height-175, 'box');
@@ -38,6 +40,8 @@ var playState = {
 		player.animations.add('walkLeft', [13,12,11,3,7], 10, true);
 		group3.add(player); //set player to top layer
 
+		// TREVOR'S TESTS ==================================================
+
 		// TEMP: Enemy Creation
 		var enemyTest = new Enemy(game, 'box', 500, 400, 30, 150, 0, 'left', player);
 
@@ -45,7 +49,24 @@ var playState = {
 		enemyTest.scale.setTo(0.15, 0.15);
 		enemyGroup.add(enemyTest);
 
+		// TEMP: Object Creation
+		var obstacleTest = new Obstacle(game, 'box', 400, 550, false, true, 'full', false);
+		game.add.existing(obstacleTest);
+		obstacleTest.scale.setTo(0.25, 0.25);
+		var obstacleTest2 = new Obstacle(game, 'box', 200, 200, true, true, 'top', true);
+		game.add.existing(obstacleTest2);
+		obstacleTest2.scale.setTo(0.2, 0.2);
+
+		var obstacleTest3 = new Obstacle(game, 'box', 400, 200, true, true, 'full', true);
+		game.add.existing(obstacleTest3);
+		obstacleTest3.scale.setTo(0.2, 0.2);
+
+		obstacleGroup.add(obstacleTest);
+		obstacleGroup.add(obstacleTest2);
+		obstacleGroup.add(obstacleTest3);
+
 		
+		// ==================================================================
 
 		//Creating a ground to stand on
 		platforms = game.add.group();
