@@ -97,7 +97,7 @@ var playState = {
 	},
 
 	update: function(){
-		var hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstacleClimbGroup]);
+		var hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		var climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
 
