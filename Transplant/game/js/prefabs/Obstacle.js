@@ -48,9 +48,10 @@ Obstacle.prototype.update = function() {
 	game.physics.arcade.collide(platforms, this);
 	game.physics.arcade.collide(obstacleGroup, this);
 	if (this.collidable == 'full' || this.collidable == 'top') {
-		game.physics.arcade.collide(player, this);
+		if(isClimbing == false){
+			game.physics.arcade.collide(player, this);
+		}
 	} 
-	
 
 	// can the object be pushed?
 	if (this.pushable && foreground == true) {
