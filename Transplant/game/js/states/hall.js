@@ -7,6 +7,8 @@ var hallState = {
 	create: function() {
 		console.log('hall: create')
 
+		game.world.setBounds(0,0,2400,600);
+
 		game.add.sprite(0,0, 'hall');
 
 		//Create the layers to do hiding
@@ -73,6 +75,8 @@ var hallState = {
 		group3.add(player); //set player to top layer
 		game.world.bringToTop(group3);
 
+		game.camera.follow(player, Phaser.FOLLOW_PLATFORMER);
+
 		// TEMP: Enemy Creation
 		var enemyTest = new Enemy(game, 'box', 1000, 400, 30, 150, 0, 'left', player);
 		game.add.existing(enemyTest);
@@ -83,7 +87,7 @@ var hallState = {
 		platforms = game.add.group();
 		platforms.enableBody = true;
 		ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
-		ground.scale.setTo(20, 0.5);
+		ground.scale.setTo(40, 0.5);
 		ground.body.immovable = true; 
 		ground.alpha = 0;
 
