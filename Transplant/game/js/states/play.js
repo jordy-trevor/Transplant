@@ -1,14 +1,16 @@
 //Global Variables
 var foreground = true; //variable to keep track of which layer player will be in
-var group1;
-var group2;
-var group3;
-var enemyGroup;
-var obstacleGroup;
-var obstacleClimbGroup;
-var canClimb = false;
-var isClimbing = false;
-var canControl = true;
+var group1; //right in front of background
+var group2; //middle layer
+var group3; //top layer
+var enemyGroup; //group for enemies
+var obstacleGroup;	//Obstacle group for obejcts with full hit box
+var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
+var isClimbing = false; //variable to check if player is climbing or not
+var canControl = true; //variable to check if player has control at the moment
+var player;
+var hitPlatform; //did player hit the ground or an object?
+var climb; //can the player climb right now?
 
 var playState = {
 	preload: function(){
@@ -37,19 +39,17 @@ var playState = {
 
 		
 		// TEMP: Object Creation
-		var obstacleTest = new Obstacle(game, 'box', 400, 550, false, true, 'full', false);
+		var obstacleTest = new Obstacle(game, 'box', 400, 500, false, true, 'full', false);
 		game.add.existing(obstacleTest);
 		obstacleTest.scale.setTo(0.25, 0.25);
-		var obstacleTest2 = new Obstacle(game, 'box', 200, 200, true, true, 'top', true);
+		var obstacleTest2 = new Obstacle(game, 'box', 200, 200, false, true, 'top', true);
 		game.add.existing(obstacleTest2);
 		obstacleTest2.scale.setTo(0.2, 0.2);
-
 		var obstacleTest3 = new Obstacle(game, 'box', 400, 200, true, true, 'full', true);
 		game.add.existing(obstacleTest3);
 		obstacleTest3.scale.setTo(0.2, 0.2);
 
 		obstacleGroup.add(obstacleTest);
-		obstacleGroup.add(obstacleTest2);
 		obstacleGroup.add(obstacleTest3);
 		
 		obstacleClimbGroup.add(obstacleTest2);
@@ -72,7 +72,6 @@ var playState = {
 
 		// TEMP: Enemy Creation
 		var enemyTest = new Enemy(game, 'box', 500, 400, 30, 150, 0, 'left', player);
-
 		game.add.existing(enemyTest);
 		enemyTest.scale.setTo(0.15, 0.15);
 		enemyGroup.add(enemyTest);
@@ -81,7 +80,7 @@ var playState = {
 		platforms = game.add.group();
 		platforms.enableBody = true;
 		var ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
-		ground.scale.setTo(10, 0.5);
+		ground.scale.setTo(20, 0.5);
 		ground.body.immovable = true; 
 
 		//Adding use of various keys
@@ -91,40 +90,40 @@ var playState = {
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
 		this.input.keyboard.addKey(Phaser.Keyboard.S);
 
+		//Key press won't affect browser
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+
 		//Use H key to swap between layers
 		this.hideKey = game.input.keyboard.addKey(Phaser.Keyboard.H);
 		this.hideKey.onDown.add(this.hide, this);
+
+		this.jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+		this.jumpKey.onDown.add(this.jump, this);
 	},
 
 	update: function(){
-		var hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
+		hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
-		var climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
-
+		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
+		
 		//Climb objects
 		if(climb && group3.children.indexOf(player) > -1){ //can only climb when in front of the object
-			canClimb = true; //disable jump
 			player.body.gravity.y = 0; //player doesn't automatically fall off
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W)){
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && player.body.velocity.y == 0){
 				//player goes up
-				player.body.velocity.y = -50;
+				player.body.position.y -= 2;
 				isClimbing = true; //disable left and right movement
 			}
-			else if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
+			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
 				//player goes down
-				player.body.velocity.y = 50;
+				player.body.position.y += 2;
 				isClimbing = true; //disable left and right movement
-			}
-			else{
-				//if no key is pressed, player stays in place
 				player.body.velocity.y = 0;
 			}
-
 		}
 
 		//reset variables away from climbing
 		if(!climb){
-			canClimb = false;
 			isClimbing = false;
 			player.body.gravity.y = 300;
 		}
@@ -142,15 +141,9 @@ var playState = {
 			isClimbing = false;
 		}
 
-		//console.log('canClimb:' + canClimb + ", isClimbing:" + isClimbing);
-
 		player.body.velocity.x = 0; //reset player velocity
 
 		//Movement system
-		if(game.input.keyboard.isDown(Phaser.Keyboard.W) && player.body.touching.down && canClimb==false){
-			player.body.velocity.y = -250; //jump height
-			//play animation
-		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.A) && canControl == true){
 			//move left
 			player.animations.play('walkLeft');
@@ -167,6 +160,7 @@ var playState = {
 			player.animations.stop();
 			player.frame = 14; //Currently only facing right when stopped, can be changed later
 		}
+
 	},
 	hide: function(){
 		if(player.position.x<400 || player.position.x>528){ //Don't allow player to hide when in front of the object
@@ -182,6 +176,14 @@ var playState = {
 				group3.add(player);
 				foreground=true;
 			}
+		}
+		console.log('Y: ' + player.body.velocity.y);
+	},
+	jump: function(){
+		console.log('Hitplatform:' + hitPlatform + ' isClimb:' + isClimbing + ' climb:' + climb + ' player touch down:' + player.body.touching.down);
+		if(hitPlatform || isClimbing == true || climb == true || player.body.touching.down){
+			player.body.velocity.y = -300; //jump height
+			//play animation
 		}
 	}
 };
