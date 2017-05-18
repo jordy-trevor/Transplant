@@ -14,10 +14,8 @@ var menuState = {
 	},
 
 	update: function() {
-		console.log('Menu: update');
 		if(this.spaceBar.isDown) { //check if space bar was pressed
 			this.state.start('play'); //Switch to the next state
 		}
 	}
-
-}
+};

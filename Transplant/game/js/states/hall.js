@@ -1,32 +1,15 @@
 //Global Variables
-var foreground = true; //variable to keep track of which layer player will be in
+var room301; //starting room
+var room302;
+var elevator;
 
-var group1; //right in front of background
-var group2; //middle layer
-var group3; //top layer
-var enemyGroup; //group for enemies
-var obstacleGroup;	//Obstacle group for obejcts with full hit box
-var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
-var isClimbing = false; //variable to check if player is climbing or not
-var canControl = true; //variable to check if player has control at the moment
-var player;
-var hitPlatform; //did player hit the ground or an object?
-var climb; //can the player climb right now?
-var distanceFromGround; //player's y-distance from the ground
-var door1; //door in the starting room
-var ground;
-
-
-var playState = {
-	preload: function(){
-		console.log('Play: preload');
-		//preload more things if needed
-	},
-
+var hallState = {
 	create: function() {
-		console.log('Play: create')
+		console.log('hall: create')
 
-		game.add.sprite(0,0, 'level1');
+		game.world.setBounds(0,0,2400,600);
+
+		game.add.sprite(0,0, 'hall');
 
 		//Create the layers to do hiding
 		group1 = game.add.group();//layer above background
@@ -36,21 +19,45 @@ var playState = {
 		obstacleGroup = game.add.group(); // obstacles
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
 
+		elevator = game.add.sprite(466, 419, 'Elevator');
+		elevator.anchor.set(0.5, 0.5);
+		game.physics.enable(elevator);
+		group1.add(elevator);
+
+		room301 = game.add.sprite(114, 425, 'normalDoor');
+		room301.anchor.set(0.5, 0.5);
+		game.physics.enable(room301);
+		group1.add(room301);
+
+		room302 = game.add.sprite(879, 425, 'door302');
+		room302.anchor.set(0.5, 0.5);
+		game.physics.enable(room302);
+		group1.add(room302);
 
 		//Object to hide behind
-		var object = game.add.sprite(400,game.world.height-175, 'box');
-		object.scale.setTo(0.25,0.25);
+		var object = game.add.sprite(800,game.world.height-175, 'box');
+		object.scale.setTo(1.5);
 		group2.add(object); //set object to middle layer
-
-		
 
 
 		// TREVOR'S TESTS ==================================================
 
 		
 		// TEMP: Object Creation
-		this.generateLevel('level1');
+		var obstacleTest = new Obstacle(game, 'box', 700, 500, false, true, 'full', false);
+		game.add.existing(obstacleTest);
+		obstacleTest.scale.setTo(1.25,1.25);
+		var obstacleTest2 = new Obstacle(game, 'box', 200, 200, false, true, 'top', true);
+		game.add.existing(obstacleTest2);
+		obstacleTest2.scale.setTo(1);
+		var obstacleTest3 = new Obstacle(game, 'box', 700, 200, true, true, 'full', true);
+		game.add.existing(obstacleTest3);
+		obstacleTest3.scale.setTo(1);
 
+		obstacleGroup.add(obstacleTest);
+		obstacleGroup.add(obstacleTest3);
+		
+		obstacleClimbGroup.add(obstacleTest2);
 		// ==================================================================
 
 		//Player object
@@ -68,21 +75,21 @@ var playState = {
 		group3.add(player); //set player to top layer
 		game.world.bringToTop(group3);
 
+		game.camera.follow(player, Phaser.FOLLOW_PLATFORMER);
+
+		// TEMP: Enemy Creation
+		var enemyTest = new Enemy(game, 'box', 1000, 400, 30, 150, 0, 'left', player);
+		game.add.existing(enemyTest);
+		enemyTest.scale.setTo(0.5, 0.5);
+		enemyGroup.add(enemyTest);
+
 		//Creating a ground to stand on
 		platforms = game.add.group();
-    
 		platforms.enableBody = true;
 		ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
-		ground.scale.setTo(20, 0.5);
+		ground.scale.setTo(40, 0.5);
 		ground.body.immovable = true; 
 		ground.alpha = 0;
-
-		//Creating a door in the room
-		door1 = game.add.sprite(610, 407, 'normalDoor');
-		door1.anchor.set(0.5, 0.5);
-		game.physics.enable(door1);
-		group1.add(door1)
-
 
 		//Adding use of various keys
 		//cursors = game.input.keyboard.createCursorKeys(); 
@@ -170,7 +177,8 @@ var playState = {
 			//stand still
 			player.animations.stop();
 			player.frame = 14; //Currently only facing right when stopped, can be changed later
-    }
+		}
+
 	},
 	hide: function(){
 		if(player.position.x<400 || player.position.x>528){ //Don't allow player to hide when in front of the object
@@ -187,48 +195,19 @@ var playState = {
 				foreground=true;
 			}
 		}
-
-		//console.log(distanceFromGround + ' YPos:' + player.position.y);
 	},
 	jump: function(){
 		//console.log('Hitplatform:' + hitPlatform + ' isClimb:' + isClimbing + ' climb:' + climb + ' player touch down:' + player.body.touching.down);
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if((hitPlatform && distanceFromGround <= 5) || isClimbing == true || (climb == true && distanceFromGround <= 5)|| player.body.touching.down){
-			if(climb == true){
-				player.body.velocity.y = -150;
-			}
 			player.body.velocity.y = -300; //jump height
 			//play animation
 		}
 	},
 	interactDoor: function(){
-		if(game.physics.arcade.overlap(player, door1)){
-			game.state.start('hall');
+		if(game.physics.arcade.overlap(player, room301)){
+			game.state.start('play');
 		}
-
-	},
-
-	generateLevel: function(levelName) {
-
-		var levelData = game.cache.getJSON('level1');
-		
-		// generate all platforms from the data
-		for (var index = 0; index < levelData.obstacleData.length; index++) {
-			// set element to the object and use it's parameters
-			var obstacleTemp = new Obstacle(game, levelData.obstacleData[index].frame, levelData.obstacleData[index].xPos, levelData.obstacleData[index].yPos, levelData.obstacleData[index].xScale, levelData.obstacleData[index].yScale, levelData.obstacleData[index].pushable, levelData.obstacleData[index].climbable, levelData.obstacleData[index].collidable, levelData.obstacleData[index].gravityEnabled);
-			game.add.existing(obstacleTemp);
-			obstacleGroup.add(obstacleTemp);
-
-			if(obstacleTemp.climbable == true) {
-				obstacleClimbGroup.add(obstacleTemp);
-			}
-
-			console.log(index);
-			console.log(obstacleTemp);
-			
-		} 
-	
-
 	}
 };
