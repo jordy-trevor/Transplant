@@ -11,6 +11,7 @@ var canControl = true; //variable to check if player has control at the moment
 var player;
 var hitPlatform; //did player hit the ground or an object?
 var climb; //can the player climb right now?
+var distanceFromGround; //player's y-distance from the ground
 
 var playState = {
 	preload: function(){
@@ -56,7 +57,7 @@ var playState = {
 		// ==================================================================
 
 		//Player object
-		player = game.add.sprite(32, game.world.height - 150, 'player');
+		player = game.add.sprite(32, game.world.height - 125, 'player');
 		//player properties
 		player.anchor.set(0.5);
 		player.scale.x = 0.05;
@@ -84,7 +85,7 @@ var playState = {
 		ground.body.immovable = true; 
 
 		//Adding use of various keys
-		cursors = game.input.keyboard.createCursorKeys(); 
+		//cursors = game.input.keyboard.createCursorKeys(); 
 		this.input.keyboard.addKey(Phaser.Keyboard.W);
 		this.input.keyboard.addKey(Phaser.Keyboard.A);
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
@@ -97,15 +98,19 @@ var playState = {
 		this.hideKey = game.input.keyboard.addKey(Phaser.Keyboard.H);
 		this.hideKey.onDown.add(this.hide, this);
 
+		//Use Space Bar to jump
 		this.jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.jumpKey.onDown.add(this.jump, this);
+
 	},
 
 	update: function(){
 		hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
-		
+
+		distanceFromGround = (game.world.height-64) - player.position.y; //continually calculate
+
 		//Climb objects
 		if(climb && group3.children.indexOf(player) > -1){ //can only climb when in front of the object
 			player.body.gravity.y = 0; //player doesn't automatically fall off
@@ -136,6 +141,7 @@ var playState = {
 			canControl = true;
 		}
 
+		//Give control back when touching the ground
 		if (hitPlatform) {
 			canControl = true;
 			isClimbing = false;
@@ -177,11 +183,12 @@ var playState = {
 				foreground=true;
 			}
 		}
-		console.log('Y: ' + player.body.velocity.y);
 	},
 	jump: function(){
-		console.log('Hitplatform:' + hitPlatform + ' isClimb:' + isClimbing + ' climb:' + climb + ' player touch down:' + player.body.touching.down);
-		if(hitPlatform || isClimbing == true || climb == true || player.body.touching.down){
+		//console.log('Hitplatform:' + hitPlatform + ' isClimb:' + isClimbing + ' climb:' + climb + ' player touch down:' + player.body.touching.down);
+		//Scenario checks to see if you can jump
+		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
+		if((hitPlatform && distanceFromGround <= 46) || isClimbing == true || (climb == true && distanceFromGround <= 46)|| player.body.touching.down){
 			player.body.velocity.y = -300; //jump height
 			//play animation
 		}
