@@ -7,15 +7,22 @@
 // key is image location, such as atlas
 // frame is the image name as determed in load
 // collidable can be "full", "top", or "none"
-function Obstacle(game, frame, xPos, yPos, pushable, climbable, collidable, gravityEnabled) {
+function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, collidable, gravityEnabled) {
 
 	// call to Phaser.Sprite
 	// new Sprite(game, x, y, key, frame) 
 	Phaser.Sprite.call(this, game, xPos, yPos, frame);
+
 	// constructor customized properties
+	this.frame2 = frame;
 	this.xPos = xPos;
 	this.yPos = yPos;
+	this.xScale = xScale;
+	this.yScale = yScale;
 	this.pushable = pushable;
+	this.climbable = climbable;
+	this.collidable = collidable;
+	this.gravityEnabled = gravityEnabled;
 	//this.weight = weight;
 
 	
@@ -23,6 +30,7 @@ function Obstacle(game, frame, xPos, yPos, pushable, climbable, collidable, grav
 	this.enableBody = true;
 	this.anchor.set(0.5); // set anchor point to middle
 	this.body.collideWorldBounds = true;
+	this.scale.setTo(xScale, yScale); // set scale appropriately
 
 	// does the object have gravity?
 	if (gravityEnabled) {	

@@ -7,6 +7,10 @@ var load = {
 		game.load.image('box', 'box.png');
 		game.load.spritesheet('player', 'patient.png', 1500, 1837);
 
+		// load in level files
+		game.load.path = '../game/data/';
+		game.load.json('level1', 'Level1-Hallway.json');
+
 	},
 	create: function(){
 		console.log('Load: create');
