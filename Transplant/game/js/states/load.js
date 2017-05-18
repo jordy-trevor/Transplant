@@ -13,6 +13,10 @@ var load = {
 		game.load.image('Elevator', 'Elevator.png');
 		game.load.image('door', 'door.png');
 
+		// load in level files
+		game.load.path = '../game/data/';
+		game.load.json('level1', 'Level1-Hallway.json');
+
 	},
 	create: function(){
 		console.log('Load: create');
