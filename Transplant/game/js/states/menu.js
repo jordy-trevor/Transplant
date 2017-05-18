@@ -19,5 +19,4 @@ var menuState = {
 			this.state.start('play'); //Switch to the next state
 		}
 	}
-
-}
+};
