@@ -1,12 +1,19 @@
 {	
+	"backgroundData" : "hallRoomSprite",
 	"playerStartData" : [{"x" : 32, "y" : 450}],
-	
 	"obstacleData" : [ 
-		{"frame" : "box", "xPos" : 400, "yPos" : 550, "xScale" : "0.25", "yScale" : "0.25", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false},
-		{"frame" : "box", "xPos" : 200, "yPos" : 200, "xScale" : "0.2", "yScale" : "0.2", "pushable" : true, "climbable" : true, "collidable" : "top", "gravityEnabled" : true},
-		{"frame" : "box", "xPos" : 400, "yPos" : 200, "xScale" : "0.2", "yScale" : "0.2", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true}
+		{"frame" : "box", "xPos" : 400, "yPos" : 550, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false},
+		{"frame" : "box", "xPos" : 200, "yPos" : 200, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : true, "collidable" : "top", "gravityEnabled" : true},
+		{"frame" : "box", "xPos" : 400, "yPos" : 200, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true}
 	],
 	"enemyData" : [
-		{"frame": "box", "xPos" : 500, "yPos" : 400, "speed" : 30, "walkDist" : 150, "turnTime" : 0, "facing" : "left", "target" : "player"}
+		{"frame": "box", "xPos" : 650, "yPos" : 400, "speed" : 30, "walkDist" : 150, "turnTime" : 0, "facing" : "left", "target" : "player"}
+	],
+	"doorData" : [
+		{"name" : "door301", "leadsTo": "level0", "xPos" : 114, "yPos" : 425, "frame" : "normalDoor"},
+		{"name" : "elevator", "leadsTo": "", "xPos" : 466, "yPos" : 419, "frame" : "elevator"},
+		{"name" : "door302", "leadsTo" : "", "xPos" : 879, "yPos" : 425, "frame" : "transitionDoor"},
+		{"name" : "door303", "leadsTo" : "", "xPos" : 1759, "yPos" : 425, "frame" : "darkDoor"}
 	]
+
 }
