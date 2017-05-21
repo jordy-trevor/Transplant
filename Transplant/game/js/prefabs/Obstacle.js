@@ -28,19 +28,18 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 	
 	game.physics.arcade.enable(this); // give physics
 	this.enableBody = true;
-	this.anchor.set(0.5); // set anchor point to middle
+	//this.anchor.set(0.5); // set anchor point to middle
 	this.body.collideWorldBounds = true;
 	this.scale.setTo(xScale, yScale); // set scale appropriately
 
 	if(gravityEnabled){
-		this.body.gravity.y = 300;
+		this.body.gravity.y = 450;
 	}
 
 	this.climbable = climbable;
 	this.collidable = collidable;
 
 	if (this.collidable == 'top') {
-		this.body.checkCollision.down = false;
 		this.body.checkCollision.left = false;
 		this.body.checkCollision.right = false;
 	}
@@ -60,8 +59,7 @@ Obstacle.prototype.update = function() {
 		if(isClimbing == false){
 			game.physics.arcade.collide(player, this);
 		}
-	} 
-
+	}
 	// can the object be pushed?
 	if (this.pushable) {
 		if(foreground == true){
