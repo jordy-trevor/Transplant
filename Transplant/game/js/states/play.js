@@ -1,12 +1,14 @@
 //Global Variables
 var foreground = true; //variable to keep track of which layer player will be in
 
+var backgroundGroup; // background
 var group1; //right in front of background
 var group2; //middle layer
 var group3; //top layer
 var enemyGroup; //group for enemies
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
+var doorGroup;
 var isClimbing = false; //variable to check if player is climbing or not
 var canControl = true; //variable to check if player has control at the moment
 var player;
@@ -15,6 +17,7 @@ var climb; //can the player climb right now?
 var distanceFromGround; //player's y-distance from the ground
 var door1; //door in the starting room
 var ground;
+
 
 
 var playState = {
@@ -26,62 +29,24 @@ var playState = {
 	create: function() {
 		console.log('Play: create')
 
-		game.add.sprite(0,0, 'level1');
-
 		//Create the layers to do hiding
+		backgroundGroup = game.add.group();// background
 		group1 = game.add.group();//layer above background
 		group2 = game.add.group();//middle layer
 		group3 = game.add.group();//top layer
 		enemyGroup = game.add.group(); // enemies
 		obstacleGroup = game.add.group(); // obstacles
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
+		doorGroup = game.add.group();
+		platforms = game.add.group();
 
 
-		//Object to hide behind
-		var object = game.add.sprite(400,game.world.height-175, 'box');
-		object.scale.setTo(0.25,0.25);
-		group2.add(object); //set object to middle layer
+		generateLevel('level0');
 
-		
-
-
-		// TREVOR'S TESTS ==================================================
-
-		
-		// TEMP: Object Creation
-		this.generateLevel('level1');
-
-		// ==================================================================
-
-		//Player object
-		player = game.add.sprite(32, game.world.height - 150, 'player');
-		//player properties
-		player.anchor.set(0.5);
-		player.scale.x = 0.075;
-		player.scale.y = 0.075;
-		game.physics.enable(player);
-		player.body.gravity.y = 300;
-		player.body.collideWorldBounds = true;
-		//animations for walking
-		player.animations.add('walkRight', [1,2,3,4,5,6], 10, true);
-		player.animations.add('walkLeft', [8,9,10,11,12,13], 10, true);
-		group3.add(player); //set player to top layer
 		game.world.bringToTop(group3);
 
-		//Creating a ground to stand on
-		platforms = game.add.group();
-    
-		platforms.enableBody = true;
-		ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
-		ground.scale.setTo(20, 0.5);
-		ground.body.immovable = true; 
-		ground.alpha = 0;
 
-		//Creating a door in the room
-		door1 = game.add.sprite(610, 407, 'normalDoor');
-		door1.anchor.set(0.5, 0.5);
-		game.physics.enable(door1);
-		group1.add(door1)
+		//Creating a ground to stand on
 
 
 		//Adding use of various keys
@@ -105,6 +70,7 @@ var playState = {
 		//Use E key to open the door
 		this.interactKey = game.input.keyboard.addKey(Phaser.Keyboard.E);
 		this.interactKey.onDown.add(this.interactDoor);
+
 
 	},
 
@@ -170,7 +136,7 @@ var playState = {
 			//stand still
 			player.animations.stop();
 			player.frame = 14; //Currently only facing right when stopped, can be changed later
-    }
+   		}
 	},
 	hide: function(){
 		if(player.position.x<400 || player.position.x>528){ //Don't allow player to hide when in front of the object
@@ -202,33 +168,112 @@ var playState = {
 			//play animation
 		}
 	},
+
+	
 	interactDoor: function(){
-		if(game.physics.arcade.overlap(player, door1)){
-			game.state.start('hall');
+		var doorEntering;
+		for(var i = 0; i < doorGroup.children.length; i++) {
+			
+			doorEntering = doorGroup.children[i];
+			if(game.physics.arcade.overlap(player, doorEntering)){
+
+				this.generateLevel(doorEntering.leadsTo);
+				console.log(doorEntering.leadsTo);
+				break;
+			}
+			
+		}
+		
+	}
+
+	
+};
+
+var generateLevel = function(levelName) {
+
+		console.log('generated');
+		
+		backgroundGroup.forEach(function (c) {c.kill();});
+		group1.forEach(function (c) {c.kill();});
+		group2.forEach(function (c) {c.kill();});
+		group3.forEach(function (c) {c.kill();});
+		enemyGroup.forEach(function (c) {c.kill();});
+		obstacleGroup.forEach(function (c) {c.kill();}); 
+		obstacleClimbGroup.forEach(function (c) {c.kill();}); 
+		doorGroup.forEach(function (c) {c.kill();}); 
+
+
+		var levelData = game.cache.getJSON(levelName);
+
+		var background = game.add.sprite(0,0, levelData.backgroundData);
+		game.world.sendToBack(background);
+		backgroundGroup.add(background);
+
+		// generate all doors from the data
+		for (var index = 0; index < levelData.doorData.length; index++) {
+			// set element to the object and use it's parameters
+			var doorTemp = new Door(game, levelData.doorData[index].frame, levelData.doorData[index].name, levelData.doorData[index].leadsTo, levelData.doorData[index].xPos, levelData.doorData[index].yPos);
+			console.log(doorTemp.name);
+			game.physics.enable(doorTemp);
+			game.add.existing(doorTemp);
+			group1.add(doorTemp)
+			doorGroup.add(doorTemp);
 		}
 
-	},
-
-	generateLevel: function(levelName) {
-
-		var levelData = game.cache.getJSON('level1');
-		
-		// generate all platforms from the data
+		// generate all enemies from the data
 		for (var index = 0; index < levelData.obstacleData.length; index++) {
 			// set element to the object and use it's parameters
 			var obstacleTemp = new Obstacle(game, levelData.obstacleData[index].frame, levelData.obstacleData[index].xPos, levelData.obstacleData[index].yPos, levelData.obstacleData[index].xScale, levelData.obstacleData[index].yScale, levelData.obstacleData[index].pushable, levelData.obstacleData[index].climbable, levelData.obstacleData[index].collidable, levelData.obstacleData[index].gravityEnabled);
 			game.add.existing(obstacleTemp);
 			obstacleGroup.add(obstacleTemp);
+			group2.add(obstacleTemp);
 
 			if(obstacleTemp.climbable == true) {
 				obstacleClimbGroup.add(obstacleTemp);
 			}
-
-			console.log(index);
 			console.log(obstacleTemp);
-			
 		} 
-	
+
+
+		//Player object
+		player = game.add.sprite(32, game.world.height - 150, 'player');
+		//player properties
+		player.anchor.set(0.5);
+		player.scale.x = 0.075;
+		player.scale.y = 0.075;
+		game.physics.enable(player);
+		player.body.gravity.y = 300;
+		player.body.collideWorldBounds = true;
+		//animations for walking
+		player.animations.add('walkRight', [1,2,3,4,5,6], 10, true);
+		player.animations.add('walkLeft', [8,9,10,11,12,13], 10, true);
+		group3.add(player); //set player to top layer
+		game.camera.follow(player, Phaser.FOLLOW_PLATFORMER);
+
+		// generate enemies
+		for (var index = 0; index < levelData.enemyData.length; index++) {
+			// set element to the object and use it's parameters
+			var enemyTemp = new Enemy(game, levelData.enemyData[index].frame, levelData.enemyData[index].xPos, levelData.enemyData[index].yPos, levelData.enemyData[index].speed, levelData.enemyData[index].walkDist, levelData.enemyData[index].turnTime, levelData.enemyData[index].facing, player);
+			console.log(enemyTemp.target);
+			game.add.existing(enemyTemp);
+			obstacleGroup.add(enemyTemp);
+			group2.add(enemyTemp);
+
+			console.log(enemyTemp);
+			console.log('make');
+		} 
+
+		
+		// platforms
+		platforms.enableBody = true;
+		ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
+		ground.scale.setTo(20, 0.5);
+		ground.body.immovable = true; 
+		ground.alpha = 0;
+
+		console.log('done');
+		
 
 	}
-};
+
+
