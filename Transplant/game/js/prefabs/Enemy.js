@@ -15,7 +15,7 @@ function Enemy(game, frame, xPos, yPos, speed, walkDist, turnTime, facing, targe
 	this.anchor.set(0.5); // set anchor point to middle 
 	game.physics.enable(this); // give physics
 	this.body.gravity.y = 300;
-	this.body.collideWorldBounds = false; // does not hit edges
+	this.body.collideWorldBounds = true; // does not hit edges
 
 	this.xPos = xPos;
 	this.yPos = yPos;

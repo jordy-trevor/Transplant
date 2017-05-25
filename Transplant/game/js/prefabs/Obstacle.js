@@ -26,22 +26,20 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 	//this.weight = weight;
 
 	
-	game.physics.enable(this); // give physics
+	game.physics.arcade.enable(this); // give physics
 	this.enableBody = true;
-	this.anchor.set(0.5); // set anchor point to middle
+	//this.anchor.set(0.5); // set anchor point to middle
 	this.body.collideWorldBounds = true;
 	this.scale.setTo(xScale, yScale); // set scale appropriately
 
-	// does the object have gravity?
-	if (gravityEnabled) {	
-		this.body.gravity.y = 300;
-	} 
+	if(gravityEnabled){
+		this.body.gravity.y = 450;
+	}
 
 	this.climbable = climbable;
 	this.collidable = collidable;
 
 	if (this.collidable == 'top') {
-		this.body.checkCollision.down = false;
 		this.body.checkCollision.left = false;
 		this.body.checkCollision.right = false;
 	}
@@ -53,19 +51,27 @@ Obstacle.prototype.constructor = Obstacle;
 
 Obstacle.prototype.update = function() {
 
-	game.physics.arcade.collide(platforms, this);
-	game.physics.arcade.collide(obstacleGroup, this);
+	var collision1 = game.physics.arcade.collide(platforms, this);
+	var collision2 = game.physics.arcade.collide(obstacleGroup, this);
+	var collision3 = game.physics.arcade.collide(obstacleClimbGroup, this);
+
 	if (this.collidable == 'full' || this.collidable == 'top') {
 		if(isClimbing == false){
 			game.physics.arcade.collide(player, this);
 		}
-	} 
-
+	}
 	// can the object be pushed?
-	if (this.pushable && foreground == true) {
-		this.body.immovable = false;
-		this.body.drag.x = 300;
-	} else {
+	if (this.pushable) {
+		if(foreground == true){
+			this.body.immovable = false;
+			this.body.drag.x = 300;
+		}
+	}
+	else{
 		this.body.immovable = true;
+		if(collision1 || collision2 || collision3){
+			this.body.velocity.y = 0;
+			this.body.gravity.y = 0;
+		}
 	}
 }
