@@ -48,7 +48,7 @@ var playState = {
 		player = game.add.sprite(32, game.world.height - 150, 'player');
 		//player properties
 		game.physics.enable([player], Phaser.Physics.ARCADE);
-		player.body.setSize(600, 1800, 420, 25); // adjusts hitbox :)
+		player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
 		player.anchor.set(0.5);
 		player.scale.x = 0.05;
 		player.scale.y = 0.05;
@@ -202,7 +202,7 @@ var playState = {
 	
 	},
 	render: function() {
-		// game.debug.bodyInfo(player, 32, 32);
-		// game.debug.body(player);
+		 game.debug.bodyInfo(player, 32, 32);
+		 game.debug.body(player);
 	}
 };
