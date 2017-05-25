@@ -237,10 +237,11 @@ var generateLevel = function(levelName) {
 			console.log(obstacleTemp);
 		} 
 
-
 		//Player object
 		player = game.add.sprite(32, game.world.height - 150, 'player');
 		//player properties
+    game.physics.enable([player], Phaser.Physics.ARCADE);
+		player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
 		player.anchor.set(0.5);
 		player.scale.x = 0.075;
 		player.scale.y = 0.075;
