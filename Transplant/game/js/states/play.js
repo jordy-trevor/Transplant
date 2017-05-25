@@ -1,23 +1,22 @@
 //Global Variables
 var foreground = true; //variable to keep track of which layer player will be in
 var backgroundGroup; // background
-var doorGroup;
-var group0; //interactable objects in the background
+var doorGroup; //group to distinguish what will be a door
 var group1; //right in front of background
 var group2; //middle layer
-var group3; //top layer
 var enemyGroup; //group for enemies
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
+var group3; //top layer
+var group4; //Layer above everything to do lighting
 var isClimbing = false; //variable to check if player is climbing or not
 var canControl = true; //variable to check if player has control at the moment
-var player;
+var player; //the player
 var hitPlatform; //did player hit the ground or an object?
 var climb; //can the player climb right now?
 var distanceFromGround; //player's y-distance from the ground
 var door1; //door in the starting room
-var ground;
-var canClimb = false;
+var ground; //the ground player stannds on
 
 var playState = {
 	preload: function(){
@@ -34,16 +33,18 @@ var playState = {
 		group0 = game.add.group();//interactable in background
 		group1 = game.add.group();//layer above background
 		group2 = game.add.group();//middle layer
-		group3 = game.add.group();//top layer
 		enemyGroup = game.add.group(); // enemies
 		obstacleGroup = game.add.group(); // obstacles
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
+		group3 = game.add.group();//top layer
+		group4 = game.add.group();//Lighting layer
 		platforms = game.add.group();
 
 
 		generateLevel('level0');
 
 		game.world.bringToTop(group3);
+		game.world.bringToTop(group4);
 
 
 		//Adding use of various keys
@@ -119,7 +120,7 @@ var playState = {
 
 		//Movement system
 		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-			console.log(player.body.velocity.y);
+			console.log(enemyHitPlatform);
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.A) && canControl == true){
 			//move left
@@ -187,24 +188,30 @@ var playState = {
 var generateLevel = function(levelName) {
 
 		console.log('generated');
-		
-		game.world.setBounds(0, 0, 2400, 600);
 
 		backgroundGroup.forEach(function (c) {c.kill();});
 		doorGroup.forEach(function (c) {c.kill();});
 		group1.forEach(function (c) {c.kill();});
 		group2.forEach(function (c) {c.kill();});
-		group3.forEach(function (c) {c.kill();});
 		enemyGroup.forEach(function (c) {c.kill();});
 		obstacleGroup.forEach(function (c) {c.kill();}); 
-		obstacleClimbGroup.forEach(function (c) {c.kill();}); 
-
+		obstacleClimbGroup.forEach(function (c) {c.kill();});
+		group3.forEach(function (c) {c.kill();});
+		group4.forEach(function (c) {c.kill();});
 
 		var levelData = game.cache.getJSON(levelName);
+
+		//Set camera bounds
+		//Change this to work per level in the JSON
+		game.world.setBounds(0, 0, 2400, 600);
 
 		var background = game.add.sprite(0,0, levelData.backgroundData);
 		game.world.sendToBack(background);
 		backgroundGroup.add(background);
+
+		//Lighting filter for room
+		var shadows = game.add.sprite(0,0, levelData.shadowData); //Currently set to hall one, eventually changed to load from JSON file
+		group4.add(shadows);
 
 		// generate all doors from the data
 		for (var index = 0; index < levelData.doorData.length; index++) {
@@ -253,7 +260,7 @@ var generateLevel = function(levelName) {
 			var enemyTemp = new Enemy(game, levelData.enemyData[index].frame, levelData.enemyData[index].xPos, levelData.enemyData[index].yPos, levelData.enemyData[index].speed, levelData.enemyData[index].walkDist, levelData.enemyData[index].turnTime, levelData.enemyData[index].facing, player);
 			console.log(enemyTemp.target);
 			game.add.existing(enemyTemp);
-			group2.add(enemyTemp);
+			enemyGroup.add(enemyTemp);
 
 			console.log(enemyTemp);
 			console.log('make');
@@ -263,7 +270,7 @@ var generateLevel = function(levelName) {
 		// platforms
 		platforms.enableBody = true;
 		ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
-		ground.scale.setTo(20, 0.5);
+		ground.scale.setTo(40, 0.5);
 		ground.body.immovable = true; 
 		ground.alpha = 0;
 
