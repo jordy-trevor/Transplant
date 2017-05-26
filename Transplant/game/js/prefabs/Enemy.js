@@ -23,14 +23,18 @@ function Enemy(game, frame, xPos, yPos, speed, walkDist, turnTime, facing, targe
 	this.walkDist = walkDist;
 	this.turnTime = turnTime;
 	this.facing = facing;
+	this.wasFacing = facing; // used to make enemy wait at end of each walk duration
 	this.target = target;
 
+	this.seesPlayer = false;
+
+	this.animations.add('walkRight', [1,2,3,4,5,6, 7, 8], 10, true);
+	this.animations.add('walkLeft', [10,11,12,13,14,15,16,17], 10, true);
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
 
-var seesPlayer = false;
 
 // create update function specifically for this
 Enemy.prototype.update = function() {
@@ -38,19 +42,28 @@ Enemy.prototype.update = function() {
 	// if you are within 100 sight range of the player, you see them
 	if (((this.body.position.x - this.target.body.position.x > -100 && this.body.position.x - this.target.body.position.x < 0 && this.facing == 'right' )
 		|| (this.body.position.x - this.target.body.position.x < 100 && this.body.position.x - this.target.body.position.x > 0 && this.facing == 'left')) && foreground == true) {
-		seesPlayer = true;
+		this.seesPlayer = true;
 	}
 
-	if ( seesPlayer ) {
+	if ( this.seesPlayer ) {
 		// chase player
 		if ( this.body.position.x <= this.target.body.position.x) {
-			this.body.velocity.x = 100;
+			this.body.velocity.x = this.speed * 3;
 			this.facing = 'right';
 		} else if (this. body.position.x >= this.target.body.position.x) {
-			this.body.velocity.x = -100;
+			this.body.velocity.x = -1 * this.speed * 3;
 			this.facing = 'left';
 		}
 	} else {
+		// if they are about to turn, execute pause
+		if (this.wasFacing != this.facing) { // if they are about to turn
+			var tmp = this.speed; // store current speed
+			console.log('change direction');
+			this.speed = 0; // stop moving 
+			game.time.events.add(Phaser.Timer.SECOND * this.turnTime, function(){this.speed = tmp;}, this); // pause event waits for specified seconds, then executes func
+			this.wasFacing = this.facing; // change indecator to match
+		}
+
 		// walk left or right for the distance specified by walkDist
 		if ( this.body.position.x < this.xPos + this.walkDist + this.speed && this.body.position.x > this.xPos + this.walkDist - this.speed  ) {
 			this.body.position.x -= 1;
@@ -60,14 +73,23 @@ Enemy.prototype.update = function() {
 			this.facing = 'right';
 		}
 
-		if (this.facing == 'left') {
+		// handle actual movement
+		if (this.facing == 'left' ) {
 			this.body.velocity.x = -1 * this.speed;
-		} else if (this.facing == 'right') {
+		} else if (this.facing == 'right' ) {
 			this.body.velocity.x = this.speed;
 		}
 	}
-		
-	
-}
 
-
+	// handle animations
+	// plays animations only if speed isn't 0, aka if not turning
+	if (this.facing == 'left' && this.speed != 0) {
+		this.animations.play('walkLeft');
+	} else if (this.facing == 'right' && this.speed != 0) {
+		this.animations.play('walkRight');
+	} else if ( this.facing == 'left' && this.speed == 0) {
+		this.frame = 1;
+	} else if ( this.facing == 'right' && this.speed == 0) {
+		this.frame = 16;
+	}
+};
