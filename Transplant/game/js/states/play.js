@@ -159,7 +159,7 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if((hitPlatform && distanceFromGround <= 5) || isClimbing == true || (climb == true && distanceFromGround <= 5)|| player.body.touching.down){
-			player.body.velocity.y = -200; //jump height
+			player.body.velocity.y = -235; //jump height
 			isClimbing = false;
 			//play animation
 		}
@@ -237,10 +237,11 @@ var generateLevel = function(levelName) {
 			console.log(obstacleTemp);
 		} 
 
-
 		//Player object
-		player = game.add.sprite(32, game.world.height - 150, 'player');
+		player = game.add.sprite(32, game.world.height - 200, 'player');
 		//player properties
+    game.physics.enable([player], Phaser.Physics.ARCADE);
+		player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
 		player.anchor.set(0.5);
 		player.scale.x = 0.075;
 		player.scale.y = 0.075;
@@ -258,6 +259,8 @@ var generateLevel = function(levelName) {
 		for (var index = 0; index < levelData.enemyData.length; index++) {
 			// set element to the object and use it's parameters
 			var enemyTemp = new Enemy(game, levelData.enemyData[index].frame, levelData.enemyData[index].xPos, levelData.enemyData[index].yPos, levelData.enemyData[index].speed, levelData.enemyData[index].walkDist, levelData.enemyData[index].turnTime, levelData.enemyData[index].facing, player);
+			enemyTemp.scale.x = 0.17;
+			enemyTemp.scale.y = 0.145;
 			console.log(enemyTemp.target);
 			game.add.existing(enemyTemp);
 			enemyGroup.add(enemyTemp);
@@ -269,7 +272,7 @@ var generateLevel = function(levelName) {
 		
 		// platforms
 		platforms.enableBody = true;
-		ground = platforms.create(0, game.world.height - 64, 'grass'); //Note use a better placeholder art next time
+		ground = platforms.create(0, game.world.height - 100, 'grass'); //Note use a better placeholder art next time
 		ground.scale.setTo(40, 0.5);
 		ground.body.immovable = true; 
 		ground.alpha = 0;
