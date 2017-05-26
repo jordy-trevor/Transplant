@@ -26,6 +26,8 @@ function Enemy(game, frame, xPos, yPos, speed, walkDist, turnTime, facing, targe
 	this.wasFacing = facing; // used to make enemy wait at end of each walk duration
 	this.target = target;
 
+	this.seesPlayer = false;
+
 	this.animations.add('walkRight', [1,2,3,4,5,6, 7, 8], 10, true);
 	this.animations.add('walkLeft', [10,11,12,13,14,15,16,17], 10, true);
 }
@@ -33,7 +35,6 @@ function Enemy(game, frame, xPos, yPos, speed, walkDist, turnTime, facing, targe
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
 
-var seesPlayer = false;
 
 // create update function specifically for this
 Enemy.prototype.update = function() {
@@ -41,16 +42,16 @@ Enemy.prototype.update = function() {
 	// if you are within 100 sight range of the player, you see them
 	if (((this.body.position.x - this.target.body.position.x > -100 && this.body.position.x - this.target.body.position.x < 0 && this.facing == 'right' )
 		|| (this.body.position.x - this.target.body.position.x < 100 && this.body.position.x - this.target.body.position.x > 0 && this.facing == 'left')) && foreground == true) {
-		seesPlayer = true;
+		this.seesPlayer = true;
 	}
 
-	if ( seesPlayer ) {
+	if ( this.seesPlayer ) {
 		// chase player
 		if ( this.body.position.x <= this.target.body.position.x) {
-			this.body.velocity.x = 100;
+			this.body.velocity.x = this.speed * 3;
 			this.facing = 'right';
 		} else if (this. body.position.x >= this.target.body.position.x) {
-			this.body.velocity.x = -100;
+			this.body.velocity.x = -1 * this.speed * 3;
 			this.facing = 'left';
 		}
 	} else {
@@ -78,17 +79,17 @@ Enemy.prototype.update = function() {
 		} else if (this.facing == 'right' ) {
 			this.body.velocity.x = this.speed;
 		}
+	}
 
-		// handle animations
-		// plays animations only if speed isn't 0, aka if not turning
-		if (this.facing == 'left' && this.speed != 0) {
-			this.animations.play('walkLeft');
-		} else if (this.facing == 'right' && this.speed != 0) {
-			this.animations.play('walkRight');
-		} else if ( this.facing == 'left' && this.speed == 0) {
-			this.frame = 1;
-		} else if ( this.facing == 'right' && this.speed == 0) {
-			this.frame = 16;
-		}
+	// handle animations
+	// plays animations only if speed isn't 0, aka if not turning
+	if (this.facing == 'left' && this.speed != 0) {
+		this.animations.play('walkLeft');
+	} else if (this.facing == 'right' && this.speed != 0) {
+		this.animations.play('walkRight');
+	} else if ( this.facing == 'left' && this.speed == 0) {
+		this.frame = 1;
+	} else if ( this.facing == 'right' && this.speed == 0) {
+		this.frame = 16;
 	}
 };
