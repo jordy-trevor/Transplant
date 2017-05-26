@@ -4,9 +4,9 @@ var backgroundGroup; // background
 var doorGroup; //group to distinguish what will be a door
 var group1; //right in front of background
 var group2; //middle layer
-var enemyGroup; //group for enemies
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
+var enemyGroup; //group for enemies
 var group3; //top layer
 var group4; //Layer above everything to do lighting
 var isClimbing = false; //variable to check if player is climbing or not
@@ -17,6 +17,7 @@ var climb; //can the player climb right now?
 var distanceFromGround; //player's y-distance from the ground
 var door1; //door in the starting room
 var ground; //the ground player stannds on
+var playerGravity = 800;
 
 var playState = {
 	preload: function(){
@@ -33,9 +34,9 @@ var playState = {
 		group0 = game.add.group();//interactable in background
 		group1 = game.add.group();//layer above background
 		group2 = game.add.group();//middle layer
-		enemyGroup = game.add.group(); // enemies
 		obstacleGroup = game.add.group(); // obstacles
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
+		enemyGroup = game.add.group(); // enemies
 		group3 = game.add.group();//top layer
 		group4 = game.add.group();//Lighting layer
 		platforms = game.add.group();
@@ -99,7 +100,7 @@ var playState = {
 		//reset variables away from climbing
 		if(!climb){
 			isClimbing = false;
-			player.body.gravity.y = 450;
+			player.body.gravity.y = playerGravity;
 		}
 
 		//Allow left to right movement when not climbing but not when climbing something
@@ -108,7 +109,7 @@ var playState = {
 		}
 		else if(isClimbing == false){
 			canControl = true;
-			player.body.gravity.y = 450;
+			player.body.gravity.y = playerGravity;
 		}
 		//Give control back when touching the ground
 		if (hitPlatform) {
@@ -120,17 +121,29 @@ var playState = {
 
 		//Movement system
 		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-			console.log(enemyHitPlatform);
+			console.log(distanceFromGround);
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.A) && canControl == true){
 			//move left
-			player.animations.play('walkLeft');
-			player.body.velocity.x = -150;
+			if(foreground == true){
+				player.animations.play('walkLeft');
+				player.body.velocity.x = -150;
+			}
+			else{
+				player.animations.play('walkLeft');
+				player.body.velocity.x = -75;
+			}
 		}
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.D) && canControl ==true){
 			//move right
-			player.animations.play('walkRight');
-			player.body.velocity.x = 150;
+			if(foreground == true){
+				player.animations.play('walkRight');
+				player.body.velocity.x = 150;
+			}
+			else{
+				player.animations.play('walkRight');
+				player.body.velocity.x = 75;
+			}
 		}
 
 		else{
@@ -140,7 +153,7 @@ var playState = {
    		}
 	},
 	hide: function(){
-		if((player.position.x<400 || player.position.x>528) && isClimbing == false){ //Don't allow player to hide when in front of the object
+		if(distanceFromGround <= 40 && isClimbing == false){ //Don't allow player to hide when in front of the object
 			if(foreground==true){
 				//move player from foreground to layer behind the object
 				group3.remove(player);
@@ -158,10 +171,12 @@ var playState = {
 	jump: function(){
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
-		if((hitPlatform && distanceFromGround <= 5) || isClimbing == true || (climb == true && distanceFromGround <= 5)|| player.body.touching.down){
-			player.body.velocity.y = -300; //jump height
-			isClimbing = false;
-			//play animation
+		if((hitPlatform && distanceFromGround <= 40) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| player.body.touching.down){
+			if(foreground == true){
+				player.body.velocity.y = -400; //jump height
+				isClimbing = false;
+				//play animation
+			}
 		}
 	},
 
@@ -193,9 +208,9 @@ var generateLevel = function(levelName) {
 		doorGroup.forEach(function (c) {c.kill();});
 		group1.forEach(function (c) {c.kill();});
 		group2.forEach(function (c) {c.kill();});
-		enemyGroup.forEach(function (c) {c.kill();});
 		obstacleGroup.forEach(function (c) {c.kill();}); 
 		obstacleClimbGroup.forEach(function (c) {c.kill();});
+		enemyGroup.forEach(function (c) {c.kill();});
 		group3.forEach(function (c) {c.kill();});
 		group4.forEach(function (c) {c.kill();});
 
@@ -246,7 +261,7 @@ var generateLevel = function(levelName) {
 		player.scale.x = 0.075;
 		player.scale.y = 0.075;
 		game.physics.enable(player);
-		player.body.gravity.y = 450;
+		player.body.gravity.y = playerGravity;
 		player.body.collideWorldBounds = true;
 		//animations for walking
 		player.animations.add('walkRight', [1,2,3,4,5,6], 10, true);
