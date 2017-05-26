@@ -1,4 +1,5 @@
 {	
+	"shadowData" : "shadowsHallOne",
 	"backgroundData" : "hallRoomSprite",
 	"playerStartData" : [{"x" : 32, "y" : 450}],
 	"obstacleData" : [ 
