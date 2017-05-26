@@ -159,7 +159,7 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if((hitPlatform && distanceFromGround <= 5) || isClimbing == true || (climb == true && distanceFromGround <= 5)|| player.body.touching.down){
-			player.body.velocity.y = -235; //jump height
+			player.body.velocity.y = -300; //jump height
 			isClimbing = false;
 			//play animation
 		}
@@ -240,7 +240,7 @@ var generateLevel = function(levelName) {
 		//Player object
 		player = game.add.sprite(32, game.world.height - 200, 'player');
 		//player properties
-    game.physics.enable([player], Phaser.Physics.ARCADE);
+   		game.physics.enable([player], Phaser.Physics.ARCADE);
 		player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
 		player.anchor.set(0.5);
 		player.scale.x = 0.075;
