@@ -7,8 +7,8 @@
 		{"frame" : "medicalLocker", "xPos" : 580, "yPos" : 260, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false},
 		{"frame" : "medicalLocker", "xPos" : 940, "yPos" : 260, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false},
 		{"frame" : "box", "xPos" : 1570, "yPos" : 360, "xScale" : "1.1", "yScale" : "1.4", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false},
-		{"frame" : "box", "xPos" : 800, "yPos" : 200, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : true, "collidable" : "full", "gravityEnabled" : true},
-		{"frame" : "box", "xPos" : 2105, "yPos" : 200, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : true, "collidable" : "full", "gravityEnabled" : true}
+		{"frame" : "box", "xPos" : 800, "yPos" : 200, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true},
+		{"frame" : "box", "xPos" : 2105, "yPos" : 200, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true}
 
 	],
 	"enemyData" : [
