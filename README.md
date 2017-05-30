@@ -1,17 +1,17 @@
 # Transplant
 
 Andy: Programmer</br>
-Amy: Lead Artist</br>
+Amy: Lead Artist, Animator</br>
 Trevor: Lead Programmer, Project Manager</br>
-Marco: Designer, Artist</br>
+Marco: Background and Object Artist</br>
 Clive: Programmer, Sound</br>
 
 Side facing 2D game created using the Phaser game libraries. 
 
-# How to Run the Game
+## How to Run the Game
 Download the game files and open the 'index.html' file with your browser by either right clicking on it and choosing a browser to open with, or by dragging it into the url bar of your browser.
 
-# Instructions
+## Instructions
 A, D       - Move
 W          - Climb
 SPACE      - Jump
