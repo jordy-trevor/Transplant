@@ -1,13 +1,13 @@
 // 
 //  Enemy.js
-//  Prefab that creates enemies of varying speeds and walk patterns
+//  Prefab that creates enemies of varying walkSpeeds and walk patterns
 
 
 // Enemy Constructor
 // game, key, frame are all required for Phaser.Sprite
 // key is image location, such as atlas
 // frame is the image name as determined in load
-function Enemy(game, frame, xPos, yPos, speed, walkDist, turnTime, facing, target) {
+function Enemy(game, frame, xPos, yPos, walkSpeed, runSpeed, walkDist, turnTime, facing, target) {
 	// call to Phaser.Sprite 
 	// new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, xPos, yPos, frame);
@@ -19,11 +19,13 @@ function Enemy(game, frame, xPos, yPos, speed, walkDist, turnTime, facing, targe
 
 	this.xPos = xPos;
 	this.yPos = yPos;
-	this.speed = speed;
+	this.walkSpeed = walkSpeed;
+	this.runSpeed = runSpeed;
 	this.walkDist = walkDist;
 	this.turnTime = turnTime;
 	this.facing = facing;
 	this.wasFacing = facing; // used to make enemy wait at end of each walk duration
+	this.turning = false; // used for turning
 	this.target = target;
 
 	this.seesPlayer = false;
@@ -40,56 +42,59 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function() {
 
 	// if you are within 100 sight range of the player, you see them
-	if (((this.body.position.x - this.target.body.position.x > -100 && this.body.position.x - this.target.body.position.x < 0 && this.facing == 'right' )
-		|| (this.body.position.x - this.target.body.position.x < 100 && this.body.position.x - this.target.body.position.x > 0 && this.facing == 'left')) && foreground == true) {
+	if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
+		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) && foreground == true) {
 		this.seesPlayer = true;
 	}
+	console.log(this.facing);
 
 	if ( this.seesPlayer ) {
 		// chase player
 		if ( this.body.position.x <= this.target.body.position.x) {
-			this.body.velocity.x = this.speed * 3;
+			this.body.velocity.x = this.runSpeed;
 			this.facing = 'right';
 		} else if (this. body.position.x >= this.target.body.position.x) {
-			this.body.velocity.x = -1 * this.speed * 3;
+			this.body.velocity.x = -1 * this.runSpeed;
 			this.facing = 'left';
 		}
 	} else {
 		// if they are about to turn, execute pause
-		if (this.wasFacing != this.facing) { // if they are about to turn
-			var tmp = this.speed; // store current speed
+		if (this.wasFacing != this.facing && !this.turning) { // if they are about to turn
+			this.turning = true;
+			var tmp = this.walkSpeed; // store current walkSpeed
+			var tmpDirection = this.facing;
 			console.log('change direction');
-			this.speed = 0; // stop moving 
-			game.time.events.add(Phaser.Timer.SECOND * this.turnTime, function(){this.speed = tmp;}, this); // pause event waits for specified seconds, then executes func
-			this.wasFacing = this.facing; // change indecator to match
+			this.facing = this.wasFacing;
+			this.walkSpeed = 0; // stop moving 
+			game.time.events.add(Phaser.Timer.SECOND * this.turnTime, function(){this.walkSpeed = tmp; this.turning = false; this.facing = tmpDirection; this.wasFacing = this.facing;}, this); // pause event waits for specified seconds, then executes func
+		}  else if (!this.turning) {
+			// walk left or right for the distance specified by walkDist
+			if ( this.body.position.x < this.xPos + this.walkDist + this.walkSpeed && this.body.position.x > this.xPos + this.walkDist - this.walkSpeed  ) {
+				this.body.position.x -= 1;
+				this.facing = 'left'; 
+			} else if (this.body.position.x < this.xPos - this.walkDist + this.walkSpeed && this.body.position.x > this.xPos - this.walkDist - this.walkSpeed   ){
+				this.body.position.x += 1;
+				this.facing = 'right';
+			}
 		}
-
-		// walk left or right for the distance specified by walkDist
-		if ( this.body.position.x < this.xPos + this.walkDist + this.speed && this.body.position.x > this.xPos + this.walkDist - this.speed  ) {
-			this.body.position.x -= 1;
-			this.facing = 'left'; 
-		} else if (this.body.position.x < this.xPos - this.walkDist + this.speed && this.body.position.x > this.xPos - this.walkDist - this.speed   ){
-			this.body.position.x += 1;
-			this.facing = 'right';
-		}
-
+		
 		// handle actual movement
 		if (this.facing == 'left' ) {
-			this.body.velocity.x = -1 * this.speed;
+			this.body.velocity.x = -1 * this.walkSpeed;
 		} else if (this.facing == 'right' ) {
-			this.body.velocity.x = this.speed;
+			this.body.velocity.x = this.walkSpeed;
 		}
 	}
 
 	// handle animations
-	// plays animations only if speed isn't 0, aka if not turning
-	if (this.facing == 'left' && this.speed != 0) {
+	// plays animations only if walkSpeed isn't 0, aka if not turning
+	if (this.facing == 'left' && this.walkSpeed != 0) {
 		this.animations.play('walkLeft');
-	} else if (this.facing == 'right' && this.speed != 0) {
+	} else if (this.facing == 'right' && this.walkSpeed != 0) {
 		this.animations.play('walkRight');
-	} else if ( this.facing == 'left' && this.speed == 0) {
-		this.frame = 1;
-	} else if ( this.facing == 'right' && this.speed == 0) {
+	} else if ( this.facing == 'left' && this.walkSpeed == 0) {
 		this.frame = 16;
+	} else if ( this.facing == 'right' && this.walkSpeed == 0) {
+		this.frame = 1;
 	}
 };

@@ -210,7 +210,7 @@ var generateLevel = function(levelName) {
 		group2.forEach(function (c) {c.kill();});
 		obstacleGroup.forEach(function (c) {c.kill();}); 
 		obstacleClimbGroup.forEach(function (c) {c.kill();});
-		enemyGroup.forEach(function (c) {c.kill();});
+		enemyGroup.forEach(function (c) {c.destroy();});
 		group3.forEach(function (c) {c.kill();});
 		group4.forEach(function (c) {c.kill();});
 
@@ -273,7 +273,7 @@ var generateLevel = function(levelName) {
 		// generate enemies
 		for (var index = 0; index < levelData.enemyData.length; index++) {
 			// set element to the object and use it's parameters
-			var enemyTemp = new Enemy(game, levelData.enemyData[index].frame, levelData.enemyData[index].xPos, levelData.enemyData[index].yPos, levelData.enemyData[index].speed, levelData.enemyData[index].walkDist, levelData.enemyData[index].turnTime, levelData.enemyData[index].facing, player);
+			var enemyTemp = new Enemy(game, levelData.enemyData[index].frame, levelData.enemyData[index].xPos, levelData.enemyData[index].yPos, levelData.enemyData[index].walkSpeed, levelData.enemyData[index].runSpeed, levelData.enemyData[index].walkDist, levelData.enemyData[index].turnTime, levelData.enemyData[index].facing, player);
 			enemyTemp.scale.x = 0.17;
 			enemyTemp.scale.y = 0.145;
 			console.log(enemyTemp.target);
