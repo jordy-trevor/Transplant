@@ -218,14 +218,14 @@ var generateLevel = function(levelName) {
 
 		//Set camera bounds
 		//Change this to work per level in the JSON
-		game.world.setBounds(0, 0, 2400, 600);
+		game.world.setBounds(0, 0, levelData.worldBounds.x, levelData.worldBounds.y);
 
 		var background = game.add.sprite(0,0, levelData.backgroundData);
 		game.world.sendToBack(background);
 		backgroundGroup.add(background);
 
 		//Lighting filter for room
-		var shadows = game.add.sprite(0,0, levelData.shadowData); //Currently set to hall one, eventually changed to load from JSON file
+		var shadows = game.add.sprite(0,0, levelData.shadowData); 
 		group4.add(shadows);
 
 		// generate all doors from the data

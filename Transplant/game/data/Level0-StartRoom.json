@@ -1,4 +1,5 @@
 {
+	"worldBounds" : {"x" : 1200, "y" : 600},
 	"backgroundData" : "startRoomSprite",
 	"playerStartData" : [{"x" : 32, "y" : 450}],
 	"obstacleData" : [],
