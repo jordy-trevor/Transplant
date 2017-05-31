@@ -13,7 +13,7 @@ Download the game files and open the 'index.html' file with your browser by eith
 
 ## Instructions
 A, D       - Move
-W          - Climb
+W, S       - Climb
 SPACE      - Jump
 E          - Interact with object / open door
 H          - Hide ( cannot be used when you are directly over the thing you with to hide behind )

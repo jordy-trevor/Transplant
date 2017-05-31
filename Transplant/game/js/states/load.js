@@ -10,9 +10,13 @@ var load = {
 		game.load.image('startRoomSprite', 'Level01.jpg');
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
 
+		//title screen
+		game.load.image('title', 'titleScreen.png');
+		game.load.image('playButton', 'playButton.png');
+
 		// sprites
 		game.load.image('box', 'box.png');
-		game.load.spritesheet('player', 'patient.png', 1500, 1837);
+		game.load.atlas('atlas', 'patient.png', 'patient.json');
 		game.load.spritesheet('ducktor', 'ducktor.png', 385, 1332);
 		
 		game.load.image('normalDoor', 'normalDoor.png');

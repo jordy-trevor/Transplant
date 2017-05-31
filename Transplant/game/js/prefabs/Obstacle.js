@@ -7,7 +7,7 @@
 // key is image location, such as atlas
 // frame is the image name as determed in load
 // collidable can be "full", "top", or "none"
-function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, collidable, gravityEnabled) {
+function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, collidable, gravityEnabled, hidable) {
 
 	// call to Phaser.Sprite
 	// new Sprite(game, x, y, key, frame) 
@@ -23,6 +23,7 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 	this.climbable = climbable;
 	this.collidable = collidable;
 	this.gravityEnabled = gravityEnabled;
+	this.hidable = hidable;
 	//this.weight = weight;
 
 	
@@ -54,6 +55,7 @@ Obstacle.prototype.update = function() {
 	var collision1 = game.physics.arcade.collide(platforms, this);
 	var collision2 = game.physics.arcade.collide(obstacleGroup, this);
 	var collision3 = game.physics.arcade.collide(obstacleClimbGroup, this);
+	//var collision4 = game.physics.arcade.collide(obstacleHideGroup, this);
 
 	if (this.collidable == 'full' || this.collidable == 'top') {
 		if(isClimbing == false){
@@ -69,9 +71,9 @@ Obstacle.prototype.update = function() {
 	}
 	else{
 		this.body.immovable = true;
-		if(collision1 || collision2 || collision3){
+		if(collision1 || collision2 || collision3 /*|| collision4*/){
 			this.body.velocity.y = 0;
-			this.body.gravity.y = 0;
+			//this.body.gravity.y = 0;
 		}
 	}
 }

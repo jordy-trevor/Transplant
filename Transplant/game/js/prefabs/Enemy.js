@@ -43,11 +43,12 @@ Enemy.prototype.update = function() {
 
 	// if you are within 100 sight range of the player, you see them
 	if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
-		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) && foreground == true && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2) {
-		console.log((this.target.body.y + this.target.body.height/2) + ' > '+ this.body.y - this.body.height/2);
+		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left'))
+		&& (!hide||foreground == true) && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2) {
+		//console.log((this.target.body.y + this.target.body.height/2) + ' > '+ this.body.y - this.body.height/2);
 		this.seesPlayer = true;
 	}
-	console.log(this.facing);
+	//console.log(this.facing);
 
 	if ( this.seesPlayer ) {
 		// chase player
@@ -64,7 +65,7 @@ Enemy.prototype.update = function() {
 			this.turning = true;
 			var tmp = this.walkSpeed; // store current walkSpeed
 			var tmpDirection = this.facing;
-			console.log('change direction');
+			//console.log('change direction');
 			this.facing = this.wasFacing;
 			this.walkSpeed = 0; // stop moving 
 			game.time.events.add(Phaser.Timer.SECOND * this.turnTime, function(){this.walkSpeed = tmp; this.turning = false; this.facing = tmpDirection; this.wasFacing = this.facing;}, this); // pause event waits for specified seconds, then executes func
