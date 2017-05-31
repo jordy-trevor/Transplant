@@ -3,7 +3,7 @@
 // Prefab for door objects
 
 //Door constructor
-function Door(game, frame, name, leadsTo, xPos, yPos) {
+function Door(game, frame, name, leadsTo, xPos, yPos, spawnAtx) {
 
 	// call to Phaser.Sprite
 	Phaser.Sprite.call(this, game, xPos, yPos, frame);
@@ -14,6 +14,7 @@ function Door(game, frame, name, leadsTo, xPos, yPos) {
 	this.yPos = yPos; 
 	this.name = name;
 	this.leadsTo = leadsTo;
+	this.spawnAtx = spawnAtx;
 
 	this.anchor.set(0.5, 0.5);
 }
