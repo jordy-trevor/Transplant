@@ -43,19 +43,20 @@ Enemy.prototype.update = function() {
 
 	// if you are within 100 sight range of the player, you see them
 	if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
-		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) && foreground == true && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2) {
-		console.log((this.target.body.y + this.target.body.height/2) + ' > '+ this.body.y - this.body.height/2);
+		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) 
+		&&  (!hide||foreground == true) == true && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2 + 20) {
 		this.seesPlayer = true;
+		this.walkSpeed = this.runSpeed; // changed speed to runspeed, which in turn triggers proper animation
 	}
-	console.log(this.facing);
+	//console.log(this.facing);
 
 	if ( this.seesPlayer ) {
 		// chase player
 		if ( this.body.position.x <= this.target.body.position.x) {
-			this.body.velocity.x = this.runSpeed;
+			this.body.velocity.x = this.walkSpeed;
 			this.facing = 'right';
 		} else if (this. body.position.x >= this.target.body.position.x) {
-			this.body.velocity.x = -1 * this.runSpeed;
+			this.body.velocity.x = -1 * this.walkSpeed;
 			this.facing = 'left';
 		}
 	} else {
@@ -64,7 +65,7 @@ Enemy.prototype.update = function() {
 			this.turning = true;
 			var tmp = this.walkSpeed; // store current walkSpeed
 			var tmpDirection = this.facing;
-			console.log('change direction');
+			//console.log('change direction');
 			this.facing = this.wasFacing;
 			this.walkSpeed = 0; // stop moving 
 			game.time.events.add(Phaser.Timer.SECOND * this.turnTime, function(){this.walkSpeed = tmp; this.turning = false; this.facing = tmpDirection; this.wasFacing = this.facing;}, this); // pause event waits for specified seconds, then executes func
@@ -93,7 +94,7 @@ Enemy.prototype.update = function() {
 		this.animations.play('walkLeft');
 	} else if (this.facing == 'right' && this.walkSpeed != 0) {
 		this.animations.play('walkRight');
-	} else if ( this.facing == 'left' && this.walkSpeed == 0) {
+	} else if ( this.facing == 'left' && this.walkSpeed == 0 ) {
 		this.frame = 16;
 	} else if ( this.facing == 'right' && this.walkSpeed == 0) {
 		this.frame = 1;
