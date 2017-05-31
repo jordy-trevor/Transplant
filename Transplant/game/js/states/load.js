@@ -13,9 +13,13 @@ var load = {
 		game.load.image('endingBackground', 'Ending.jpg');
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
 
+		//title screen
+		game.load.image('title', 'titleScreen.png');
+		game.load.image('playButton', 'playButton.png');
+
 		// sprites
 		game.load.image('box', 'box.png');
-		game.load.spritesheet('player', 'patient.png', 1500, 1837);
+		game.load.atlas('atlas', 'patient.png', 'patient.json');
 		game.load.spritesheet('ducktor', 'ducktor.png', 385, 1332);
 		
 		game.load.image('normalDoor', 'normalDoor.png');
