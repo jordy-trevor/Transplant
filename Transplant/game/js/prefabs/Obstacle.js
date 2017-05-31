@@ -25,6 +25,7 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 	this.gravityEnabled = gravityEnabled;
 	//this.weight = weight;
 
+	this.anchor.set(0.5, 0.5);
 	
 	game.physics.arcade.enable(this); // give physics
 	this.enableBody = true;

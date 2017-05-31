@@ -6,6 +6,7 @@ var menuState = {
 	create: function(){
 		console.log('Menu: create');
 		var gameName = this.add.text(300, 150, 'Transplant', {font: '30px Courier', fill: '#800080'}); //Game title
+		this.add.sprite(0,0, 'title');
 
 		//Filler state changer
 		var startLabel = this.add.text(225, 300, 'Press Space to Start', {font: '30px Courier', fill: '#FFFFFF'}); //Text in the middle of the screen to prompt the player to start the game
