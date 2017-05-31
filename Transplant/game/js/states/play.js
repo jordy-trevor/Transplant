@@ -290,7 +290,7 @@ var generateLevel = function(levelName) {
 	// platforms
 	platforms.enableBody = true;
 	ground = platforms.create(0, game.world.height - 100, 'grass'); //Note use a better placeholder art next time
-	ground.scale.setTo(40, 0.5);
+	ground.scale.setTo(100, 0.5);
 	ground.body.immovable = true; 
 	ground.alpha = 0;
 

@@ -1,0 +1,9 @@
+{
+	"worldBounds" : {"x" : 4000, "y" : 600},
+	"shadowData" : "endingTallGrass",
+	"backgroundData" : "endingBackground",
+	"playerStartData" : [{"x" : 100, "y" : 450}],
+	"obstacleData" : [],
+	"enemyData" : [],
+	"doorData" : []
+}
