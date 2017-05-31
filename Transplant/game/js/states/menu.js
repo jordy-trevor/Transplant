@@ -5,6 +5,7 @@ var playButton; //the play button
 var menuState = {
 	create: function(){
 		console.log('Menu: create');
+
 		title = game.add.tileSprite(0,0,1200,800, 'title');
 		playButton = game.add.tileSprite(75, 350, 80, 61, 'playButton');
 		//Make transparent

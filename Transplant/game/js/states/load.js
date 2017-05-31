@@ -6,9 +6,12 @@ var load = {
 		game.load.image('grass', 'platform.png');
 
 		// background
+		game.load.image('title', 'titleScreen.png');
 		game.load.image('hallRoomSprite', 'HallOne.jpg');
 		game.load.image('startRoomSprite', 'Level01.jpg');
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
+		game.load.image('endingBackground', 'Ending.jpg');
+		game.load.image('endingTallGrass', 'endingTallGrass.png');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -25,11 +28,14 @@ var load = {
 		game.load.image('darkDoor', 'door.png');
 		game.load.image('medicalLocker', 'medicalLocker.png');
 		game.load.image('stairs', 'Stairs.png');
+		game.load.image('bigLight', 'bigLight.png');
+		game.load.image('cabinet', 'filingCabinet.png');
 
 		// load in level files
 		game.load.path = '../game/data/';
 		game.load.json('level0', 'Level0-StartRoom.json');
 		game.load.json('level1', 'Level1-Hallway.json');
+		game.load.json('endLevel', 'endLevel.json');
 
 
 	},

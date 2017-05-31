@@ -299,7 +299,11 @@ var generateLevel = function(levelName) {
 	obstacleHideGroup.forEach(function (c) {c.kill();}); 
 	obstacleGroup.forEach(function (c) {c.kill();}); 
 	obstacleClimbGroup.forEach(function (c) {c.kill();});
-	enemyGroup.forEach(function (c) {c.destroy();});
+	while(enemyGroup.length > 0) {
+		// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
+		enemyGroup.forEach(function (c) {c.kill(); c.destroy(); console.log('destroyed');});
+	}
+	
 	group3.forEach(function (c) {c.kill();});
 	group4.forEach(function (c) {c.kill();});
 
@@ -382,14 +386,14 @@ var generateLevel = function(levelName) {
 	// platforms
 	platforms.enableBody = true;
 	ground = platforms.create(0, game.world.height - 100, 'grass'); //Note use a better placeholder art next time
-	ground.scale.setTo(80, 0.5);
+	ground.scale.setTo(100, 0.5);
 	ground.body.immovable = true; 
 	ground.alpha = 0;
 
 	//Ground for when hiding to have alignment with hidable objects
 	platforms2.enableBody = true;
 	ground2 = platforms2.create(0, game.world.height - 150, 'grass'); //Note use a better placeholder art next time
-	ground2.scale.setTo(80, 0.5);
+	ground2.scale.setTo(100, 0.5);
 	ground2.body.immovable = true; 
 	ground2.alpha = 0;
 
