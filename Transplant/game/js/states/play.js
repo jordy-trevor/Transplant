@@ -212,7 +212,11 @@ var generateLevel = function(levelName) {
 	group2.forEach(function (c) {c.kill();});
 	obstacleGroup.forEach(function (c) {c.kill();}); 
 	obstacleClimbGroup.forEach(function (c) {c.kill();});
-	enemyGroup.forEach(function (c) {c.destroy();});
+	while(enemyGroup.length > 0) {
+		// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
+		enemyGroup.forEach(function (c) {c.kill(); c.destroy(); console.log('destroyed');});
+	}
+	
 	group3.forEach(function (c) {c.kill();});
 	group4.forEach(function (c) {c.kill();});
 

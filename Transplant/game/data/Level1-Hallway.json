@@ -21,8 +21,8 @@
 
 	],
 	"enemyData" : [
-		{"frame": "ducktor", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 0, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
-		{"frame": "ducktor", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 40, "runSpeed" : 65, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
+		{"frame": "ducktor", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 120, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
+		{"frame": "ducktor", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 40, "runSpeed" : 120, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
 
 	],
 	"doorData" : [
