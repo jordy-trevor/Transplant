@@ -3,22 +3,17 @@
 	"backgroundData" : "patientRoom",
 	"obstacleData" : [ 
 		{"frame" : "bookShelf", "xPos" : 1000, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-<<<<<<< HEAD
 		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}
-=======
 		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "medBox", "xPos" : 508, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medBox", "xPos" : 591, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
->>>>>>> e0b4ba057442898a17f38c6d940e9c8c81475eff
 
 	],
 
 	"doorData" : [
-<<<<<<< HEAD
+
 		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor"}
-=======
 		{"name" : "door303", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2105}
->>>>>>> e0b4ba057442898a17f38c6d940e9c8c81475eff
 	]
 
 }
