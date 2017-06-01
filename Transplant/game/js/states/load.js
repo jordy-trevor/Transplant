@@ -12,6 +12,7 @@ var load = {
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
 		game.load.image('endingBackground', 'Ending.jpg');
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
+		game.load.image('patientRoom', 'patientRoom.jpg');
 		
 
 		//title screen
@@ -34,6 +35,7 @@ var load = {
 		game.load.image('keyCard303', 'keyCard303.png');
 		game.load.image('bookShelf', 'bookShelf.jpg');
 		game.load.image('bed', 'hospitalBed.png');
+		game.load.image('medBox', 'MedBox.png');
 		// load in level files
 		game.load.path = '../game/data/';
 		game.load.json('level0', 'Level0-StartRoom.json');
