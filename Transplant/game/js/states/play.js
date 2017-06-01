@@ -93,6 +93,16 @@ var playState = {
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player,obstacleHideGroup);
+
+		// send you back to the start for getting caught
+		enemyGroup.forEach(function (c) {
+			// if you are touching this enemy and this enemy sees you
+			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {			
+				generateLevel('level0');
+				console.log('hit');
+			}
+		});
+
 		if(foreground == false){
 			hidePlatform = game.physics.arcade.collide(player, platforms2);
 		}
@@ -388,8 +398,6 @@ var generateLevel = function(levelName) {
 		game.add.existing(enemyTemp);
 		enemyGroup.add(enemyTemp);
 
-		//console.log(enemyTemp);
-		//console.log('make');
 	} 
 
 	

@@ -26,7 +26,6 @@
 	"enemyData" : [
 		{"frame": "ducktor", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 120, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
 		{"frame": "ducktor", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 40, "runSpeed" : 120, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
-
 	],
 	"doorData" : [
 		{"name" : "door301", "leadsTo": "level0", "xPos" : 199, "yPos" : 337, "frame" : "normalDoor", "spawnAtx" : 610},
