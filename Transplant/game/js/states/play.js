@@ -3,13 +3,13 @@ var foreground = true; //variable to keep track of which layer player will be in
 var backgroundGroup; // background
 var doorGroup; //group to distinguish what will be a door
 var group1; //right in front of background
-var group2; //middle layer
 var obstacleHideGroup; //Obstacle group for objects that youv can hide behind
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
+var obstaclePushGroup; //Obstacle group for objects that player can push
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
 var enemyGroup; //group for enemies
-var group3; //top layer
-var group4; //Layer above everything to do lighting
+var group2; //top layer
+var group3; //Layer above everything to do lighting
 var isClimbing = false; //variable to check if player is climbing or not
 var canControl = true; //variable to check if player has control at the moment
 var player; //the player
@@ -24,6 +24,8 @@ var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
 var playerSpawnX = 50; // where to spawn the player after entering a door, etc
+var pushCollide; //check if player is collidiing with pushable objects
+var pushOverlap; //check if player is overlapping with pushable objects
 
 var playState = {
 	preload: function(){
@@ -34,30 +36,31 @@ var playState = {
 	create: function() {
 		console.log('Play: create')
 
-		//Create the layers to do hiding
+		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
 		doorGroup = game.add.group();
-		group0 = game.add.group();//interactable in background
 		group1 = game.add.group();//layer above background
-		group2 = game.add.group();//middle layer
 		obstacleHideGroup = game.add.group(); //hidable objects
 		obstacleGroup = game.add.group(); // obstacles
+		obstaclePushGroup = game.add.group(); //pushable objects
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
 		enemyGroup = game.add.group(); // enemies
-		group3 = game.add.group();//top layer
-		group4 = game.add.group();//Lighting layer
+		group2 = game.add.group();//top layer
+		group3 = game.add.group();//Lighting layer
+
+		//Groups unrelated to layers
 		platforms = game.add.group();
 		platforms2 = game.add.group();
 
 
 		generateLevel('level0');
 
+		//Bring these groups to the forefront
+		game.world.bringToTop(group2);
 		game.world.bringToTop(group3);
-		game.world.bringToTop(group4);
 
 
-		//Adding use of various keys
-		//cursors = game.input.keyboard.createCursorKeys(); 
+		//Adding use of various keys 
 		this.input.keyboard.addKey(Phaser.Keyboard.W);
 		this.input.keyboard.addKey(Phaser.Keyboard.A);
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
@@ -83,6 +86,10 @@ var playState = {
 
 	update: function(){
 		hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
+		if(foreground == true){
+			pushCollide = game.physics.arcade.collide(player, obstaclePushGroup);
+		}
+		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player,obstacleHideGroup);
@@ -132,7 +139,7 @@ var playState = {
 			player.body.gravity.y = playerGravity;
 		}
 		//Give control back when touching the ground
-		if (hitPlatform) {
+		if (hitPlatform || pushCollide) {
 			canControl = true;
 			isClimbing = false;
 		}
@@ -219,10 +226,10 @@ var playState = {
    		}
 	},
 	hide: function(){
-		if(isClimbing == false && !climb && !hide){ //Don't allow player to hide when in front of the object
+		if(isClimbing == false && !climb && !hide && !pushOverlap){ //Don't allow player to hide when in front of the object
 			if(foreground==true && distanceFromGround <= 40){
 				//move player from foreground to layer behind the object
-				group3.remove(player);
+				group2.remove(player);
 				group1.add(player);
 				foreground=false;
 				if(playerDirection == 0){
@@ -236,7 +243,7 @@ var playState = {
 			else if(foreground == false && hidePlatform){
 				//move player to the foreground
 				group1.remove(player);
-				group3.add(player);
+				group2.add(player);
 				foreground=true;
 				if(playerDirection == 0){
 					player.frame = 53; //Face Left
@@ -295,17 +302,17 @@ var generateLevel = function(levelName) {
 	backgroundGroup.forEach(function (c) {c.kill();});
 	doorGroup.forEach(function (c) {c.kill();});
 	group1.forEach(function (c) {c.kill();});
-	group2.forEach(function (c) {c.kill();});
 	obstacleHideGroup.forEach(function (c) {c.kill();}); 
-	obstacleGroup.forEach(function (c) {c.kill();}); 
+	obstacleGroup.forEach(function (c) {c.kill();});
+	obstaclePushGroup.forEach(function (c) {c.kill();});
 	obstacleClimbGroup.forEach(function (c) {c.kill();});
 	while(enemyGroup.length > 0) {
 		// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
 		enemyGroup.forEach(function (c) {c.kill(); c.destroy(); console.log('destroyed');});
 	}
 	
+	group2.forEach(function (c) {c.kill();});
 	group3.forEach(function (c) {c.kill();});
-	group4.forEach(function (c) {c.kill();});
 
 	var levelData = game.cache.getJSON(levelName);
 
@@ -319,7 +326,7 @@ var generateLevel = function(levelName) {
 
 	//Lighting filter for room
 	var shadows = game.add.sprite(0,0, levelData.shadowData); 
-	group4.add(shadows);
+	group3.add(shadows);
 
 	// generate all doors from the data
 	for (var index = 0; index < levelData.doorData.length; index++) {
@@ -341,6 +348,9 @@ var generateLevel = function(levelName) {
 		}
 		else if(obstacleTemp.hidable == true){
 			obstacleHideGroup.add(obstacleTemp);
+		}
+		else if(obstacleTemp.pushable == true){
+			obstaclePushGroup.add(obstacleTemp);
 		}
 		else{
 			obstacleGroup.add(obstacleTemp);
@@ -364,7 +374,7 @@ var generateLevel = function(levelName) {
 	player.animations.add('walkLeft', [54,55,56,57,58,59], 10, true);
 	player.animations.add('crawlRight',[14,15,16,17,18,19,20], 10, true);
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
-	group3.add(player); //set player to top layer
+	group2.add(player); //set player to top layer
 
 	game.camera.follow(player, Phaser.PLATFORMER);
 
@@ -398,6 +408,4 @@ var generateLevel = function(levelName) {
 	ground2.alpha = 0;
 
 	console.log('done');
-}
-
-
+};

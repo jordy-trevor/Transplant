@@ -56,11 +56,12 @@ Obstacle.prototype.update = function() {
 	var collision1 = game.physics.arcade.collide(platforms, this);
 	var collision2 = game.physics.arcade.collide(obstacleGroup, this);
 	var collision3 = game.physics.arcade.collide(obstacleClimbGroup, this);
-	//var collision4 = game.physics.arcade.collide(obstacleHideGroup, this);
+	var collision4 = game.physics.arcade.collide(obstacleHideGroup, this);
+	var collision5 = game.physics.arcade.collide(obstaclePushGroup, this);
 
 	if (this.collidable == 'full' || this.collidable == 'top') {
 		if(isClimbing == false){
-			game.physics.arcade.collide(player, this);
+			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
 		}
 	}
 	// can the object be pushed?
@@ -72,7 +73,7 @@ Obstacle.prototype.update = function() {
 	}
 	else{
 		this.body.immovable = true;
-		if(collision1 || collision2 || collision3 /*|| collision4*/){
+		if(collision1 || collision2 || collision3 || collision4 || collision5){
 			this.body.velocity.y = 0;
 			//this.body.gravity.y = 0;
 		}
