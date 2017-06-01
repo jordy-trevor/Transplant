@@ -1,0 +1,19 @@
+{	
+	"worldBounds" : {"x" : 1200, "y" : 600},
+	"shadowData" : "shadowsHallOne",
+	"backgroundData" : "hallRoomSprite",
+	"playerStartData" : [{"x" : 32, "y" : 450}],
+	"obstacleData" : [ 
+		{"frame" : "bookShelf", "xPos" : 1000, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
+
+	],
+		
+	"enemyData" : [
+		
+	],
+	"doorData" : [
+		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor"},
+	]
+
+}
