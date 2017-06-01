@@ -2,22 +2,26 @@
 	"worldBounds" : {"x" : 5400, "y" : 600},
 	"shadowData" : "shadowsHallOne",
 	"backgroundData" : "hallRoomSprite",
-	"playerStartData" : [{"x" : 32, "y" : 450}],
+	"playerStartData" : [{"x" : 199, "y" : 450}],
 	"obstacleData" : [ 
-		{"frame" : "cabinet", "xPos" : 2937, "yPos" : 384, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "cabinet", "xPos" : 3002, "yPos" : 384, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medicalLocker", "xPos" : 2798, "yPos" : 393, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medicalLocker", "xPos" : 1812, "yPos" : 393, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medicalLocker", "xPos" : 1540, "yPos" : 393, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medicalLocker", "xPos" : 3165, "yPos" : 393, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medicalLocker", "xPos" : 3457, "yPos" : 393, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "cabinet", "xPos" : 2955, "yPos" : 384, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "cabinet", "xPos" : 3010, "yPos" : 384, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "bed", "xPos" : 2500, "yPos" : 397, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 2785, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 1812, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 1540, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 3180, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 3470, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "bigLight", "xPos" : 2098, "yPos" : 222, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "keyCard303", "xPos" : 2743, "yPos" : 254, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "box", "xPos" : 1296, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "box", "xPos" : 3730, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "cabinet", "xPos" : 2350, "yPos" : 384, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "cabinet", "xPos" : 2275, "yPos" : 365, "xScale" : "1.3", "yScale" : "1.3", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "box", "xPos" : 944, "yPos" : 429, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
-		{"frame" : "box", "xPos" : 2405, "yPos" : 429, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
-		{"frame" : "box", "xPos" : 4119, "yPos" : 429, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false}
-		
+		{"frame" : "box", "xPos" : 2430, "yPos" : 429, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
+		{"frame" : "box", "xPos" : 4119, "yPos" : 429, "xScale" : "0.8", "yScale" : "0.8", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
+		{"frame" : "box", "xPos" : 1995, "yPos" : 429, "xScale" : "0.9", "yScale" : "0.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false}
 	],
 	"enemyData" : [
 		{"frame": "ducktor", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 120, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
@@ -27,9 +31,9 @@
 	"doorData" : [
 		{"name" : "door301", "leadsTo": "level0", "xPos" : 199, "yPos" : 337, "frame" : "normalDoor", "spawnAtx" : 610},
 		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator"},
-		{"name" : "door302", "leadsTo" : "", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor"},
-		{"name" : "door303", "leadsTo" : "", "xPos" : 4492, "yPos" : 339, "frame" : "darkDoor"},
-		{"name" : "stairsFirstFloor", "leadsTo" : "endLevel", "xPos" : 5032, "yPos" : 305, "frame" : "stairs"}
+		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor", "spawnAtx" : 160},
+		{"name" : "door305", "leadsTo" : "", "xPos" : 4492, "yPos" : 339, "frame" : "darkDoor"},
+		{"name" : "stairsFirstFloor", "leadsTo" : "endLevel", "xPos" : 5032, "yPos" : 305, "frame" : "stairs", "spawnAtx" : 100}
 
 	]
 
