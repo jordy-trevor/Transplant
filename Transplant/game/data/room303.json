@@ -1,19 +1,16 @@
 {	
 	"worldBounds" : {"x" : 1200, "y" : 600},
-	"shadowData" : "shadowsHallOne",
-	"backgroundData" : "hallRoomSprite",
-	"playerStartData" : [{"x" : 32, "y" : 450}],
+	"backgroundData" : "patientRoom",
 	"obstacleData" : [ 
 		{"frame" : "bookShelf", "xPos" : 1000, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "medBox", "xPos" : 508, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medBox", "xPos" : 591, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
 
 	],
-		
-	"enemyData" : [
-		
-	],
+
 	"doorData" : [
-		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor"},
+		{"name" : "door303", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2105}
 	]
 
 }
