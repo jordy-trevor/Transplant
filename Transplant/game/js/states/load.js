@@ -12,6 +12,7 @@ var load = {
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
 		game.load.image('endingBackground', 'Ending.jpg');
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
+		
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -30,12 +31,15 @@ var load = {
 		game.load.image('stairs', 'Stairs.png');
 		game.load.image('bigLight', 'bigLight.png');
 		game.load.image('cabinet', 'filingCabinet.png');
-
+		game.load.image('keyCard303', 'keyCard303.png');
+		game.load.image('bookShelf', 'bookShelf.jpg');
+		game.load.image('bed', 'hospitalBed.png');
 		// load in level files
 		game.load.path = '../game/data/';
 		game.load.json('level0', 'Level0-StartRoom.json');
 		game.load.json('level1', 'Level1-Hallway.json');
 		game.load.json('endLevel', 'endLevel.json');
+		game.load.json('room303', 'room303.json'); 
 
 
 	},
