@@ -32,7 +32,10 @@ var playState = {
 	},
 
 	create: function() {
-		console.log('Play: create')
+		console.log('Play: create');
+		//begin hospital music
+		music = game.add.audio('hospitalMusic');
+		music.play();
 
 		//Create the layers to do hiding
 		backgroundGroup = game.add.group();// background
