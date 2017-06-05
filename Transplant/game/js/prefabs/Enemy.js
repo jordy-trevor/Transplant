@@ -7,7 +7,7 @@
 // game, key, frame are all required for Phaser.Sprite
 // key is image location, such as atlas
 // frame is the image name as determined in load
-function Enemy(game, frame, xPos, yPos, walkSpeed, runSpeed, walkDist, turnTime, facing, target) {
+function Enemy(game, key, frame, xPos, yPos, walkSpeed, runSpeed, walkDist, turnTime, facing, target) {
 	// call to Phaser.Sprite 
 	// new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, xPos, yPos, frame);
@@ -30,8 +30,8 @@ function Enemy(game, frame, xPos, yPos, walkSpeed, runSpeed, walkDist, turnTime,
 
 	this.seesPlayer = false;
 
-	this.animations.add('walkRight', [1,2,3,4,5,6, 7, 8], 10, true);
-	this.animations.add('walkLeft', [10,11,12,13,14,15,16,17], 10, true);
+	this.animations.add('walkRight', [0,1,2,3,4,5,6,7], 10, true);
+	this.animations.add('walkLeft', [8,9,10,11,12,13,14,15], 10, true);
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
