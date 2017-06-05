@@ -5,5 +5,6 @@
 	"playerStartData" : [{"x" : 100, "y" : 450}],
 	"obstacleData" : [],
 	"enemyData" : [],
-	"doorData" : []
+	"doorData" : [],
+	"noteData" : []
 }
