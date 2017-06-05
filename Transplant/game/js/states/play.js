@@ -96,6 +96,7 @@ var playState = {
 		hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		if(foreground == true){
 			pushCollide = game.physics.arcade.collide(player, obstaclePushGroup);
+			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup]);
 		}
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);

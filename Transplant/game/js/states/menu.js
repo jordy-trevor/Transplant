@@ -5,7 +5,7 @@ var scale = 1;
 var menuState = {
 	create: function(){
 		console.log('Menu: create');
-
+    
 		title = game.add.tileSprite(0,0,1200,800, 'title');
 		playButton = game.add.button(75, 350, 'playButton', this.actionOnClick, this, 1, 1);
 
