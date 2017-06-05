@@ -15,7 +15,7 @@ var load = {
 		game.load.image('patientRoom', 'patientRoom.jpg');
 		game.load.image('HallBG', 'HallBG.jpg');
 		game.load.image('lab', 'lab.jpg');
-		
+		game.load.image('gameOver', 'gameOver.jpg');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -24,7 +24,7 @@ var load = {
 		// sprites
 		game.load.image('box', 'box.png');
 		game.load.atlas('atlas', 'patient.png', 'patient.json');
-		game.load.spritesheet('ducktor', 'ducktor.png', 385, 1332);
+		game.load.atlas('atlas2', 'ducktor.png', 'ducktor.json');
 		
 		game.load.image('normalDoor', 'normalDoor.png');
 		game.load.image('transitionDoor', 'door2.png');
@@ -39,6 +39,7 @@ var load = {
 		game.load.image('bed', 'hospitalBed.png');
 		game.load.image('medBox', 'MedBox.png');
 		game.load.image('labDoor', 'labDoor.png');
+		game.load.image('newsArticle', 'newsArticle.png');
 
 		// load in level files
 		game.load.path = '../game/data/';
