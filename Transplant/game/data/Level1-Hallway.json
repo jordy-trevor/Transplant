@@ -13,7 +13,6 @@
 		{"frame" : "medicalLocker", "xPos" : 3180, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 3470, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "bigLight", "xPos" : 2098, "yPos" : 222, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "keyCard303", "xPos" : 2743, "yPos" : 254, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "box", "xPos" : 1296, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "box", "xPos" : 3730, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "cabinet", "xPos" : 2350, "yPos" : 384, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
@@ -28,12 +27,15 @@
 		{"frame": "ducktor", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 40, "runSpeed" : 120, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
 	],
 	"doorData" : [
-		{"name" : "door301", "leadsTo": "level0", "xPos" : 199, "yPos" : 337, "frame" : "normalDoor", "spawnAtx" : 610},
-		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator"},
-		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor", "spawnAtx" : 160},
-		{"name" : "door305", "leadsTo" : "", "xPos" : 4492, "yPos" : 339, "frame" : "darkDoor"},
-		{"name" : "stairsFirstFloor", "leadsTo" : "endLevel", "xPos" : 5032, "yPos" : 305, "frame" : "stairs", "spawnAtx" : 100}
+		{"name" : "door301", "leadsTo": "level0", "xPos" : 199, "yPos" : 337, "frame" : "normalDoor", "spawnAtx" : 610, "keyRequired" : "none"},
+		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "keyRequired" : "none"},
+		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor", "spawnAtx" : 160, "keyRequired" : "keyCard303"},
+		{"name" : "door305", "leadsTo" : "", "xPos" : 4492, "yPos" : 339, "frame" : "darkDoor", "keyRequired" : "none"},
+		{"name" : "stairsFirstFloor", "leadsTo" : "endLevel", "xPos" : 5032, "yPos" : 305, "frame" : "stairs", "spawnAtx" : 100, "keyRequired" : "none"}
 
+	],
+	"keyCardData" : [
+		{"frame" : "keyCard303", "xPos" : 2743, "yPos" : 254, "name" : "keyCard303"}
 	]
 
 }
