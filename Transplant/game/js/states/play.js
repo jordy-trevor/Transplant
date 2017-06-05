@@ -34,7 +34,10 @@ var playState = {
 	},
 
 	create: function() {
-		console.log('Play: create')
+		console.log('Play: create');
+		//begin hospital music
+		music = game.add.audio('hospitalMusic');
+		music.play();
 
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background

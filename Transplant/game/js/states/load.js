@@ -13,6 +13,8 @@ var load = {
 		game.load.image('endingBackground', 'Ending.jpg');
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
 		game.load.image('patientRoom', 'patientRoom.jpg');
+		game.load.image('HallBG', 'HallBG.jpg');
+		game.load.image('lab', 'lab.jpg');
 		
 
 		//title screen
@@ -36,12 +38,18 @@ var load = {
 		game.load.image('bookShelf', 'bookShelf.jpg');
 		game.load.image('bed', 'hospitalBed.png');
 		game.load.image('medBox', 'MedBox.png');
+		game.load.image('labDoor', 'labDoor.png');
+
 		// load in level files
 		game.load.path = '../game/data/';
 		game.load.json('level0', 'Level0-StartRoom.json');
 		game.load.json('level1', 'Level1-Hallway.json');
 		game.load.json('endLevel', 'endLevel.json');
 		game.load.json('room303', 'room303.json'); 
+
+		// sound
+		game.load.path = '../game/assets/audio/';
+		game.load.audio('hospitalMusic', 'hospitalMusic.mp3');
 
 
 	},
