@@ -12,6 +12,10 @@ var load = {
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
 		game.load.image('endingBackground', 'Ending.jpg');
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
+		game.load.image('patientRoom', 'patientRoom.jpg');
+		game.load.image('HallBG', 'HallBG.jpg');
+		game.load.image('lab', 'lab.jpg');
+		game.load.image('gameOver', 'gameOver.jpg');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -20,7 +24,7 @@ var load = {
 		// sprites
 		game.load.image('box', 'box.png');
 		game.load.atlas('atlas', 'patient.png', 'patient.json');
-		game.load.spritesheet('ducktor', 'ducktor.png', 385, 1332);
+		game.load.atlas('atlas2', 'ducktor.png', 'ducktor.json');
 		
 		game.load.image('normalDoor', 'normalDoor.png');
 		game.load.image('transitionDoor', 'door2.png');
@@ -30,12 +34,23 @@ var load = {
 		game.load.image('stairs', 'Stairs.png');
 		game.load.image('bigLight', 'bigLight.png');
 		game.load.image('cabinet', 'filingCabinet.png');
+		game.load.image('keyCard303', 'keyCard303.png');
+		game.load.image('bookShelf', 'bookShelf.jpg');
+		game.load.image('bed', 'hospitalBed.png');
+		game.load.image('medBox', 'MedBox.png');
+		game.load.image('labDoor', 'labDoor.png');
+		game.load.image('newsArticle', 'newsArticle.png');
 
 		// load in level files
 		game.load.path = '../game/data/';
 		game.load.json('level0', 'Level0-StartRoom.json');
 		game.load.json('level1', 'Level1-Hallway.json');
 		game.load.json('endLevel', 'endLevel.json');
+		game.load.json('room303', 'room303.json'); 
+
+		// sound
+		game.load.path = '../game/assets/audio/';
+		game.load.audio('hospitalMusic', 'hospitalMusic.mp3');
 
 
 	},

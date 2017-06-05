@@ -46,6 +46,12 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 		this.body.checkCollision.right = false;
 	}
 
+	if(this.collidable == 'none'){
+		this.body.checkCollision.up = false;
+		this.body.checkCollision.left = false;
+		this.body.checkCollision.right = false;
+		this.body.checkCollision.down = false;
+	}
 }
 
 Obstacle.prototype = Object.create(Phaser.Sprite.prototype);
@@ -56,11 +62,12 @@ Obstacle.prototype.update = function() {
 	var collision1 = game.physics.arcade.collide(platforms, this);
 	var collision2 = game.physics.arcade.collide(obstacleGroup, this);
 	var collision3 = game.physics.arcade.collide(obstacleClimbGroup, this);
-	//var collision4 = game.physics.arcade.collide(obstacleHideGroup, this);
+	var collision4 = game.physics.arcade.collide(obstacleHideGroup, this);
+	var collision5 = game.physics.arcade.collide(obstaclePushGroup, this);
 
 	if (this.collidable == 'full' || this.collidable == 'top') {
 		if(isClimbing == false){
-			game.physics.arcade.collide(player, this);
+			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
 		}
 	}
 	// can the object be pushed?
@@ -72,7 +79,7 @@ Obstacle.prototype.update = function() {
 	}
 	else{
 		this.body.immovable = true;
-		if(collision1 || collision2 || collision3 /*|| collision4*/){
+		if(collision1 || collision2 || collision3 || collision4 || collision5){
 			this.body.velocity.y = 0;
 			//this.body.gravity.y = 0;
 		}

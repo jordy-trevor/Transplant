@@ -40,7 +40,6 @@ Enemy.prototype.constructor = Enemy;
 
 // create update function specifically for this
 Enemy.prototype.update = function() {
-
 	// if you are within 100 sight range of the player, you see them
 	if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
 		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) 
@@ -59,6 +58,8 @@ Enemy.prototype.update = function() {
 			this.body.velocity.x = -1 * this.walkSpeed;
 			this.facing = 'left';
 		}
+
+		
 	} else {
 		// if they are about to turn, execute pause
 		if (this.wasFacing != this.facing && !this.turning) { // if they are about to turn
@@ -95,8 +96,8 @@ Enemy.prototype.update = function() {
 	} else if (this.facing == 'right' && this.walkSpeed != 0) {
 		this.animations.play('walkRight');
 	} else if ( this.facing == 'left' && this.walkSpeed == 0 ) {
-		this.frame = 16;
+		this.frame = 8;
 	} else if ( this.facing == 'right' && this.walkSpeed == 0) {
-		this.frame = 1;
+		this.frame = 0;
 	}
 };
