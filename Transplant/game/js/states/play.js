@@ -9,6 +9,7 @@ var obstaclePushGroup; //Obstacle group for objects that player can push
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
 var noteGroup; //group for notes
 var enemyGroup; //group for enemies
+var keyCardGroup; // group for keyCards
 var group2; //top layer
 var group3; //Layer above everything to do lighting
 var isClimbing = false; //variable to check if player is climbing or not
@@ -30,6 +31,9 @@ var pushOverlap; //check if player is overlapping with pushable objects
 var levelData; //json file being used
 var reading = false; //if player is looking at something in the note group
 var canMove = true; //Checks if player can move at this time
+
+var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
+// 'none' allows players to open doors that are no locked
 
 var playState = {
 	preload: function(){
@@ -53,6 +57,7 @@ var playState = {
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
 		noteGroup = game.add.group(); //notes
 		enemyGroup = game.add.group(); // enemies
+		keyCardGroup = game.add.group(); // keyCards
 		group2 = game.add.group();//top layer
 		group3 = game.add.group();//Lighting layer
 
@@ -61,7 +66,7 @@ var playState = {
 		platforms2 = game.add.group();
 
 
-		generateLevel('room303');
+		generateLevel('level0');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
@@ -88,8 +93,6 @@ var playState = {
 		//Use E key to open the door
 		this.interactKey = game.input.keyboard.addKey(Phaser.Keyboard.E);
 		this.interactKey.onDown.add(this.interact);
-
-
 	},
 
 	update: function(){
@@ -100,6 +103,11 @@ var playState = {
 		}
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
+		game.physics.arcade.collide(enemyGroup, obstacleGroup);
+		// keyCard can hit stuff
+		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
+		game.physics.arcade.collide(keyCardGroup, platforms);
+		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
 		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player,obstacleHideGroup);
 
@@ -108,7 +116,18 @@ var playState = {
 			// if you are touching this enemy and this enemy sees you
 			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {			
 				generateLevel('level0');
-				console.log('hit');
+			}
+		});
+
+		// send you back to the start for getting caught
+		keyCardGroup.forEach(function (k) {
+			// if you are touching this enemy and this enemy sees you
+			if(game.physics.arcade.overlap(player, k)) {			
+				inventory.push(k.name);
+				console.log('hit key');
+				k.kill();
+				k.destroy();
+				console.log(inventory);
 			}
 		});
 
@@ -324,18 +343,17 @@ var playState = {
 			for(var i = 0; i < doorGroup.children.length; i++) {
 			
 				doorEntering = doorGroup.children[i];
-				if(game.physics.arcade.overlap(player, doorEntering)){
-
+				console.log(doorEntering.keyRequired);
+				// only enter the door if the key exists in your inventory
+				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
 					playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
 					this.generateLevel(doorEntering.leadsTo);
 				
 					console.log(doorEntering.leadsTo);
 					break;
 				}
-				
 			}
 		}
-		
 	}
 };
 
@@ -376,7 +394,7 @@ var generateLevel = function(levelName) {
 	// generate all doors from the data
 	for (var index = 0; index < levelData.doorData.length; index++) {
 		// set element to the object and use it's parameters
-		var doorTemp = new Door(game, levelData.doorData[index].frame, levelData.doorData[index].name, levelData.doorData[index].leadsTo, levelData.doorData[index].xPos, levelData.doorData[index].yPos, levelData.doorData[index].spawnAtx);
+		var doorTemp = new Door(game, levelData.doorData[index].frame, levelData.doorData[index].name, levelData.doorData[index].leadsTo, levelData.doorData[index].xPos, levelData.doorData[index].yPos, levelData.doorData[index].spawnAtx, levelData.doorData[index].keyRequired);
 		console.log(doorTemp.name);
 		game.physics.enable(doorTemp);
 		game.add.existing(doorTemp);
@@ -443,6 +461,17 @@ var generateLevel = function(levelName) {
 		enemyGroup.add(enemyTemp);
 
 	} 
+
+	// generate keyCards
+	for (var index = 0; index < levelData.keyCardData.length; index++) {
+		// only spawn keys that the player does not have
+		if(inventory.indexOf(levelData.keyCardData[index].name) < 0) {
+			// set element to the object and use it's parameters
+			var keyCardTemp = new KeyCard(game, levelData.keyCardData[index].frame, levelData.keyCardData[index].xPos, levelData.keyCardData[index].yPos, levelData.keyCardData[index].name);
+			game.add.existing(keyCardTemp);
+			keyCardGroup.add(keyCardTemp);
+		}
+	}
 
 	
 	// platforms
