@@ -10,7 +10,7 @@
 function Enemy(game, key, frame, xPos, yPos, walkSpeed, runSpeed, walkDist, turnTime, facing, target) {
 	// call to Phaser.Sprite 
 	// new Sprite(game, x, y, key, frame)
-	Phaser.Sprite.call(this, game, xPos, yPos, frame);
+	Phaser.Sprite.call(this, game, xPos, yPos, key, frame);
 
 	this.anchor.set(0.5); // set anchor point to middle 
 	game.physics.enable(this); // give physics
