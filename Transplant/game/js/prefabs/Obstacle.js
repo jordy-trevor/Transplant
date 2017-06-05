@@ -46,6 +46,12 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 		this.body.checkCollision.right = false;
 	}
 
+	if(this.collidable == 'none'){
+		this.body.checkCollision.up = false;
+		this.body.checkCollision.left = false;
+		this.body.checkCollision.right = false;
+		this.body.checkCollision.down = false;
+	}
 }
 
 Obstacle.prototype = Object.create(Phaser.Sprite.prototype);
