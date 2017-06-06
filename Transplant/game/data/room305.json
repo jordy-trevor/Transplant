@@ -12,7 +12,9 @@
 
 	"doorData" : [
 
-		{"name" : "door305", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4492}
-	]
+		{"name" : "door305", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4492, "keyRequired": "none"}
+	],
+	"keyCardData" : [],
+	"noteData" : []
 
 }

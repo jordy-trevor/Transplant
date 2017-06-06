@@ -12,7 +12,9 @@
 
 	"doorData" : [
 
-		{"name" : "door303", "leadsTo" : "level3", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2405}
-	]
+		{"name" : "door303", "leadsTo" : "level3", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2405, "keyRequired": "none"}
+	],
+	"keyCardData" : [],
+	"noteData" : []
 
 }
