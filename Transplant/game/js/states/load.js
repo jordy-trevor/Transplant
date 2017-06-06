@@ -45,8 +45,18 @@ var load = {
 		game.load.path = '../game/data/';
 		game.load.json('level0', 'Level0-StartRoom.json');
 		game.load.json('level1', 'Level1-Hallway.json');
+		game.load.json('level2', 'Level2-HallwayF2.json');
+		game.load.json('level3', 'Level3-HallwayF1.json');
+		game.load.json('labLevel', 'Level4-lab.json');
 		game.load.json('endLevel', 'endLevel.json');
 		game.load.json('room303', 'room303.json'); 
+		game.load.json('room305', 'room305.json');
+		game.load.json('doctorOffice', 'doctorOffice.json');
+		game.load.json('room203', 'room203.json');
+		game.load.json('room205', 'room205.json');
+		game.load.json('room101', 'room101.json');
+		game.load.json('room103', 'room103.json');
+		game.load.json('room105', 'room105.json');
 
 		// sound
 		game.load.path = '../game/assets/audio/';
