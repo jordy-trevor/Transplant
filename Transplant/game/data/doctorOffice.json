@@ -1,0 +1,14 @@
+{	
+	"worldBounds" : {"x" : 1200, "y" : 600},
+	"backgroundData" : "patientRoom",
+	"obstacleData" : [ 
+		
+	],
+
+	"doorData" : [
+		{"name" : "door201", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 850, "keyRequired": "none"}
+	],
+	"keyCardData" : [],
+	"noteData" : []
+
+}

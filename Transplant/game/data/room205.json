@@ -12,12 +12,9 @@
 
 	"doorData" : [
 
-		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor"},
-		{"name" : "door303", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2105, "keyRequired": "none"}
+		{"name" : "door205", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4192, "keyRequired": "none"}
 	],
-
 	"keyCardData" : [],
-
 	"noteData" : []
 
 }
