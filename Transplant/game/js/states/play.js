@@ -114,7 +114,8 @@ var playState = {
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
 			// if you are touching this enemy and this enemy sees you
-			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {			
+			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {	
+				playerSpawnX = 50;		
 				generateLevel('level0');
 			}
 		});
@@ -369,6 +370,7 @@ var generateLevel = function(levelName) {
 	obstaclePushGroup.forEach(function (c) {c.kill();});
 	obstacleClimbGroup.forEach(function (c) {c.kill();});
 	noteGroup.forEach(function (c) {c.kill();});
+	keyCardGroup.forEach(function (c) {c.kill()});
 	while(enemyGroup.length > 0) {
 		// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
 		enemyGroup.forEach(function (c) {c.kill(); c.destroy(); console.log('destroyed');});
