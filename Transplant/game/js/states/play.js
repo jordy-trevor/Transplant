@@ -29,7 +29,6 @@ var playerSpawnX = 50; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var levelData; //json file being used
-var reading = false; //if player is looking at something in the note group
 var canMove = true; //Checks if player can move at this time
 
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
@@ -66,7 +65,7 @@ var playState = {
 		platforms2 = game.add.group();
 
 
-		generateLevel('level0');
+		generateLevel('room303');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
@@ -322,21 +321,15 @@ var playState = {
 		for(var i = 0; i < noteGroup.children.length; i++){
 			noteReading = noteGroup.children[i];
 			if(game.physics.arcade.overlap(player, noteReading)){
-				var read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
-				read.alpha = 0;
-				console.log(read.alpha);
-				if(reading == false){
+				if(canMove == true){	
+					read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
 					read.alpha = 1;
 					read.fixedToCamera = true;
-					reading = true;
 					canMove = false;
-					console.log(read.alpha);
 				}
 				else{
-					read.alpha = 0;
-					reading = false;
+					read.destroy();
 					canMove = true;
-					console.log(read.alpha);
 				}
 			}
 		}
@@ -449,6 +442,8 @@ var generateLevel = function(levelName) {
 	player.animations.add('crawlRight',[14,15,16,17,18,19,20], 10, true);
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
 	group2.add(player); //set player to top layer
+
+	counter = 0;
 
 	game.camera.follow(player, Phaser.PLATFORMER);
 
