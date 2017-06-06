@@ -25,7 +25,7 @@ var ground2; //the ground player will stand on when hiding
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 50; // where to spawn the player after entering a door, etc
+var playerSpawnX = 610; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var levelData; //json file being used
