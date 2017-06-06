@@ -1,0 +1,15 @@
+{	
+	"worldBounds" : {"x" : 5400, "y" : 600},
+	"shadowData" : "",
+	"backgroundData" : "lab",
+	"playerStartData" : [{"x" : 199, "y" : 450}],
+	"obstacleData" : [ 
+
+	],
+	"enemyData" : [
+	],
+	"doorData" : [
+		
+	]
+
+}

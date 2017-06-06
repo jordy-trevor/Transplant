@@ -1,0 +1,21 @@
+{	
+	"worldBounds" : {"x" : 5400, "y" : 600},
+	"shadowData" : "",
+	"backgroundData" : "HallBG",
+	"playerStartData" : [{"x" : 199, "y" : 450}],
+	"obstacleData" : [ 
+
+	],
+	"enemyData" : [
+	],
+	"doorData" : [
+
+		{"name" : "door201", "leadsTo": "doctorOffice", "xPos" : 200, "yPos" : 337, "frame" : "darkDoor", "spawnAtx" : 160},
+		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator"},
+		{"name" : "door203", "leadsTo" : "room203", "xPos" : 2405, "yPos" : 336, "frame" : "darkDoor", "spawnAtx" : 160},
+		{"name" : "door205", "leadsTo" : "room205", "xPos" : 4192, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160},
+		{"name" : "stairsSecondFloor", "leadsTo" : "level3", "xPos" : 5200, "yPos" : 305, "frame" : "stairs", "spawnAtx" : 100}
+
+	]
+
+}
