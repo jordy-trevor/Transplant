@@ -25,6 +25,7 @@ var load = {
 		game.load.image('box', 'box.png');
 		game.load.atlas('atlas', 'patient.png', 'patient.json');
 		game.load.atlas('atlas2', 'ducktor.png', 'ducktor.json');
+		game.load.atlas('elevatorAtlas', 'elevatorPanel.png', 'elevatorPanel.json');
 		
 		game.load.image('normalDoor', 'normalDoor.png');
 		game.load.image('transitionDoor', 'door2.png');

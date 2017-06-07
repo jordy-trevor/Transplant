@@ -1,5 +1,6 @@
 //Global Variables
-var foreground = true; //variable to keep track of which layer player will be in
+
+// ----------- GROUPS ------------------------------
 var backgroundGroup; // background
 var doorGroup; //group to distinguish what will be a door
 var group1; //right in front of background
@@ -12,6 +13,8 @@ var enemyGroup; //group for enemies
 var keyCardGroup; // group for keyCards
 var group2; //top layer
 var group3; //Layer above everything to do lighting
+// ----------- Player Variables ---------------------
+var foreground = true; //variable to keep track of which layer player will be in
 var isClimbing = false; //variable to check if player is climbing or not
 var canControl = true; //variable to check if player has control at the moment
 var player; //the player
@@ -19,23 +22,23 @@ var hitPlatform; //did player hit the ground or an object?
 var climb; //can the player climb right now?
 var hide; //is the player overlapping with a hidable object?
 var distanceFromGround; //player's y-distance from the ground
-var door1; //door in the starting room
-var ground; //the ground player stands on
-var ground2; //the ground player will stand on when hiding
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
 var playerSpawnX = 50; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
+var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
+// 'none' allows players to open doors that are no locked
+// ----------- Other Variables ---------------------
+var door1; //door in the starting room
+var ground; //the ground player stands on
+var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
 var reading = false; //if player is looking at something in the note group
 var canMove = true; //Checks if player can move at this time
-
-var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
-// 'none' allows players to open doors that are no locked
-
-var elevatorBackground;
+// elevator panel that must be created global for proper destruction afterwards
+var elevatorBackground; var elevatorText; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
 
 var playState = {
 	preload: function(){
@@ -346,22 +349,72 @@ var playState = {
 			for(var i = 0; i < doorGroup.children.length; i++) {
 			
 				doorEntering = doorGroup.children[i];
-				console.log(doorEntering.keyRequired);
-				if (doorEntering.name == 'elevator' && canMove == true) {
-					console.log('show elevator');
-					canMove = false;
-					elevatorBackground = game.add.sprite(100, 100, 'box');
-				} else if (doorEntering.name == 'elevator' && canMove == false) {
-					console.log('kill elevator');
-					elevatorBackground.destroy();
-					canMove = true;
-				}
 				// only enter the door if the key exists in your inventory
-				else if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
-					playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
-					this.generateLevel(doorEntering.leadsTo);
-				
-					console.log(doorEntering.leadsTo);
+				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
+					
+					console.log('now entering: ' + doorEntering.name);
+					if (doorEntering.name == 'elevator' && canMove == true) {
+						console.log('show elevator');
+						canMove = false;
+						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
+						var elevatorString = '';
+						elevatorText = game.add.text(175, 193, elevatorString);
+						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '1'; elevatorText.setText(elevatorString);} , this, 'button1', 'button1');
+						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '2'; elevatorText.setText(elevatorString);} , this, 'button2', 'button2');
+						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '3'; elevatorText.setText(elevatorString);} , this, 'button3', 'button3');
+						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '4'; elevatorText.setText(elevatorString);} , this, 'button4', 'button4');
+						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '5'; elevatorText.setText(elevatorString);} , this, 'button5', 'button5');
+						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '6'; elevatorText.setText(elevatorString);} , this, 'button6', 'button6');
+						button7 = game.add.button(145, 430, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '7'; elevatorText.setText(elevatorString);} , this, 'button7', 'button7');
+						button8 = game.add.button(225, 430, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '8'; elevatorText.setText(elevatorString);} , this, 'button8', 'button8');
+						button9 = game.add.button(305, 430, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '9'; elevatorText.setText(elevatorString);} , this, 'button9', 'button9');
+						buttonEnter = game.add.button(225, 500, 'elevatorAtlas', 
+							function() { 
+								// if the code entered matches properly, generate level and close panel
+								var shouldDestroy = false;
+								if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;} 
+								else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
+								else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;}
+								else {elevatorString = 'Invalid'}
+								if (shouldDestroy == true) {
+									elevatorBackground.destroy();
+									button1.destroy();
+									button2.destroy();
+									button3.destroy();
+									button4.destroy();
+									button5.destroy();
+									button6.destroy();
+									button7.destroy();
+									button8.destroy();
+									button9.destroy();
+									buttonEnter.destroy();
+									elevatorText.destroy();
+									canMove = true;
+								}
+								elevatorText.setText(elevatorString);
+							}, this, 'buttonEnt', 'buttonEnt');
+					} else if (doorEntering.name == 'elevator' && canMove == false) {
+						console.log('kill elevator');
+						console.log(canMove);
+						elevatorBackground.destroy();
+						button1.destroy();
+						button2.destroy();
+						button3.destroy();
+						button4.destroy();
+						button5.destroy();
+						button6.destroy();
+						button7.destroy();
+						button8.destroy();
+						button9.destroy();
+						buttonEnter.destroy();
+						elevatorText.destroy();
+						canMove = true;
+					} else {
+						playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
+						this.generateLevel(doorEntering.leadsTo);
+					
+						console.log(doorEntering.leadsTo);
+					}
 					break;
 				}
 			}
