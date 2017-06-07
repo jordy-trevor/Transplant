@@ -40,6 +40,8 @@ var load = {
 		game.load.image('medBox', 'MedBox.png');
 		game.load.image('labDoor', 'labDoor.png');
 		game.load.image('newsArticle', 'newsArticle.png');
+		game.load.image('medCabinet', 'medicalCabinet.jpg');
+		game.load.image('wheelChair', 'wheelChair.png');
 
 		// load in level files
 		game.load.path = '../game/data/';
