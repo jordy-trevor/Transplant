@@ -26,6 +26,7 @@ var load = {
 		game.load.image('box', 'box.png');
 		game.load.atlas('atlas', 'patient.png', 'patient.json');
 		game.load.atlas('atlas2', 'ducktor.png', 'ducktor.json');
+		game.load.atlas('elevatorAtlas', 'elevatorPanel.png', 'elevatorPanel.json');
 		
 		//Additional assests
 		game.load.image('normalDoor', 'normalDoor.png');
@@ -42,9 +43,20 @@ var load = {
 		game.load.image('medBox', 'MedBox.png');
 		game.load.image('labDoor', 'labDoor.png');
 		game.load.image('blackScreen', 'black.png');
+		game.load.image('desk', 'Desk.png');
+		game.load.image('airVent', 'airVent.png');
+		game.load.image('horizontalPipes', 'horizontalPipes.png');
+		game.load.image('verticalPipes', 'verticalPipes.png');
+		game.load.image('doubleDoor', 'doubleDoor.png');
+		game.load.image('table', 'table.png');
+
+
 
 		//notes
 		game.load.image('newsArticle', 'newsArticle.png');
+		game.load.image('medCabinet', 'medicalCabinet.jpg');
+		game.load.image('wheelChair', 'wheelChair.png');
+		
 
 		// load in level files
 		game.load.path = '../game/data/';
