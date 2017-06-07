@@ -15,6 +15,7 @@
 		{"name" : "door203", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2405, "keyRequired": "none"}
 		
 	],
+	"enemyData" : [],
 	"keyCardData" : [],
 	"noteData" : []
 
