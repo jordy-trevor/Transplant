@@ -426,9 +426,9 @@ var playState = {
 							function() { 
 								// if the code entered matches properly, generate level and close panel
 								var shouldDestroy = false;
-								if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;} 
+								if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;} 
 								else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
-								else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;}
+								else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;}
 								else {elevatorString = 'Invalid'}
 								if (shouldDestroy == true) {
 									elevatorBackground.destroy();
