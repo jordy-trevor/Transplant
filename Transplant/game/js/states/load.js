@@ -42,6 +42,7 @@ var load = {
 		game.load.image('newsArticle', 'newsArticle.png');
 		game.load.image('medCabinet', 'medicalCabinet.jpg');
 		game.load.image('wheelChair', 'wheelChair.png');
+		game.load.image('desk', 'Desk.png');
 
 		// load in level files
 		game.load.path = '../game/data/';
