@@ -4,6 +4,9 @@
 	"backgroundData" : "HallBG",
 	"playerStartData" : [{"x" : 199, "y" : 450}],
 	"obstacleData" : [ 
+		{"frame" : "desk", "xPos" : 1350, "yPos" : 410, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "desk", "xPos" : 1460, "yPos" : 410, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
+
 
 	],
 	"enemyData" : [
