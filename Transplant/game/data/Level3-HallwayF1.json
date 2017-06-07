@@ -13,7 +13,7 @@
 	],
 	"doorData" : [
 		{"name" : "door101", "leadsTo": "room101", "xPos" : 850, "yPos" : 337, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
-		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator"},
+		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "spawnAtx" : 621, "keyRequired" : "none"},
 		{"name" : "door103", "leadsTo" : "room103", "xPos" : 2405, "yPos" : 336, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "door105", "leadsTo" : "room105", "xPos" : 4192, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "stairsSecondFloor", "leadsTo" : "labLevel", "xPos" : 5200, "yPos" : 305, "frame" : "stairs", "spawnAtx" : 100, "keyRequired": "none"}

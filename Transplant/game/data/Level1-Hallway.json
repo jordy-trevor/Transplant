@@ -29,7 +29,7 @@
 	"doorData" : [
 
 		{"name" : "door301", "leadsTo": "level0", "xPos" : 199, "yPos" : 337, "frame" : "normalDoor", "spawnAtx" : 610, "keyRequired" : "none"},
-		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "keyRequired" : "none"},
+		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "spawnAtx" : 621, "keyRequired" : "none"},
 		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor", "spawnAtx" : 160, "keyRequired" : "keyCard303"},
 		{"name" : "door305", "leadsTo" : "room305", "xPos" : 4492, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired" : "none"},
 		{"name" : "stairsFirstFloor", "leadsTo" : "level2", "xPos" : 5032, "yPos" : 306, "frame" : "stairs", "spawnAtx" : 100, "keyRequired" : "none"}
