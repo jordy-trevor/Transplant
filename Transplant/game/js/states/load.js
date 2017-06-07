@@ -3,6 +3,7 @@ var load = {
 		console.log('Load: preload');
 		var loadLabel = this.add.text(80, 150, 'Loading...', {font: '30px Courier', fill: '#ffffff'}); //text on the screen to indicate the game is loading
 		game.load.path = '../game/assets/img/';
+		//ground art but won't be seen
 		game.load.image('grass', 'platform.png');
 
 		// background
@@ -25,7 +26,9 @@ var load = {
 		game.load.image('box', 'box.png');
 		game.load.atlas('atlas', 'patient.png', 'patient.json');
 		game.load.atlas('atlas2', 'ducktor.png', 'ducktor.json');
+		game.load.atlas('elevatorAtlas', 'elevatorPanel.png', 'elevatorPanel.json');
 		
+		//Additional assests
 		game.load.image('normalDoor', 'normalDoor.png');
 		game.load.image('transitionDoor', 'door2.png');
 		game.load.image('elevator', 'Elevator.png');
@@ -39,6 +42,9 @@ var load = {
 		game.load.image('bed', 'hospitalBed.png');
 		game.load.image('medBox', 'MedBox.png');
 		game.load.image('labDoor', 'labDoor.png');
+		game.load.image('blackScreen', 'black.png');
+
+		//notes
 		game.load.image('newsArticle', 'newsArticle.png');
 
 		// load in level files

@@ -8,6 +8,7 @@
 	"doorData" : [
 		{"name" : "door201", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 850, "keyRequired": "none"}
 	],
+	"enemyData" : [],
 	"keyCardData" : [],
 	"noteData" : []
 
