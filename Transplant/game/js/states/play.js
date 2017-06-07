@@ -35,10 +35,11 @@ var door1; //door in the starting room
 var ground; //the ground player stands on
 var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
-var reading = false; //if player is looking at something in the note group
 var canMove = true; //Checks if player can move at this time
+
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
+var isJumping = false; //is the player jumping right now?
 
 var playState = {
 	preload: function(){
@@ -101,10 +102,12 @@ var playState = {
 	},
 
 	update: function(){
-		hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		if(foreground == true){
 			pushCollide = game.physics.arcade.collide(player, obstaclePushGroup);
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup]);
+		}
+		else{
+			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
@@ -119,9 +122,35 @@ var playState = {
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
 			// if you are touching this enemy and this enemy sees you
-			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {	
-				playerSpawnX = 50;		
-				generateLevel('level0');
+			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {
+				//add a timer
+				timer = game.time.create();
+
+				//reset player properties
+				playerSpawnX = 50;
+				player.body.velocity.x = 0;
+				player.body.velocity.y = 0;
+				canMove = false;
+
+				//fade to black screen in a 500 ms timeframe
+				var restart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
+				restart.alpha = 0;
+				restart.fixedToCamera =  true;
+				game.add.tween(restart).to( {alpha: 1}, 500, Phaser.Easing.Linear.None, true, 0, 0, false);
+				timer.add(500, function (){
+					//after 500 ms generate starting room
+					generateLevel('level0');
+					//then fade out of black back to visibility
+					game.add.tween(restart).to( {alpha: 0}, 500, Phaser.Easing.Linear.None, true, 0, 0, false)
+				},this);
+				timer.add(1400, function(){
+					//once fades are done, player can move again and black screen is destroyed
+					canMove = true;
+					restart.destroy();
+				}, this);
+
+				//start the timer when function starts
+				timer.start();
 			}
 		});
 
@@ -142,27 +171,49 @@ var playState = {
 		}
 
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
-
 		//Climb objects
-		if(climb && foreground == true && player.body.velocity.y < 15.1 && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && player.body.velocity.y == 0){
+		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true) && canMove == true){ //can only climb when in front of the object
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
 				player.frame ++; //Go through each frame of climb
 				//player goes up
 				player.body.position.y -= 2;
-				isClimbing = true; //disable left and right movement
+				isClimbing = true; //disable normal left and right movement
+				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.W)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
-					player.frame = 13; //set to top of climb frames
+					player.frame = 0; //set to bottom of climb frames
 				}
-				player.frame --; //Go through each frame of climb backwards
+				player.frame ++; //Go through each frame of climb
 				//player goes down
 				player.body.position.y += 2;
-				isClimbing = true; //disable left and right movement
+				isClimbing = true; //disable normal left and right movement
+				player.body.velocity.y = 0;
+				player.body.gravity.y = 0; //player doesn't automatically fall off
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.A) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.D)){
+				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
+					player.frame = 0; //set to bottom of climb frames
+				}
+				player.frame ++; //Go through each frame of climb
+				//player goes left
+				player.body.position.x -= 2;
+				isClimbing = true; //disable normal left and right movement
+				player.body.velocity.y = 0;
+				player.body.gravity.y = 0; //player doesn't automatically fall off
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.D) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
+					player.frame = 0; //set to bottom climb frames
+				}
+				player.frame ++; //Go through each frame of climbs
+				//player goes right
+				player.body.position.x += 2;
+				isClimbing = true; //disable normal left and right movement
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
@@ -177,10 +228,15 @@ var playState = {
 		//Allow left to right movement when not climbing but not when climbing something
 		if(isClimbing == true){
 			canControl = false;
+			isJumping = false;
 		}
 		else if(isClimbing == false){
 			canControl = true;
 			player.body.gravity.y = playerGravity;
+		}
+		//reset jump variable when landing
+		if(hitPlatform){
+			isJumping = false;
 		}
 		//Give control back when touching the ground
 		if (hitPlatform || pushCollide) {
@@ -317,6 +373,7 @@ var playState = {
 					}
 					player.body.velocity.y = -400; //jump height
 					isClimbing = false;
+					isJumping = true;
 				}
 			}
 		}
@@ -326,22 +383,19 @@ var playState = {
 		var noteReading;
 		for(var i = 0; i < noteGroup.children.length; i++){
 			noteReading = noteGroup.children[i];
+			//if player is overlaping with the noteGroup
 			if(game.physics.arcade.overlap(player, noteReading)){
-				var read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
-				read.alpha = 0;
-				console.log(read.alpha);
-				if(reading == false){
+				if(canMove == true){	
+					//Add the blown up version of the sprite on screen and stop player from moving
+					read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
 					read.alpha = 1;
 					read.fixedToCamera = true;
-					reading = true;
 					canMove = false;
-					console.log(read.alpha);
 				}
 				else{
-					read.alpha = 0;
-					reading = false;
+					//Destroy the blown up version of the sprite on screen and allow player to move again
+					read.destroy();
 					canMove = true;
-					console.log(read.alpha);
 				}
 			}
 		}
@@ -497,7 +551,7 @@ var generateLevel = function(levelName) {
 	} 
 
 	//Player object
-	player = game.add.sprite(playerSpawnX, game.world.height - 175, 'atlas', 'patient 1.png');
+	player = game.add.sprite(playerSpawnX, game.world.height - 165, 'atlas', 'patient 1.png');
 	//player properties
 	game.physics.enable([player], Phaser.Physics.ARCADE);
 	player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
@@ -538,7 +592,6 @@ var generateLevel = function(levelName) {
 			keyCardGroup.add(keyCardTemp);
 		}
 	}
-
 	
 	// platforms
 	platforms.enableBody = true;
