@@ -68,7 +68,7 @@ var playState = {
 		platforms2 = game.add.group();
 
 
-		generateLevel('room303');
+		generateLevel('level0');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
@@ -98,10 +98,12 @@ var playState = {
 	},
 
 	update: function(){
-		hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		if(foreground == true){
 			pushCollide = game.physics.arcade.collide(player, obstaclePushGroup);
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup]);
+		}
+		else{
+			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
@@ -165,10 +167,9 @@ var playState = {
 		}
 
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
-
 		//Climb objects
-		if(climb && foreground == true && player.body.velocity.y < 15.1 && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && player.body.velocity.y == 0){
+		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true) && canMove == true){ //can only climb when in front of the object
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -176,6 +177,7 @@ var playState = {
 				//player goes up
 				player.body.position.y -= 2;
 				isClimbing = true; //disable normal left and right movement
+				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
 			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.W)){
@@ -189,7 +191,7 @@ var playState = {
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.A) && isClimbing == true && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.D)){
+			if(game.input.keyboard.isDown(Phaser.Keyboard.A) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.D)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom of climb frames
 				}
@@ -200,7 +202,7 @@ var playState = {
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.D) && isClimbing == true && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+			if(game.input.keyboard.isDown(Phaser.Keyboard.D) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -222,10 +224,15 @@ var playState = {
 		//Allow left to right movement when not climbing but not when climbing something
 		if(isClimbing == true){
 			canControl = false;
+			isJumping = false;
 		}
 		else if(isClimbing == false){
 			canControl = true;
 			player.body.gravity.y = playerGravity;
+		}
+		//reset jump variable when landing
+		if(hitPlatform){
+			isJumping = false;
 		}
 		//Give control back when touching the ground
 		if (hitPlatform || pushCollide) {
@@ -362,6 +369,7 @@ var playState = {
 					}
 					player.body.velocity.y = -400; //jump height
 					isClimbing = false;
+					isJumping = true;
 				}
 			}
 		}
