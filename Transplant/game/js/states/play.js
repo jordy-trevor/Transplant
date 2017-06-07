@@ -34,6 +34,8 @@ var canMove = true; //Checks if player can move at this time
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
 // 'none' allows players to open doors that are no locked
 
+var elevatorBackground;
+
 var playState = {
 	preload: function(){
 		console.log('Play: preload');
@@ -367,8 +369,17 @@ var playState = {
 			
 				doorEntering = doorGroup.children[i];
 				console.log(doorEntering.keyRequired);
+				if (doorEntering.name == 'elevator' && canMove == true) {
+					console.log('show elevator');
+					canMove = false;
+					elevatorBackground = game.add.sprite(100, 100, 'box');
+				} else if (doorEntering.name == 'elevator' && canMove == false) {
+					console.log('kill elevator');
+					elevatorBackground.destroy();
+					canMove = true;
+				}
 				// only enter the door if the key exists in your inventory
-				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
+				else if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
 					playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
 					this.generateLevel(doorEntering.leadsTo);
 				
