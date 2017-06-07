@@ -30,6 +30,7 @@ var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var levelData; //json file being used
 var canMove = true; //Checks if player can move at this time
+var isJumping = false; //is the player jumping right now?
 
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
 // 'none' allows players to open doors that are no locked
@@ -67,7 +68,7 @@ var playState = {
 		platforms2 = game.add.group();
 
 
-		generateLevel('level0');
+		generateLevel('room303');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
@@ -174,17 +175,39 @@ var playState = {
 				player.frame ++; //Go through each frame of climb
 				//player goes up
 				player.body.position.y -= 2;
-				isClimbing = true; //disable left and right movement
+				isClimbing = true; //disable normal left and right movement
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.W)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
-					player.frame = 13; //set to top of climb frames
+					player.frame = 0; //set to bottom of climb frames
 				}
-				player.frame --; //Go through each frame of climb backwards
+				player.frame ++; //Go through each frame of climb
 				//player goes down
 				player.body.position.y += 2;
-				isClimbing = true; //disable left and right movement
+				isClimbing = true; //disable normal left and right movement
+				player.body.velocity.y = 0;
+				player.body.gravity.y = 0; //player doesn't automatically fall off
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.A) && isClimbing == true && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.D)){
+				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
+					player.frame = 0; //set to bottom of climb frames
+				}
+				player.frame ++; //Go through each frame of climb
+				//player goes left
+				player.body.position.x -= 2;
+				isClimbing = true; //disable normal left and right movement
+				player.body.velocity.y = 0;
+				player.body.gravity.y = 0; //player doesn't automatically fall off
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.D) && isClimbing == true && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
+					player.frame = 0; //set to bottom climb frames
+				}
+				player.frame ++; //Go through each frame of climbs
+				//player goes right
+				player.body.position.x += 2;
+				isClimbing = true; //disable normal left and right movement
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
