@@ -65,7 +65,7 @@ var playState = {
 		platforms2 = game.add.group();
 
 
-		generateLevel('room303');
+		generateLevel('level0');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
@@ -113,9 +113,35 @@ var playState = {
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
 			// if you are touching this enemy and this enemy sees you
-			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {	
-				playerSpawnX = 50;		
-				generateLevel('level0');
+			if(game.physics.arcade.overlap(player, c) && c.seesPlayer == true) {
+				//add a timer
+				timer = game.time.create();
+
+				//reset player properties
+				playerSpawnX = 50;
+				player.body.velocity.x = 0;
+				player.body.velocity.y = 0;
+				canMove = false;
+
+				//fade to black screen in a 500 ms timeframe
+				var restart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
+				restart.alpha = 0;
+				restart.fixedToCamera =  true;
+				game.add.tween(restart).to( {alpha: 1}, 500, Phaser.Easing.Linear.None, true, 0, 0, false);
+				timer.add(500, function (){
+					//after 500 ms generate starting room
+					generateLevel('level0');
+					//then fade out of black back to visibility
+					game.add.tween(restart).to( {alpha: 0}, 500, Phaser.Easing.Linear.None, true, 0, 0, false)
+				},this);
+				timer.add(1400, function(){
+					//once fades are done, player can move again and black screen is destroyed
+					canMove = true;
+					restart.destroy();
+				}, this);
+
+				//start the timer when function starts
+				timer.start();
 			}
 		});
 
@@ -320,14 +346,17 @@ var playState = {
 		var noteReading;
 		for(var i = 0; i < noteGroup.children.length; i++){
 			noteReading = noteGroup.children[i];
+			//if player is overlaping with the noteGroup
 			if(game.physics.arcade.overlap(player, noteReading)){
 				if(canMove == true){	
+					//Add the blown up version of the sprite on screen and stop player from moving
 					read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
 					read.alpha = 1;
 					read.fixedToCamera = true;
 					canMove = false;
 				}
 				else{
+					//Destroy the blown up version of the sprite on screen and allow player to move again
 					read.destroy();
 					canMove = true;
 				}
@@ -426,7 +455,7 @@ var generateLevel = function(levelName) {
 	} 
 
 	//Player object
-	player = game.add.sprite(playerSpawnX, game.world.height - 175, 'atlas', 'patient 1.png');
+	player = game.add.sprite(playerSpawnX, game.world.height - 165, 'atlas', 'patient 1.png');
 	//player properties
 	game.physics.enable([player], Phaser.Physics.ARCADE);
 	player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
@@ -442,8 +471,6 @@ var generateLevel = function(levelName) {
 	player.animations.add('crawlRight',[14,15,16,17,18,19,20], 10, true);
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
 	group2.add(player); //set player to top layer
-
-	counter = 0;
 
 	game.camera.follow(player, Phaser.PLATFORMER);
 
@@ -469,7 +496,6 @@ var generateLevel = function(levelName) {
 			keyCardGroup.add(keyCardTemp);
 		}
 	}
-
 	
 	// platforms
 	platforms.enableBody = true;
