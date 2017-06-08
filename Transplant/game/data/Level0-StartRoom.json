@@ -5,7 +5,7 @@
 	"obstacleData" : [],
 	"enemyData" : [],
 	"doorData" : [
-		{"frame" : "normalDoor", "name" : "door1", "leadsTo" : "level3", "xPos" : 610, "yPos" : 324, "spawnAtx" : 1000, "keyRequired": "none"}
+		{"frame" : "normalDoor", "name" : "door1", "leadsTo" : "labLevel", "xPos" : 610, "yPos" : 324, "spawnAtx" : 1000, "keyRequired": "none"}
 	],
 	"keyCardData" : [],
 	"noteData" : []

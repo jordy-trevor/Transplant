@@ -1,0 +1,164 @@
+{"frames": [
+
+{
+	"filename": "lab 1.png",
+	"frame": {"x":1,"y":1,"w":378,"h":1323},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":6,"w":378,"h":1323},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 2.png",
+	"frame": {"x":381,"y":1,"w":377,"h":1328},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":4,"w":377,"h":1328},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 3.png",
+	"frame": {"x":760,"y":1,"w":367,"h":1328},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":4,"w":367,"h":1328},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 4.png",
+	"frame": {"x":1129,"y":1,"w":378,"h":1322},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":10,"w":378,"h":1322},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 5.png",
+	"frame": {"x":1509,"y":1,"w":355,"h":1322},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":10,"w":355,"h":1322},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 6.png",
+	"frame": {"x":1866,"y":1,"w":347,"h":1322},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":10,"w":347,"h":1322},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 7.png",
+	"frame": {"x":2215,"y":1,"w":370,"h":1318},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":14,"w":370,"h":1318},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 8.png",
+	"frame": {"x":2587,"y":1,"w":373,"h":1318},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":14,"w":373,"h":1318},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 9.png",
+	"frame": {"x":2962,"y":1,"w":380,"h":1323},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":6,"w":380,"h":1323},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 10.png",
+	"frame": {"x":3344,"y":1,"w":377,"h":1326},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":4,"w":377,"h":1326},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 11.png",
+	"frame": {"x":3723,"y":1,"w":367,"h":1318},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":14,"w":367,"h":1318},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 12.png",
+	"frame": {"x":4092,"y":1,"w":378,"h":1316},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":16,"w":378,"h":1316},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 13.png",
+	"frame": {"x":4472,"y":1,"w":355,"h":1323},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":9,"w":355,"h":1323},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 14.png",
+	"frame": {"x":4829,"y":1,"w":348,"h":1320},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":31,"y":12,"w":348,"h":1320},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 15.png",
+	"frame": {"x":5179,"y":1,"w":370,"h":1316},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":16,"w":370,"h":1316},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab 16.png",
+	"frame": {"x":5551,"y":1,"w":372,"h":1316},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":16,"w":372,"h":1316},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab front.png",
+	"frame": {"x":5925,"y":1,"w":318,"h":1304},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":28,"w":318,"h":1304},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab left shocked.png",
+	"frame": {"x":6245,"y":1,"w":378,"h":1328},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":1,"w":378,"h":1328},
+	"sourceSize": {"w":385,"h":1332}
+},
+{
+	"filename": "lab right shocked.png",
+	"frame": {"x":6625,"y":1,"w":378,"h":1328},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":1,"w":378,"h":1328},
+	"sourceSize": {"w":385,"h":1332}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "lab ducktor.png",
+	"format": "RGBA8888",
+	"size": {"w":7004,"h":1330},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:037259730b9250ff4ac53705f09791f0:e212235e53a8036b8fefc04eed85fcab:4b0a1da3581001a2580709d5e404f875$"
+}
+}

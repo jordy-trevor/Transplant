@@ -4,6 +4,12 @@
 	"backgroundData" : "lab",
 	"playerStartData" : [{"x" : 199, "y" : 450}],
 	"obstacleData" : [ 
+		{"frame" : "medicalLocker", "xPos" : 681, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 1033, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 1374, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "verticalPipes", "xPos" : 2006, "yPos" : 314, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},				
+		{"frame" : "horizontalPipes", "xPos" : 2171, "yPos" : 222, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},				
+
 
 	],
 	"enemyData" : [
