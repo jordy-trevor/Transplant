@@ -29,17 +29,18 @@ var playerSpawnX = 610; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
+var canMove = true; //Checks if player can move at this time
+var isJumping = false; //is the player jumping right now?
 // 'none' allows players to open doors that are no locked
 // ----------- Other Variables ---------------------
 var door1; //door in the starting room
 var ground; //the ground player stands on
 var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
-var canMove = true; //Checks if player can move at this time
+
 
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
-var isJumping = false; //is the player jumping right now?
 
 var playState = {
 	preload: function(){
@@ -170,10 +171,13 @@ var playState = {
 			hidePlatform = game.physics.arcade.collide(player, platforms2);
 		}
 
+		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+			console.log('hide: ' + hide + ' foreground: ' + foreground);
+		}
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
 		//Climb objects
-		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true) && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true)){
+		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -356,7 +360,7 @@ var playState = {
 				if(playerDirection == 1){
 					player.frame = 46; //Face right
 				}
-				player.position.y = game.world.height - 175; //set player to normal platform
+				player.position.y = game.world.height - 165; //set player to normal platform
 			}
 		}
 	},
@@ -566,9 +570,18 @@ var generateLevel = function(levelName) {
 	//animations for walking
 	player.animations.add('walkRight', [47,48,49,50,51,52], 10, true);
 	player.animations.add('walkLeft', [54,55,56,57,58,59], 10, true);
+	//animations for crawling
 	player.animations.add('crawlRight',[14,15,16,17,18,19,20], 10, true);
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
-	group2.add(player); //set player to top layer
+	if(foreground == true){
+		group2.add(player); //set player to top layer
+	}
+	else{//for if player gets caught while crouching
+		//move player to the foreground
+		group1.remove(player);
+		group2.add(player);
+		foreground=true;
+	}
 
 	game.camera.follow(player, Phaser.PLATFORMER);
 

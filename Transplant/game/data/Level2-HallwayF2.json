@@ -4,7 +4,7 @@
 	"backgroundData" : "HallBG",
 	"playerStartData" : [{"x" : 199, "y" : 450}],
 	"obstacleData" : [ 
-		{"frame" : "verticalPipes", "xPos" : 4350, "yPos" : 305, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},				
+		{"frame" : "verticalPipes", "xPos" : 4350, "yPos" : 305, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "none", "gravityEnabled" : false, "hidable" : true},				
 		{"frame" : "verticalPipes", "xPos" : 3120, "yPos" : 270, "xScale" : ".75", "yScale": ".75", "pushable" : false, "climbable" : true, "collidable" : "none", "gravityEnabled" : false, "hidable" : true},						
 		{"frame" : "medBox", "xPos" : 3620, "yPos" : 405, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "cabinet", "xPos" : 4050, "yPos" : 384, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},		
@@ -17,12 +17,11 @@
 		{"frame" : "bigLight", "xPos" : 1855, "yPos" : 222, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "bigLight", "xPos" : 2300, "yPos" : 222, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "horizontalPipes", "xPos" : 1568, "yPos" : 75, "xScale" : "1.1", "yScale": "1.1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "airVent", "xPos" : 3650, "yPos" : 110, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "none", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "box", "xPos" : 3890, "yPos" : 385, "xScale" : "1.1", "yScale" : "1.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "box", "xPos" : 1375, "yPos" : 150, "xScale" : "1", "yScale" : "0.96", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "box", "xPos" : 1910, "yPos" : 150, "xScale" : "1", "yScale" : "0.96", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "box", "xPos" : 2340, "yPos" : 150, "xScale" : "1", "yScale" : "0.96", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
-		{"frame" : "box", "xPos" : 2750, "yPos" : 360, "xScale" : "1.5", "yScale" : "2.88", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "box", "xPos" : 27500, "yPos" : 360, "xScale" : "1.5", "yScale" : "2.88", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "horizontalPipes", "xPos" : 3150, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
 		{"frame" : "horizontalPipes", "xPos" : 3330, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
 		{"frame" : "horizontalPipes", "xPos" : 3510, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
@@ -31,8 +30,6 @@
 		{"frame" : "horizontalPipes", "xPos" : 4050, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
 		{"frame" : "horizontalPipes", "xPos" : 4230, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
 		{"frame" : "horizontalPipes", "xPos" : 4410, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false} 
-	
-
 
 	],
 	"enemyData" : [
