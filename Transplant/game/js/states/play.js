@@ -110,7 +110,7 @@ var playState = {
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
-		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
+		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
@@ -332,6 +332,7 @@ var playState = {
 		if(isClimbing == false && !climb && !hide && !pushOverlap && canMove == true){ //Don't allow player to hide when in front of the object
 			if(foreground==true && distanceFromGround <= 40){
 				//move player from foreground to layer behind the object
+				player.body.setSize(90, 145, 63, 4);			
 				group2.remove(player);
 				group1.add(player);
 				foreground=false;
@@ -341,10 +342,11 @@ var playState = {
 				if(playerDirection == 1){
 					player.frame = 14;
 				}
-				player.position.y = game.world.height - 225; //set player to hide platform
+				player.position.y = game.world.height - 200; //set player to hide platform
 			}
 			else if(foreground == false && hidePlatform){
 				//move player to the foreground
+				player.body.setSize(90, 270, 63, 4);	
 				group1.remove(player);
 				group2.add(player);
 				foreground=true;
@@ -551,13 +553,13 @@ var generateLevel = function(levelName) {
 	} 
 
 	//Player object
-	player = game.add.sprite(playerSpawnX, game.world.height - 165, 'atlas', 'patient 1.png');
+	player = game.add.sprite(playerSpawnX, game.world.height - 165, 'atlas', 'patient-1.png');
 	//player properties
 	game.physics.enable([player], Phaser.Physics.ARCADE);
-	player.body.setSize(600, 1800, 420, 25); // adjusts hitbox
+	player.body.setSize(90, 270, 63, 4); // adjusts hitbox
 	player.anchor.set(0.5);
-	player.scale.x = 0.075;
-	player.scale.y = 0.075;
+	player.scale.x = 0.5;
+	player.scale.y = 0.5;
 	game.physics.enable(player);
 	player.body.gravity.y = playerGravity;
 	player.body.collideWorldBounds = true;
