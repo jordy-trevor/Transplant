@@ -46,11 +46,11 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 		this.body.checkCollision.right = false;
 	}
 
-	if(this.collidable == 'full'){
-		this.body.checkCollision.up = true;
-		this.body.checkCollision.left = true;
-		this.body.checkCollision.right = true;
-		this.body.checkCollision.down = true;
+	if(this.collidable == 'none'){
+		this.body.checkCollision.up = false;
+		this.body.checkCollision.left = false;
+		this.body.checkCollision.right = false;
+		this.body.checkCollision.down = false;
 	}
 }
 
@@ -73,6 +73,13 @@ Obstacle.prototype.update = function() {
 
 	if(this.climbable && !this.gravityEnabled && this.collidable == 'top'){
 		this.body.checkCollision.down = false;
+	}
+
+	if(this.collidable == 'none' && this.hidable == true && foreground == false){
+		this.body.checkCollision.up = true;
+	}
+	else if(this.collidable == 'none' && this.hidable == true && foreground == true){
+		this.body.checkCollision.up = false;
 	}
 
 	// can the object be pushed?

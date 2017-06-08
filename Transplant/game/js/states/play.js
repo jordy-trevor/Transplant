@@ -110,7 +110,8 @@ var playState = {
 		else{
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
-		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
+
+		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup]);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		// keyCard can hit stuff
