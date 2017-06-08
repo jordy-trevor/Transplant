@@ -21,6 +21,7 @@ var load = {
 		//title screen
 		game.load.image('title', 'titleScreen.png');
 		game.load.image('playButton', 'playButton.png');
+		game.load.image('controlsScreen', 'Controls.png');
 
 		// sprites
 		game.load.image('box', 'box.png');

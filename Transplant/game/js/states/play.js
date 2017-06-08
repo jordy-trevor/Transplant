@@ -25,7 +25,7 @@ var distanceFromGround; //player's y-distance from the ground
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 32; // where to spawn the player after entering a door, etc
+var playerSpawnX = 120; // where to spawn the player at the start of the game
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
@@ -137,7 +137,7 @@ var playState = {
 				timer = game.time.create();
 
 				//reset player properties
-				playerSpawnX = 50;
+				playerSpawnX = 120;
 				player.body.velocity.x = 0;
 				player.body.velocity.y = 0;
 				canMove = false;

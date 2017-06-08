@@ -3,6 +3,7 @@ var game = new Phaser.Game(1200, 600, Phaser.AUTO, 'gameDiv'); //define game, te
 //adding states
 game.state.add('load', load);
 game.state.add('menu', menuState);
+game.state.add('controls', controlState);
 game.state.add('play', playState);
 game.state.add('end', endState);
 
