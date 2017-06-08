@@ -25,7 +25,7 @@ var distanceFromGround; //player's y-distance from the ground
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 610; // where to spawn the player after entering a door, etc
+var playerSpawnX = 120; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
@@ -112,6 +112,7 @@ var playState = {
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
+		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
 		game.physics.arcade.collide(keyCardGroup, platforms);
@@ -131,6 +132,7 @@ var playState = {
 				player.body.velocity.x = 0;
 				player.body.velocity.y = 0;
 				canMove = false;
+				c.body.velocity.x = 0;
 
 				//fade to black screen in a 500 ms timeframe
 				var restart = game.add.tileSprite(0,0,1200,800, 'blackScreen');

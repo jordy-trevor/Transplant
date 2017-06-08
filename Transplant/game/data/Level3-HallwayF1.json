@@ -4,19 +4,25 @@
 	"backgroundData" : "HallBG",
 	"playerStartData" : [{"x" : 199, "y" : 450}],
 	"obstacleData" : [ 
-		{"frame" : "desk", "xPos" : 1350, "yPos" : 410, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "desk", "xPos" : 1460, "yPos" : 410, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
-
-
+		{"frame" : "desk", "xPos" : 1460, "yPos" : 400, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "airVentPart", "xPos" : 2484, "yPos" : 204, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "airVentPart", "xPos" : 3056, "yPos" : 204, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "bookShelf", "xPos" : 2707, "yPos" : 308, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "bookShelf", "xPos" : 2836, "yPos" : 308, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "box", "xPos" : 2773, "yPos" : 140, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "box", "xPos" : 3405, "yPos" : 385, "xScale" : "1.2", "yScale" : "1.2", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
 	],
 	"enemyData" : [
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 1460, "yPos" : 200, "walkSpeed" : 0, "runSpeed" : 180, "walkDist" : 0, "turnTime" : 10000, "facing" : "right", "target" : "player"},
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 2484, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 180, "walkDist" : 0, "turnTime" : 6, "facing" : "right", "target" : "player"},
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 3056, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 180, "walkDist" : 0, "turnTime" : 3, "facing" : "left", "target" : "player"}
 	],
 	"doorData" : [
 		{"name" : "door101", "leadsTo": "room101", "xPos" : 850, "yPos" : 337, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "spawnAtx" : 621, "keyRequired" : "none"},
 		{"name" : "door103", "leadsTo" : "room103", "xPos" : 2405, "yPos" : 336, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "door105", "leadsTo" : "room105", "xPos" : 4192, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
-		{"name" : "stairsSecondFloor", "leadsTo" : "labLevel", "xPos" : 5200, "yPos" : 305, "frame" : "stairs", "spawnAtx" : 100, "keyRequired": "none"}
+		{"name" : "doubleDoor", "leadsTo" : "labLevel", "xPos" : 4247, "yPos" : 193, "frame" : "stairs", "spawnAtx" : 100, "keyRequired": "none"}
 
 	],
 	"keyCardData" : [],
