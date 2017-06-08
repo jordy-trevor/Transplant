@@ -40,7 +40,7 @@ var levelData; //json file being used
 
 
 // elevator panel that must be created global for proper destruction afterwards
-var elevatorBackground; var elevatorText; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
+var elevatorBackground; var elevatorText; var button0; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
 
 var playState = {
 	preload: function(){
@@ -432,16 +432,17 @@ var playState = {
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
 						var elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
-						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '1'; elevatorText.setText(elevatorString);} , this, 'button1', 'button1');
-						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '2'; elevatorText.setText(elevatorString);} , this, 'button2', 'button2');
-						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '3'; elevatorText.setText(elevatorString);} , this, 'button3', 'button3');
-						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '4'; elevatorText.setText(elevatorString);} , this, 'button4', 'button4');
-						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '5'; elevatorText.setText(elevatorString);} , this, 'button5', 'button5');
-						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '6'; elevatorText.setText(elevatorString);} , this, 'button6', 'button6');
-						button7 = game.add.button(145, 430, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '7'; elevatorText.setText(elevatorString);} , this, 'button7', 'button7');
-						button8 = game.add.button(225, 430, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '8'; elevatorText.setText(elevatorString);} , this, 'button8', 'button8');
-						button9 = game.add.button(305, 430, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} elevatorString += '9'; elevatorText.setText(elevatorString);} , this, 'button9', 'button9');
-						buttonEnter = game.add.button(225, 500, 'elevatorAtlas', 
+						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}} , this, 'button1', 'button1');
+						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}} , this, 'button2', 'button2');
+						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}} , this, 'button3', 'button3');
+						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}} , this, 'button4', 'button4');
+						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}} , this, 'button5', 'button5');
+						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);}} , this, 'button6', 'button6');
+						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}} , this, 'button7', 'button7');
+						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);}} , this, 'button8', 'button8');
+						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);}} , this, 'button9', 'button9');
+						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}} , this, 'button0', 'button0');
+						buttonEnter = game.add.button(305, 490, 'elevatorAtlas', 
 							function() { 
 								// if the code entered matches properly, generate level and close panel
 								var shouldDestroy = false;
@@ -460,6 +461,7 @@ var playState = {
 									button7.destroy();
 									button8.destroy();
 									button9.destroy();
+									button0.destroy();
 									buttonEnter.destroy();
 									elevatorText.destroy();
 									canMove = true;
@@ -479,6 +481,7 @@ var playState = {
 						button7.destroy();
 						button8.destroy();
 						button9.destroy();
+						button0.destroy();
 						buttonEnter.destroy();
 						elevatorText.destroy();
 						canMove = true;
