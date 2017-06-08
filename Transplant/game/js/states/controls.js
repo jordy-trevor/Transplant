@@ -1,13 +1,16 @@
 //Global Variables
+
 var title; //title logo and background
 var playButton; //the play button
 var scale = 1;
-var menuState = {
+var controlState = {
 	create: function(){
-		console.log('Menu: create');
+		console.log('Controls: create');
     
-		title = game.add.tileSprite(0,0,1200,800, 'title');
-		playButton = game.add.button(75, 350, 'playButton', this.actionOnClick, this, 1, 1);
+		title = game.add.tileSprite(0,0,1200,800, 'controlsScreen');
+		playButton = game.add.button(1050, 480, 'playButton', this.actionOnClick, this, 1, 1);
+		playButton.scale.x = 1.4;
+		playButton.scale.y = 1.4
 
 		playButton.onInputOver.add(this.over, this);
 		playButton.onInputOut.add(this.out, this);
@@ -26,6 +29,6 @@ var menuState = {
 		playButton.alpha = 0.5;
 	},
 	actionOnClick: function() { //when player clicks on playButton
-		this.state.start('controls'); //Switch to the next state
+		this.state.start('play'); //Switch to the next state
 	}
 };

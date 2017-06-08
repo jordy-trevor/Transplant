@@ -8,6 +8,7 @@ var load = {
 
 		// background
 		game.load.image('title', 'titleScreen.png');
+		game.load.image('controls', 'Controls.png');
 		game.load.image('hallRoomSprite', 'HallOne.jpg');
 		game.load.image('startRoomSprite', 'Level01.jpg');
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
@@ -15,12 +16,15 @@ var load = {
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
 		game.load.image('patientRoom', 'patientRoom.jpg');
 		game.load.image('HallBG', 'HallBG.jpg');
+		game.load.image('hall2', 'HallTwo.jpg');
+		game.load.image('shadowsHallTwo', 'shadowsHallTwo.png');
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
 		game.load.image('playButton', 'playButton.png');
+		game.load.image('controlsScreen', 'Controls.png');
 
 		// sprites
 		game.load.image('box', 'box.png');
@@ -59,6 +63,20 @@ var load = {
 		game.load.image('wheelChair', 'wheelChair.png');
 		game.load.image('note1', 'familyPortrait.jpg');
 		game.load.image('complaint', 'complaint.png');
+
+
+		// inventory
+		game.load.image('entranceFloorElevatorCodeInventory', 'inventory/Entrance.png');
+		game.load.image('floor1ElevatorCodeInventory', 'inventory/Floor 1.png');
+		game.load.image('floor2ElevatorCodeInventory', 'inventory/Floor 2.png');
+		game.load.image('floor3ElevatorCodeInventory', 'inventory/Floor 3.png');
+		game.load.image('inventoryBackgroundInventory', 'inventory/inventory.png');
+		game.load.image('morgueElevatorCodeInventory', 'inventory/Morgue.png');
+		game.load.image('keyCard105Inventory', 'inventory/Room 105 Key Card.png');
+		game.load.image('keyCard201Inventory', 'inventory/Room 201 Key Card.png');
+		game.load.image('keyCard203Inventory', 'inventory/Room 203 Key Card.png');
+		game.load.image('keyCard205Inventory', 'inventory/Room 205 Key Card.png');
+		game.load.image('keyCard303Inventory', 'inventory/Room 303 Key Card.png');
 		
 
 		// load in level files
