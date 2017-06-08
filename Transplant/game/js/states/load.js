@@ -8,6 +8,7 @@ var load = {
 
 		// background
 		game.load.image('title', 'titleScreen.png');
+		game.load.image('controls', 'Controls.png');
 		game.load.image('hallRoomSprite', 'HallOne.jpg');
 		game.load.image('startRoomSprite', 'Level01.jpg');
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
@@ -15,6 +16,8 @@ var load = {
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
 		game.load.image('patientRoom', 'patientRoom.jpg');
 		game.load.image('HallBG', 'HallBG.jpg');
+		game.load.image('hall2', 'HallTwo.jpg');
+		game.load.image('shadowsHallTwo', 'shadowsHallTwo.png');
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
 

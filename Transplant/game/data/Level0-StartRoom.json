@@ -8,8 +8,6 @@
 		{"frame" : "normalDoor", "name" : "door1", "leadsTo" : "level1", "xPos" : 610, "yPos" : 324, "spawnAtx" : 199, "keyRequired": "none"}
 	],
 	"keyCardData" : [],
-	"noteData" : [
-		{"name" : "familyPortrait", "leadsTo" : "note1", "xPos" : 325, "yPos" : 340, "frame" : "note1"}
-	]
+	"noteData" : []
 
 }
