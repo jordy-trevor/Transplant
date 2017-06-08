@@ -15,6 +15,8 @@ var load = {
 		game.load.image('endingTallGrass', 'endingTallGrass.png');
 		game.load.image('patientRoom', 'patientRoom.jpg');
 		game.load.image('HallBG', 'HallBG.jpg');
+		game.load.image('hall2', 'HallTwo.jpg');
+		game.load.image('shadowsHallTwo', 'shadowsHallTwo.png');
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
 
