@@ -113,12 +113,13 @@ var playState = {
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, platforms);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
+		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
 		game.physics.arcade.collide(keyCardGroup, platforms);
 		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
-		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
-		hide = game.physics.arcade.overlap(player,obstacleHideGroup);
+		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
+		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
 
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
