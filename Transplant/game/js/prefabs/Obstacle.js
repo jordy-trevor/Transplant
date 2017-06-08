@@ -70,6 +70,18 @@ Obstacle.prototype.update = function() {
 			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
 		}
 	}
+
+	if(this.climbable && !this.gravityEnabled && this.collidable == 'top'){
+		this.body.checkCollision.down = false;
+	}
+
+	if(this.collidable == 'none' && this.hidable == true && foreground == false){
+		this.body.checkCollision.up = true;
+	}
+	else if(this.collidable == 'none' && this.hidable == true && foreground == true){
+		this.body.checkCollision.up = false;
+	}
+
 	// can the object be pushed?
 	if (this.pushable) {
 		if(foreground == true){
