@@ -3,7 +3,7 @@
 var title; //title logo and background
 var playButton; //the play button
 var scale = 1;
-var controlState = {
+var controlsState = {
 	create: function(){
 		console.log('Controls: create');
     
