@@ -40,7 +40,6 @@ var canMove = true; //Checks if player can move at this time
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
 var isJumping = false; //is the player jumping right now?
-
 var playState = {
 	preload: function(){
 		console.log('Play: preload');
@@ -49,9 +48,15 @@ var playState = {
 
 	create: function() {
 		console.log('Play: create');
+		
 		//begin hospital music
 		music = game.add.audio('hospitalMusic');
-		music.play();
+		music.loopFull(0.8);
+		//initializes sound effects
+		playerFootsteps = game.add.audio('indoorFootsteps');
+		doorSound = game.add.audio('doorOpenClose');
+
+		
 
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
@@ -264,6 +269,8 @@ var playState = {
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkLeft');
+					//Walking sound
+					playerFootsteps.play('',0,.5,false,false);					
 				}
 				//jump animation
 				else{
@@ -292,6 +299,8 @@ var playState = {
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkRight');
+					//Walking sound
+					playerFootsteps.play('',0,.5,false,false);
 				}
 				//jump animation
 				else{
@@ -405,7 +414,8 @@ var playState = {
 				doorEntering = doorGroup.children[i];
 				// only enter the door if the key exists in your inventory
 				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
-					
+					//play door audio
+					doorSound.play();
 					console.log('now entering: ' + doorEntering.name);
 					if (doorEntering.name == 'elevator' && canMove == true) {
 						console.log('show elevator');

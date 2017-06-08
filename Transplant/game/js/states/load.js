@@ -78,6 +78,8 @@ var load = {
 		// sound
 		game.load.path = '../game/assets/audio/';
 		game.load.audio('hospitalMusic', 'hospitalMusic.mp3');
+		game.load.audio('indoorFootsteps', 'indoorFootsteps.mp3');
+		game.load.audio('doorOpenClose', 'doorOpenClose.mp3');
 
 
 	},
