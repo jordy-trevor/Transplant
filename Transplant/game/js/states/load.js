@@ -8,6 +8,7 @@ var load = {
 
 		// background
 		game.load.image('title', 'titleScreen.png');
+		game.load.image('controls', 'Controls.png');
 		game.load.image('hallRoomSprite', 'HallOne.jpg');
 		game.load.image('startRoomSprite', 'Level01.jpg');
 		game.load.image('shadowsHallOne', 'shadowsHallOne.png');
