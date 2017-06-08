@@ -25,21 +25,23 @@ var distanceFromGround; //player's y-distance from the ground
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 120; // where to spawn the player after entering a door, etc
+var playerSpawnX = 32; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
+var canMove = true; //Checks if player can move at this time
+var isJumping = false; //is the player jumping right now?
 // 'none' allows players to open doors that are no locked
 // ----------- Other Variables ---------------------
 var door1; //door in the starting room
 var ground; //the ground player stands on
 var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
-var canMove = true; //Checks if player can move at this time
+
 
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button0; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
-var isJumping = false; //is the player jumping right now?
+
 var playState = {
 	preload: function(){
 		console.log('Play: preload');
@@ -114,7 +116,8 @@ var playState = {
 		else{
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
-		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
+
+		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup]);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
@@ -179,9 +182,10 @@ var playState = {
 		}
 
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
+		
 		//Climb objects
-		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true) && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true)){
+		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -368,7 +372,7 @@ var playState = {
 				if(playerDirection == 1){
 					player.frame = 46; //Face right
 				}
-				player.position.y = game.world.height - 175; //set player to normal platform
+				player.position.y = game.world.height - 165; //set player to normal platform
 			}
 		}
 	},
@@ -401,7 +405,7 @@ var playState = {
 			if(game.physics.arcade.overlap(player, noteReading)){
 				if(canMove == true){	
 					//Add the blown up version of the sprite on screen and stop player from moving
-					read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
+					read = game.add.sprite(100, -125, noteReading.leadsTo);
 					read.alpha = 1;
 					read.fixedToCamera = true;
 					canMove = false;
@@ -559,10 +563,15 @@ var generateLevel = function(levelName) {
 		//console.log(obstacleTemp);
 	} 
 
+	//generate notes
 	for (var index = 0; index < levelData.noteData.length; index++) {
 		// set element to the object and use it's parameters
 		var noteTemp = new Note(game, levelData.noteData[index].frame, levelData.noteData[index].name, levelData.noteData[index].leadsTo, levelData.noteData[index].xPos, levelData.noteData[index].yPos);
 		noteTemp.scale.setTo(0.05, 0.05);
+		if(levelData.backgroundData == 'startRoomSprite'){
+			noteTemp.scale.setTo(0.075, 0.1);
+			noteTemp.alpha = 0;
+		}
 		game.physics.enable(noteTemp);
 		game.add.existing(noteTemp);
 		noteGroup.add(noteTemp);
@@ -582,9 +591,18 @@ var generateLevel = function(levelName) {
 	//animations for walking
 	player.animations.add('walkRight', [47,48,49,50,51,52], 10, true);
 	player.animations.add('walkLeft', [54,55,56,57,58,59], 10, true);
+	//animations for crawling
 	player.animations.add('crawlRight',[14,15,16,17,18,19,20], 10, true);
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
-	group2.add(player); //set player to top layer
+	if(foreground == true){
+		group2.add(player); //set player to top layer
+	}
+	else{//for if player gets caught while crouching
+		//move player to the foreground
+		group1.remove(player);
+		group2.add(player);
+		foreground=true;
+	}
 
 	game.camera.follow(player, Phaser.PLATFORMER);
 
