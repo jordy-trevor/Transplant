@@ -60,6 +60,20 @@ var load = {
 		game.load.image('wheelChair', 'wheelChair.png');
 		game.load.image('note1', 'familyPortrait.jpg');
 		game.load.image('complaint', 'complaint.png');
+
+
+		// inventory
+		game.load.image('entranceFloorElevatorCodeInventory', 'inventory/Entrance.png');
+		game.load.image('floor1ElevatorCodeInventory', 'inventory/Floor 1.png');
+		game.load.image('floor2ElevatorCodeInventory', 'inventory/Floor 2.png');
+		game.load.image('floor3ElevatorCodeInventory', 'inventory/Floor 3.png');
+		game.load.image('inventoryBackgroundInventory', 'inventory/inventory.png');
+		game.load.image('morgueElevatorCodeInventory', 'inventory/Morgue.png');
+		game.load.image('keyCard105Inventory', 'inventory/Room 105 Key Card.png');
+		game.load.image('keyCard201Inventory', 'inventory/Room 201 Key Card.png');
+		game.load.image('keyCard203Inventory', 'inventory/Room 203 Key Card.png');
+		game.load.image('keyCard205Inventory', 'inventory/Room 205 Key Card.png');
+		game.load.image('keyCard303Inventory', 'inventory/Room 303 Key Card.png');
 		
 
 		// load in level files

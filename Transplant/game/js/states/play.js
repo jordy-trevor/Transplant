@@ -41,6 +41,9 @@ var levelData; //json file being used
 
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button0; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
+var invFloor1; var invFloor2; var invFloor3; var invEntrance; var invBack; var inv105; var inv203; var inv303; var invMorgue; var inv201; var inv205;
+var inventoryOpen = false; // var to help with killing of inventory sprites
+var elevatorOpen = false;
 
 var playState = {
 	preload: function(){
@@ -106,6 +109,10 @@ var playState = {
 		//Use E key to open the door
 		this.interactKey = game.input.keyboard.addKey(Phaser.Keyboard.E);
 		this.interactKey.onDown.add(this.interact);
+
+		// Use I key for inventory
+		this.inventoryKey = game.input.keyboard.addKey(Phaser.Keyboard.I);
+		this.inventoryKey.onDown.add(this.inventory);
 	},
 
 	update: function(){
@@ -426,9 +433,10 @@ var playState = {
 					//play door audio
 					doorSound.play();
 					console.log('now entering: ' + doorEntering.name);
-					if (doorEntering.name == 'elevator' && canMove == true) {
+					if (doorEntering.name == 'elevator' && elevatorOpen == false) {
 						console.log('show elevator');
 						canMove = false;
+						elevatorOpen = true;
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
 						var elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
@@ -468,7 +476,7 @@ var playState = {
 								}
 								elevatorText.setText(elevatorString);
 							}, this, 'buttonEnt', 'buttonEnt');
-					} else if (doorEntering.name == 'elevator' && canMove == false) {
+					} else if (doorEntering.name == 'elevator' && elevatorOpen == true) {
 						console.log('kill elevator');
 						console.log(canMove);
 						elevatorBackground.destroy();
@@ -485,6 +493,7 @@ var playState = {
 						buttonEnter.destroy();
 						elevatorText.destroy();
 						canMove = true;
+						elevatorOpen = false
 					} else {
 						playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
 						this.generateLevel(doorEntering.leadsTo);
@@ -494,6 +503,84 @@ var playState = {
 					break;
 				}
 			}
+		}
+	},
+	inventory: function() {
+		if (!inventoryOpen) {
+			canMove = false;
+			invBack = game.add.image(player.body.position.x -100, 150, 'inventoryBackgroundInventory');
+			invBack.scale.x = 0.5;
+			invBack.scale.y = 0.5;
+
+
+			if(inventory.indexOf('floor1ElevatorCode') > -1 ){
+				invFloor1 = game.add.image(player.body.position.x +300, 300, 'floor1ElevatorCodeInventory');
+				invFloor1.scale.x = 0.4;
+				invFloor1.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('floor2ElevatorCode') > -1) {
+				invFloor2 = game.add.image(player.body.position.x+300, 255, 'floor2ElevatorCodeInventory');
+				invFloor2.scale.x = 0.4;
+				invFloor2.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('floor3ElevatorCode') > -1) {
+				invFloor3 = game.add.image(player.body.position.x+300, 205, 'floor3ElevatorCodeInventory');
+				invFloor3.scale.x = 0.4;
+				invFloor3.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('morgueElevatorCode') > -1 ) {
+				invMorgue = game.add.image(player.body.position.x+300, 350, 'morgueElevatorCodeInventory');
+				invMorgue.scale.x = 0.4;
+				invMorgue.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('entranceFloorElevatorCode') > -1) {
+				invEntrance = game.add.image(player.body.position.x+300, 400, 'entranceFloorElevatorCodeInventory');
+				invEntrance.scale.x = 0.4;
+				invEntrance.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('keyCard105') > -1) {
+				inv105 = game.add.image(player.body.position.x, 400, 'keyCard105Inventory');
+				inv105.scale.x = 0.4;
+				inv105.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('keyCard201') > -1){
+				inv201 = game.add.image(player.body.position.x, 255, 'keyCard201Inventory');
+				inv201.scale.x = 0.4;
+				inv201.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('keyCard203') > -1) {
+				inv203 = game.add.image(player.body.position.x, 300, 'keyCard203Inventory');
+				inv203.scale.x = 0.4;
+				inv203.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('keyCard205') > -1) {
+				inv205 = game.add.image(player.body.position.x, 350, 'keyCard205Inventory');
+				inv205.scale.x = 0.4;
+				inv205.scale.y = 0.4;
+			} 
+			if (inventory.indexOf('keyCard303') > -1) {
+				inv303 = game.add.image(player.body.position.x, 205, 'keyCard303Inventory');
+				inv303.scale.x = 0.4;
+				inv303.scale.y = 0.4;
+			} 
+			
+			
+			inventoryOpen = true;
+		} else {
+			console.log('kill inv');
+			if( invFloor1 != undefined) {invFloor1.destroy();}
+			if( invFloor2 != undefined) {invFloor2.destroy();} 
+			if( invFloor3 != undefined) {invFloor3.destroy();} 
+			if( invEntrance != undefined) {invEntrance.destroy();} 
+			if( invBack != undefined) {invBack.destroy();}
+			if( inv105 != undefined) {inv105.destroy();} 
+			if( inv203 != undefined) {inv203.destroy();} 
+			if( inv303 != undefined) {inv303.destroy();} 
+			if( invMorgue != undefined) {invMorgue.destroy();} 
+			if( inv201 != undefined) {inv201.destroy(); }
+			if( inv205 != undefined) {inv205.destroy();}
+			inventoryOpen = false;
+			canMove = true;
 		}
 	}
 };
