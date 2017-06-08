@@ -45,6 +45,7 @@ var load = {
 		game.load.image('blackScreen', 'black.png');
 		game.load.image('desk', 'Desk.png');
 		game.load.image('airVent', 'airVent.png');
+		game.load.image('airVentPart', 'airVentPart.png');
 		game.load.image('horizontalPipes', 'horizontalPipes.png');
 		game.load.image('verticalPipes', 'verticalPipes.png');
 		game.load.image('doubleDoor', 'doubleDoor.png');
@@ -78,6 +79,8 @@ var load = {
 		// sound
 		game.load.path = '../game/assets/audio/';
 		game.load.audio('hospitalMusic', 'hospitalMusic.mp3');
+		game.load.audio('indoorFootsteps', 'indoorFootsteps.mp3');
+		game.load.audio('doorOpenClose', 'doorOpenClose.mp3');
 
 
 	},

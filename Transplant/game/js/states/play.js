@@ -25,7 +25,7 @@ var distanceFromGround; //player's y-distance from the ground
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 610; // where to spawn the player after entering a door, etc
+var playerSpawnX = 120; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
@@ -40,7 +40,6 @@ var canMove = true; //Checks if player can move at this time
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
 var isJumping = false; //is the player jumping right now?
-
 var playState = {
 	preload: function(){
 		console.log('Play: preload');
@@ -49,9 +48,15 @@ var playState = {
 
 	create: function() {
 		console.log('Play: create');
+		
 		//begin hospital music
 		music = game.add.audio('hospitalMusic');
-		music.play();
+		music.loopFull(0.8);
+		//initializes sound effects
+		playerFootsteps = game.add.audio('indoorFootsteps');
+		doorSound = game.add.audio('doorOpenClose');
+
+		
 
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
@@ -112,12 +117,14 @@ var playState = {
 		pushOverlap = game.physics.arcade.overlap(player,obstaclePushGroup);
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
+		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
+		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
 		game.physics.arcade.collide(keyCardGroup, platforms);
 		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
-		climb = game.physics.arcade.overlap(player,obstacleClimbGroup);
-		hide = game.physics.arcade.overlap(player,obstacleHideGroup);
+		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
+		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
 
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
@@ -131,6 +138,7 @@ var playState = {
 				player.body.velocity.x = 0;
 				player.body.velocity.y = 0;
 				canMove = false;
+				c.body.velocity.x = 0;
 
 				//fade to black screen in a 500 ms timeframe
 				var restart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
@@ -264,6 +272,8 @@ var playState = {
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkLeft');
+					//Walking sound
+					playerFootsteps.play('',0,.5,false,false);					
 				}
 				//jump animation
 				else{
@@ -292,6 +302,8 @@ var playState = {
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkRight');
+					//Walking sound
+					playerFootsteps.play('',0,.5,false,false);
 				}
 				//jump animation
 				else{
@@ -407,7 +419,8 @@ var playState = {
 				doorEntering = doorGroup.children[i];
 				// only enter the door if the key exists in your inventory
 				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
-					
+					//play door audio
+					doorSound.play();
 					console.log('now entering: ' + doorEntering.name);
 					if (doorEntering.name == 'elevator' && canMove == true) {
 						console.log('show elevator');

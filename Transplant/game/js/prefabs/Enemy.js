@@ -44,7 +44,7 @@ Enemy.prototype.update = function() {
 	// can only see the player when they are at the same y level as you
 	if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
 		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) 
-		&&  (!hide||foreground == true) == true && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2 + 20 && (this.target.body.y - this.target.body.height/2) < this.body.y + this.body.height/2 + 20){
+		&&  (!hide||foreground == true) == true && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2 + 20 && (this.target.body.y - this.target.body.height/2) < this.body.y + this.body.height/2 - 25){
 		this.seesPlayer = true;
 		this.walkSpeed = this.runSpeed; // changed speed to runspeed, which in turn triggers proper animation
 	}
