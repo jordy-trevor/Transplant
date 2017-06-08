@@ -1,13 +1,16 @@
 //Global Variables
-var controls; //controls text and bg
+
+var title; //title logo and background
 var playButton; //the play button
 var scale = 1;
-var controlsState = {
+var controlState = {
 	create: function(){
-		console.log('controls: create');
+		console.log('Controls: create');
     
-		controls = game.add.tileSprite(0,0,1200,800, 'controls');
-		playButton = game.add.button(1024, 482, 'playButton', this.actionOnClick, this, 1.5, 1.5);
+		title = game.add.tileSprite(0,0,1200,800, 'controlsScreen');
+		playButton = game.add.button(1050, 480, 'playButton', this.actionOnClick, this, 1, 1);
+		playButton.scale.x = 1.4;
+		playButton.scale.y = 1.4
 
 		playButton.onInputOver.add(this.over, this);
 		playButton.onInputOut.add(this.out, this);
