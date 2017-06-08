@@ -25,7 +25,7 @@ var distanceFromGround; //player's y-distance from the ground
 var playerGravity = 800;
 var playerDirection = 1;
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 610; // where to spawn the player after entering a door, etc
+var playerSpawnX = 32; // where to spawn the player after entering a door, etc
 var pushCollide; //check if player is collidiing with pushable objects
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
@@ -172,10 +172,8 @@ var playState = {
 			hidePlatform = game.physics.arcade.collide(player, platforms2);
 		}
 
-		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-			console.log('hide: ' + hide + ' foreground: ' + foreground);
-		}
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
+		
 		//Climb objects
 		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
 			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true) && player.position.y > 69.25){
@@ -394,7 +392,7 @@ var playState = {
 			if(game.physics.arcade.overlap(player, noteReading)){
 				if(canMove == true){	
 					//Add the blown up version of the sprite on screen and stop player from moving
-					read = game.add.tileSprite(100, -125, 996, 800, noteReading.leadsTo); 
+					read = game.add.sprite(100, -125, noteReading.leadsTo);
 					read.alpha = 1;
 					read.fixedToCamera = true;
 					canMove = false;
@@ -548,10 +546,15 @@ var generateLevel = function(levelName) {
 		//console.log(obstacleTemp);
 	} 
 
+	//generate notes
 	for (var index = 0; index < levelData.noteData.length; index++) {
 		// set element to the object and use it's parameters
 		var noteTemp = new Note(game, levelData.noteData[index].frame, levelData.noteData[index].name, levelData.noteData[index].leadsTo, levelData.noteData[index].xPos, levelData.noteData[index].yPos);
 		noteTemp.scale.setTo(0.05, 0.05);
+		if(levelData.backgroundData == 'startRoomSprite'){
+			noteTemp.scale.setTo(0.075, 0.1);
+			noteTemp.alpha = 0;
+		}
 		game.physics.enable(noteTemp);
 		game.add.existing(noteTemp);
 		noteGroup.add(noteTemp);

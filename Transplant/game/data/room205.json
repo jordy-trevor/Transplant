@@ -16,6 +16,8 @@
 	],
 	"enemyData" : [],
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+		{"name" : "note12", "leadsTo" : "complaint", "xPos" : 1135, "yPos" : 168, "frame" : "complaint"}
+	]
 
 }
