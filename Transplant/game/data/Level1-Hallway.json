@@ -24,7 +24,7 @@
 	],
 	"enemyData" : [
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 180, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 40, "runSpeed" : 180, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 180, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
 	],
 	"doorData" : [
 
@@ -36,7 +36,7 @@
 
 	],
 	"keyCardData" : [
-		{"frame" : "keyCard303", "xPos" : 2743, "yPos" : 254, "name" : "keyCard303"}
+		{"frame" : "keyCard303", "xPos" : 2785, "yPos" : 230, "name" : "keyCard303"}
 	],
 	"noteData" : []
 
