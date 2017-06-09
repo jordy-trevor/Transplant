@@ -60,7 +60,7 @@ var load = {
 		//notes
 		game.load.image('newsArticle', 'newsArticle.png');
 		game.load.image('medCabinet', 'medicalCabinet.jpg');
-		game.load.image('wheelChair', 'wheelChair.png');
+		game.load.image('wheelChair', 'wheelchair.png');
 		game.load.image('note1', 'familyPortrait.jpg');
 		game.load.image('complaint', 'complaint.png');
 
