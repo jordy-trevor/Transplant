@@ -96,9 +96,9 @@ Enemy.prototype.update = function() {
 		this.animations.play('walkLeft');
 	} else if (this.facing == 'right' && this.walkSpeed != 0) {
 		this.animations.play('walkRight');
-	} /*else if ( this.facing == 'left' && this.walkSpeed == 0 ) {
+	} else if ( this.facing == 'left' && this.walkSpeed == 0 ) {
 		this.frame = 8;
 	} else if ( this.facing == 'right' && this.walkSpeed == 0) {
 		this.frame = 0;
-	}*/
+	}
 };
