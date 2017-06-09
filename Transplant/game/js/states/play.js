@@ -13,6 +13,8 @@ var enemyGroup; //group for enemies
 var keyCardGroup; // group for keyCards
 var group2; //top layer
 var group3; //Layer above everything to do lighting
+var platform; //ground layer when standing up
+var platform2; //ground layer when crouching over
 // ----------- Player Variables ---------------------
 var foreground = true; //variable to keep track of which layer player will be in
 var isClimbing = false; //variable to check if player is climbing or not
@@ -605,6 +607,8 @@ var generateLevel = function(levelName) {
 	
 	group2.forEach(function (c) {c.kill();});
 	group3.forEach(function (c) {c.kill();});
+	platforms.forEach(function (c) {c.kill();});
+	platforms2.forEach(function (c) {c.kill();});
 
 	levelData = game.cache.getJSON(levelName);
 
