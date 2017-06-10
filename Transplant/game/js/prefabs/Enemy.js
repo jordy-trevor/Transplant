@@ -97,8 +97,8 @@ Enemy.prototype.update = function() {
 	} else if (this.facing == 'right' && this.walkSpeed != 0) {
 		this.animations.play('walkRight');
 	} else if ( this.facing == 'left' && this.walkSpeed == 0 ) {
-		this.animations.stop();
+		this.frame = 8;
 	} else if ( this.facing == 'right' && this.walkSpeed == 0) {
-		this.animations.stop();
+		this.frame = 0;
 	}
 };
