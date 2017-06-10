@@ -23,8 +23,8 @@
 		{"frame" : "box", "xPos" : 1995, "yPos" : 429, "xScale" : "0.9", "yScale" : "0.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false}
 	],
 	"enemyData" : [
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 180, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 180, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 1403, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 220, "walkDist" : 0, "turnTime" : 2, "facing" : "right", "target" : "player"},
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 3165, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
 	],
 	"doorData" : [
 
