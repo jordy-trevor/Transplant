@@ -96,9 +96,15 @@ var playState = {
 		this.input.keyboard.addKey(Phaser.Keyboard.A);
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
 		this.input.keyboard.addKey(Phaser.Keyboard.S);
+		this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
 
 		//Key press won't affect browser
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SHIFT);
 
 		//Use H key to swap between layers
 		this.hideKey = game.input.keyboard.addKey(Phaser.Keyboard.H);
@@ -302,7 +308,12 @@ var playState = {
 			playerDirection --; //player was moving left
 			if(foreground == true){
 				//Allow player to move on the ground and move in the air while jumping
-				player.body.velocity.x = -150;
+				if(game.input.keyboard.isDown(Phaser.Keyboard.SHIFT)){
+						player.body.velocity.x = -250; //sprint speed
+					}
+					else{
+						player.body.velocity.x = -150; //normal speed
+					}
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkLeft');
@@ -332,7 +343,12 @@ var playState = {
 			playerDirection ++; //player was moving right
 			if(foreground == true){
 				//Allow player to move on the ground and move in the air while jumping
-				player.body.velocity.x = 150;
+				if(game.input.keyboard.isDown(Phaser.Keyboard.SHIFT)){
+						player.body.velocity.x = 250; //sprint speed
+					}
+					else{
+						player.body.velocity.x = 150; //normal speed
+					}
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkRight');
@@ -447,7 +463,7 @@ var playState = {
 				}
 			}
 		}
-		if(foreground == true){
+		if(foreground == true && canMove == true){
 			for(var i = 0; i < doorGroup.children.length; i++) {
 			
 				doorEntering = doorGroup.children[i];
