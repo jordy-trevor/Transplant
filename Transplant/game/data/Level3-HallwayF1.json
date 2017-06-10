@@ -11,8 +11,8 @@
 
 		{"frame" : "airVentPart", "xPos" : 1510, "yPos" : 220, "xScale" : ".8", "yScale" : ".5", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "airVentPart", "xPos" : 2285, "yPos" : 220, "xScale" : ".8", "yScale" : ".5", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "bookShelf", "xPos" : 1837, "yPos" : 308, "xScale" : "1.2", "yScale" : "1.4", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1980, "yPos" : 308, "xScale" : "1.2", "yScale" : "1.4", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "bookShelf", "xPos" : 1807, "yPos" : 308, "xScale" : "1.2", "yScale" : "1.4", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "bookShelf", "xPos" : 1950, "yPos" : 308, "xScale" : "1.2", "yScale" : "1.4", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "box", "xPos" : 1945, "yPos" : 0, "xScale" : "0.9", "yScale" : "0.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "box", "xPos" : 2505, "yPos" : 430, "xScale" : "1.3", "yScale" : "1.3", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		
@@ -38,7 +38,7 @@
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 850, "yPos" : 277, "walkSpeed" : 0, "runSpeed" : 220, "walkDist" : 0, "turnTime" : 0, "facing" : "right", "target" : "player"},
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 1545, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 2.5, "facing" : "right", "target" : "player"},
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 2285, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 7, "facing" : "left", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 4210, "yPos" : 400, "walkSpeed" : 50, "runSpeed" : 220, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 4210, "yPos" : 400, "walkSpeed" : 50, "runSpeed" : 220, "walkDist" : 480, "turnTime" : 2, "facing" : "left", "target" : "player"}
 
 	],
 	"doorData" : [
