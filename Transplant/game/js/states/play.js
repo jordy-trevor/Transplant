@@ -83,7 +83,7 @@ var playState = {
 		platforms2 = game.add.group(); //Ground only player rests on when hiding
 
 		//Generate this level from menuState
-		generateLevel('level0');
+		generateLevel('room203');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
@@ -221,10 +221,12 @@ var playState = {
 
 		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
-		
+		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+			console.log('player ' + player.body.touching.down + ' isClimbing: ' + isClimbing);
+		}
 		//Climb objects
-		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true) && player.position.y > 69.25){
+		if(climb && foreground == true && (player.body.velocity.y == 0 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || (distanceFromGround <= 45) || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
