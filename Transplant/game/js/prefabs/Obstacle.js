@@ -90,23 +90,25 @@ Obstacle.prototype.update = function() {
 	// can the object be pushed?
 	if (this.pushable) {
 		if(foreground == true){
-			this.body.immovable = false;
-			this.body.drag.x = 300;
-			//stop player from falling through the push obstacles when falling from great height
-			if(isJumping == true && !game.physics.arcade.collide(player, obstaclePushGroup)){
+			//collide with immovable obstacles and the ground, can't push through them and made into immovable obstacles
+			if(collision2 && collision1){
+				this.body.velocity.x = 0;
+				this.body.velocity.y = 0;
+				this.body.gravity.y = 0;
 				this.body.immovable = true;
 				this.body.allowGravity = false;
 			}
-			//Allow player to push the pushable obstacle again
+			//collide with pushable objects and immovable obastacles
+			else if(collision5 && collision2){
+				this.body.velocity.y = 0;
+				this.body.velocity.x = 0;
+				this.body.gravity.y = 0;
+				this.body.immovable = true;
+				this.body.allowGravity = false;
+			}
 			else{
 				this.body.immovable = false;
-				this.body.allowGravity = true;
-			}
-			//collide with immovable obstacles, can't push through them and made into immovable obstacles
-			if(collision2){
-				this.body.velocity.x = 0;
-				this.body.immovable = true;
-				this.body.allowGravity = false;
+				this.body.drag.x = 300;
 			}
 		}
 	}

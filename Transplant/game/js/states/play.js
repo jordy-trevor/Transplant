@@ -83,7 +83,7 @@ var playState = {
 		platforms2 = game.add.group(); //Ground only player rests on when hiding
 
 		//Generate this level from menuState
-		generateLevel('room203');
+		generateLevel('level0');
 
 		//Bring these groups to the forefront
 		game.world.bringToTop(group2);
