@@ -591,24 +591,22 @@ var generateLevel = function(levelName) {
 
 	console.log('generated');
 
-	backgroundGroup.forEach(function (c) {c.kill();});
-	doorGroup.forEach(function (c) {c.kill();});
-	group1.forEach(function (c) {c.kill();});
-	obstacleHideGroup.forEach(function (c) {c.kill();}); 
-	obstacleGroup.forEach(function (c) {c.kill();});
-	obstaclePushGroup.forEach(function (c) {c.kill();});
-	obstacleClimbGroup.forEach(function (c) {c.kill();});
-	noteGroup.forEach(function (c) {c.kill();});
-	keyCardGroup.forEach(function (c) {c.kill()});
-	while(enemyGroup.length > 0) {
-		// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
-		enemyGroup.forEach(function (c) {c.kill(); c.destroy(); console.log('destroyed');});
-	}
+	// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
+	while(backgroundGroup.length > 0) { backgroundGroup.forEach(function (c) {c.kill();});}
+	while(doorGroup.length > 0) { doorGroup.forEach(function (c) {c.kill();});}
+	while(group1.length > 0) { group1.forEach(function (c) {c.kill();});}
+	while(obstacleHideGroup.length > 0) { obstacleHideGroup.forEach(function (c) {c.kill();});} 
+	while(obstacleGroup.length > 0) { obstacleGroup.forEach(function (c) {c.kill();});}
+	while(obstaclePushGroup.length > 0) { obstaclePushGroup.forEach(function (c) {c.kill();});}
+	while(obstacleClimbGroup.length > 0) { obstacleClimbGroup.forEach(function (c) {c.kill();});}
+	while(noteGroup.length > 0) { noteGroup.forEach(function (c) {c.kill();});}
+	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill()});}
+	while(enemyGroup.length > 0) { enemyGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 	
-	group2.forEach(function (c) {c.kill();});
-	group3.forEach(function (c) {c.kill();});
-	platforms.forEach(function (c) {c.kill();});
-	platforms2.forEach(function (c) {c.kill();});
+	while(group2.length > 0) {group2.forEach(function (c) {c.kill(); c.destroy();});}
+	while(group3.length > 0) {group3.forEach(function (c) {c.kill(); c.destroy();});}
+	while(platforms.length > 0) {platforms.forEach(function (c) {c.kill(); c.destroy();});}
+	while(platforms2.length > 0) {platforms2.forEach(function (c) {c.kill(); c.destroy();});}
 
 	levelData = game.cache.getJSON(levelName);
 
