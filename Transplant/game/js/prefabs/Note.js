@@ -14,6 +14,8 @@ function Note(game, frame, name, leadsTo, xPos, yPos) {
 	this.name = name;
 	this.leadsTo = leadsTo;
 
+	this.poppingUp = false;
+	this.popup;
 	this.anchor.set(0.5, 0.5);
 }
 
