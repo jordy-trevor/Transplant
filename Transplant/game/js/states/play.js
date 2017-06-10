@@ -138,6 +138,19 @@ var playState = {
 		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
 
+
+		// spawn 'E' when you approach interactable object
+		/*
+		noteGroup.forEach ( function(c) {
+			if ((c.body.position.x - player.body.position.x > -50 || (c.body.position.x - player.body.position.x < 50 )) && c.poppingUp == false) {
+				c.popup = game.add.sprite( c.body.position.x, c.body.position.y + c.body.height, 'interactableE');
+				c.poppingUp = true;
+			} else if (!((c.body.position.x - player.body.position.x > -50 || c.body.position.x - player.body.position.x < 50 ) && c.poppingUp == true)) {
+				c.popup.destroy();
+				c.poppingUp = false;
+			}
+		});) */
+
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
 			// if you are touching this enemy and this enemy sees you
@@ -592,15 +605,15 @@ var generateLevel = function(levelName) {
 	console.log('generated');
 
 	// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
-	while(backgroundGroup.length > 0) { backgroundGroup.forEach(function (c) {c.kill();});}
-	while(doorGroup.length > 0) { doorGroup.forEach(function (c) {c.kill();});}
-	while(group1.length > 0) { group1.forEach(function (c) {c.kill();});}
-	while(obstacleHideGroup.length > 0) { obstacleHideGroup.forEach(function (c) {c.kill();});} 
-	while(obstacleGroup.length > 0) { obstacleGroup.forEach(function (c) {c.kill();});}
-	while(obstaclePushGroup.length > 0) { obstaclePushGroup.forEach(function (c) {c.kill();});}
-	while(obstacleClimbGroup.length > 0) { obstacleClimbGroup.forEach(function (c) {c.kill();});}
-	while(noteGroup.length > 0) { noteGroup.forEach(function (c) {c.kill();});}
-	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill()});}
+	while(backgroundGroup.length > 0) { backgroundGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(doorGroup.length > 0) { doorGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(group1.length > 0) { group1.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstacleHideGroup.length > 0) { obstacleHideGroup.forEach(function (c) {c.kill(); c.destroy(); });} 
+	while(obstacleGroup.length > 0) { obstacleGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstaclePushGroup.length > 0) { obstaclePushGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstacleClimbGroup.length > 0) { obstacleClimbGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(noteGroup.length > 0) { noteGroup.forEach(function (c) {c.kill(); c.destroy();});}
+	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill(); c.destroy();});}
 	while(enemyGroup.length > 0) { enemyGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 	
 	while(group2.length > 0) {group2.forEach(function (c) {c.kill(); c.destroy();});}
