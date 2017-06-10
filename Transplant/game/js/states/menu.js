@@ -1,7 +1,7 @@
 //Global Variables
 var title; //title logo and background
 var playButton; //the play button
-var scale = 1;
+
 var menuState = {
 	create: function(){
 		console.log('Menu: create');
