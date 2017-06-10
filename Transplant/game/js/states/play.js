@@ -149,7 +149,7 @@ var playState = {
 		// spawn 'E' when you approach interactable object or door
 		noteGroup.forEach( function(c) {
 			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
-				c.popup = game.add.sprite( c.body.position.x, c.body.position.y, 'interactableE');
+				c.popup = game.add.sprite( c.body.position.x, c.body.position.y - 20, 'interactableE');
 				c.poppingUp = true;
 			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
 				c.popup.kill();
