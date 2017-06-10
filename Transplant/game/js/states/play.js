@@ -33,6 +33,7 @@ var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
 var canMove = true; //Checks if player can move at this time
 var isJumping = false; //is the player jumping right now?
+var isColliding = false; //is the player colliding with the obstacles from the hide, climb, and normal obstacle groups
 // 'none' allows players to open doors that are no locked
 // ----------- Other Variables ---------------------
 var door1; //door in the starting room
@@ -48,11 +49,6 @@ var inventoryOpen = false; // var to help with killing of inventory sprites
 var elevatorOpen = false;
 
 var playState = {
-	preload: function(){
-		console.log('Play: preload');
-		//preload more things if needed
-	},
-
 	create: function() {
 		console.log('Play: create');
 		
@@ -62,8 +58,6 @@ var playState = {
 		//initializes sound effects
 		playerFootsteps = game.add.audio('indoorFootsteps');
 		doorSound = game.add.audio('doorOpenClose');
-
-		
 
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
@@ -124,26 +118,33 @@ var playState = {
 	},
 
 	update: function(){
+		//Collision and overlap checks for the player
 		if(foreground == true){
-			pushCollide = game.physics.arcade.collide(player, obstaclePushGroup);
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup]);
 		}
 		else{
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
-
 		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup]);
+		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
+		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
+		if(isColliding == true){
+			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
+		}
+		if(foreground == false){
+			hidePlatform = game.physics.arcade.collide(player, platforms2);
+		}
+
+		//collision checks for enemies
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
+
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
 		game.physics.arcade.collide(keyCardGroup, platforms);
 		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
-		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
-		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
-
 
 		// spawn 'E' when you approach interactable object
 		/*
@@ -205,10 +206,7 @@ var playState = {
 			}
 		});
 
-		if(foreground == false){
-			hidePlatform = game.physics.arcade.collide(player, platforms2);
-		}
-
+		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
 		
 		//Climb objects
@@ -259,7 +257,8 @@ var playState = {
 			}
 		}
 
-		//reset variables away from climbing
+		//reset variables
+		//reset away from climb
 		if(!climb){
 			isClimbing = false;
 			player.body.gravity.y = playerGravity;
@@ -275,11 +274,11 @@ var playState = {
 			player.body.gravity.y = playerGravity;
 		}
 		//reset jump variable when landing
-		if(hitPlatform){
+		if((hitPlatform && player.body.touching.down) || (player.body.touching.down && player.body.velocity.y == 0)){
 			isJumping = false;
 		}
 		//Give control back when touching the ground
-		if (hitPlatform || pushCollide) {
+		if (hitPlatform) {
 			canControl = true;
 			isClimbing = false;
 		}
@@ -418,7 +417,7 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if(canMove == true){	
-			if((hitPlatform && distanceFromGround <= 40) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| player.body.touching.down){
+			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| (player.body.touching.down && player.body.velocity.y == 0)){
 				if(foreground == true){
 					player.animations.stop();
 					if(playerDirection == 0){
@@ -455,7 +454,7 @@ var playState = {
 				}
 			}
 		}
-		if(foreground == true && canMove == true){
+		if(foreground == true){
 			for(var i = 0; i < doorGroup.children.length; i++) {
 			
 				doorEntering = doorGroup.children[i];
@@ -526,10 +525,12 @@ var playState = {
 						canMove = true;
 						elevatorOpen = false
 					} else {
-						playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
-						this.generateLevel(doorEntering.leadsTo);
-					
-						console.log(doorEntering.leadsTo);
+						if(canMove == true){
+							playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
+							this.generateLevel(doorEntering.leadsTo);
+						
+							console.log(doorEntering.leadsTo);
+						}
 					}
 					break;
 				}
