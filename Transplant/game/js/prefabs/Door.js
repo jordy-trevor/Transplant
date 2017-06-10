@@ -16,6 +16,8 @@ function Door(game, frame, name, leadsTo, xPos, yPos, spawnAtx, keyRequired) {
 	this.leadsTo = leadsTo;
 	this.spawnAtx = spawnAtx;
 	this.keyRequired = keyRequired;
+	this.poppingUp = false;
+	this.popup;
 
 	this.anchor.set(0.5, 0.5);
 }

@@ -55,6 +55,7 @@ var load = {
 		game.load.image('verticalPipes', 'verticalPipes.png');
 		game.load.image('doubleDoor', 'doubleDoor.png');
 		game.load.image('table', 'Table.png');
+		game.load.image('interactableE', 'interactableE.png');
 
 
 
