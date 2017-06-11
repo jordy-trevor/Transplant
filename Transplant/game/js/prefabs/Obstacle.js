@@ -65,6 +65,7 @@ Obstacle.prototype.update = function() {
 	var collision3 = game.physics.arcade.collide(obstacleClimbGroup, this);
 	var collision4 = game.physics.arcade.collide(obstacleHideGroup, this);
 	var collision5 = game.physics.arcade.collide(obstaclePushGroup, this);
+	var collision6 = game.physics.arcade.collide(obstacleEnemyPushGroup, this);
 
 	//Check collision with the player
 	if (this.collidable == 'full' || this.collidable == 'top') {

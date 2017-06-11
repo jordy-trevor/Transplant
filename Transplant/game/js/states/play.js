@@ -8,6 +8,7 @@ var obstacleHideGroup; //Obstacle group for objects that youv can hide behind
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
 var obstaclePushGroup; //Obstacle group for objects that player can push
+var obstacleEnemyPushGroup; // Obstacles that only enemies can push
 var noteGroup; //group for notes
 var enemyGroup; //group for enemies
 var keyCardGroup; // group for keyCards
@@ -72,6 +73,7 @@ var playState = {
 		obstacleGroup = game.add.group(); // obstacles
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
 		obstaclePushGroup = game.add.group(); //pushable objects
+		obstacleEnemyPushGroup = game.add.group();
 		noteGroup = game.add.group(); //notes
 		enemyGroup = game.add.group(); // enemies
 		keyCardGroup = game.add.group(); // keyCards
@@ -125,12 +127,12 @@ var playState = {
 	update: function(){
 		//Collision and overlap checks for the player
 		if(foreground == true){
-			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup]);
+			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup,obstacleEnemyPushGroup]);
 		}
 		else{
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
-		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup]);
+		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup, obstacleEnemyPushGroup]);
 		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
 		if(isColliding == true){
@@ -145,6 +147,7 @@ var playState = {
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
+		game.physics.arcade.collide(enemyGroup, obstacleEnemyPushGroup);
 
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
@@ -547,8 +550,8 @@ var playState = {
 					console.log('now entering: ' + doorEntering.name);
 					if (doorEntering.name == 'elevator' && elevatorOpen == false && canMove == true) {
 						console.log('show elevator');
-						canMove = false;
 						elevatorOpen = true;
+						canMove = false;
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
 						var elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
@@ -606,7 +609,7 @@ var playState = {
 						buttonEnter.destroy();
 						elevatorText.destroy();
 						canMove = true;
-						elevatorOpen = false
+						elevatorOpen = false;
 					} else {
 						if(canMove == true){
 							playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
@@ -748,7 +751,7 @@ var generateLevel = function(levelName) {
 		doorGroup.add(doorTemp);
 	}
 
-	// generate all enemies from the data
+	// generate all objects from the data
 	for (var index = 0; index < levelData.obstacleData.length; index++) {
 		// set element to the object and use it's parameters
 		var obstacleTemp = new Obstacle(game, levelData.obstacleData[index].frame, levelData.obstacleData[index].xPos, levelData.obstacleData[index].yPos, levelData.obstacleData[index].xScale, levelData.obstacleData[index].yScale, levelData.obstacleData[index].pushable, levelData.obstacleData[index].climbable, levelData.obstacleData[index].collidable, levelData.obstacleData[index].gravityEnabled, levelData.obstacleData[index].hidable);
@@ -759,12 +762,17 @@ var generateLevel = function(levelName) {
 		else if(obstacleTemp.hidable == true){
 			obstacleHideGroup.add(obstacleTemp);
 		}
+		else if(obstacleTemp.pushable == "enemy") {
+			obstacleEnemyPushGroup.add(obstacleTemp);
+			console.log('this one is enemypush');
+		}
 		else if(obstacleTemp.pushable == true){
 			obstaclePushGroup.add(obstacleTemp);
-		}
+		} 
 		else{
 			obstacleGroup.add(obstacleTemp);
 		}
+		console.log(obstacleTemp.pushable);
 	} 
 
 	//generate notes

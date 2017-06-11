@@ -22,7 +22,7 @@
 		{"frame" : "box", "xPos" : 1375, "yPos" : 150, "xScale" : "1", "yScale" : "0.96", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "box", "xPos" : 1910, "yPos" : 150, "xScale" : "1", "yScale" : "0.96", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "box", "xPos" : 2340, "yPos" : 150, "xScale" : "1", "yScale" : "0.96", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
-		{"frame" : "box", "xPos" : 2750, "yPos" : 360, "xScale" : "1.5", "yScale" : "2.88", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "box", "xPos" : 2850, "yPos" : 360, "xScale" : "1.5", "yScale" : "2.88", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "horizontalPipes", "xPos" : 3150, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
 		{"frame" : "horizontalPipes", "xPos" : 3330, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
 		{"frame" : "horizontalPipes", "xPos" : 3510, "yPos" : 175, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false}, 
