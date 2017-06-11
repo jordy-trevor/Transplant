@@ -44,6 +44,7 @@ function Obstacle(game, frame, xPos, yPos, xScale, yScale, pushable, climbable, 
 	if (this.collidable == 'top') {
 		this.body.checkCollision.left = false;
 		this.body.checkCollision.right = false;
+		this.body.checkCollision.down = false;
 	}
 
 	if(this.collidable == 'none'){
