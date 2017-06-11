@@ -8,7 +8,7 @@
 		{"frame" : "cabinet", "xPos" : 3010, "yPos" : 384, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "bed", "xPos" : 2500, "yPos" : 415, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "none", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 2785, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medicalLocker", "xPos" : 1852, "yPos" : 375, "xScale" : "1.1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "medicalLocker", "xPos" : 1802, "yPos" : 375, "xScale" : "1.1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 1520, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 3180, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 3470, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
