@@ -545,7 +545,6 @@ var playState = {
 						read.alpha = 1;
 						read.fixedToCamera = true;
 						canMove = false;
-						console.log('reading');
 					}
 					
 				}

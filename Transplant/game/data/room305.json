@@ -16,7 +16,6 @@
 
 	"keyCardData" : [],
 	"noteData" : [
-		{"name" : "random patient", "leadsTo" : "", "xPos" : 700, "yPos" : 410, "frame" : "random patient"}
 	]
 
 }
