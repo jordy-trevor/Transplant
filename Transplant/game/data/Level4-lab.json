@@ -18,10 +18,10 @@
 
 	],
 	"enemyData" : [
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 785, "yPos" : 350, "walkSpeed" : 60, "runSpeed" : 200, "walkDist" : 205, "turnTime" : 3, "facing" : "right", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 1265, "yPos" : 350, "walkSpeed" : 60, "runSpeed" : 200, "walkDist" : 205, "turnTime" : 3, "facing" : "left", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 2682, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 200, "walkDist" : 0, "turnTime" : 3, "facing" : "left", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 2810, "yPos" : 350, "walkSpeed" : 0, "runSpeed" : 200, "walkDist" : 0, "turnTime" : 3, "facing" : "right", "target" : "player"}
+		{"key" : "atlas3", "frame": "lab 1.png", "xPos" : 785, "yPos" : 350, "walkSpeed" : 60, "runSpeed" : 200, "walkDist" : 205, "turnTime" : 3, "facing" : "right", "target" : "player"},
+		{"key" : "atlas3", "frame": "lab 1.png", "xPos" : 1265, "yPos" : 350, "walkSpeed" : 60, "runSpeed" : 200, "walkDist" : 205, "turnTime" : 3, "facing" : "left", "target" : "player"},
+		{"key" : "atlas3", "frame": "lab 1.png", "xPos" : 2682, "yPos" : 0, "walkSpeed" : 0, "runSpeed" : 200, "walkDist" : 0, "turnTime" : 3, "facing" : "left", "target" : "player"},
+		{"key" : "atlas3", "frame": "lab 1.png", "xPos" : 2810, "yPos" : 350, "walkSpeed" : 0, "runSpeed" : 200, "walkDist" : 0, "turnTime" : 3, "facing" : "right", "target" : "player"}
 
 	],
 	"doorData" : [
