@@ -20,6 +20,8 @@ var load = {
 		game.load.image('shadowsHallTwo', 'shadowsHallTwo.png');
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
+		game.load.image('runTutorial', 'runTutorial.jpg');
+		game.load.image('burntLab', 'burntLab.jpg');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -44,6 +46,15 @@ var load = {
 		game.load.image('bigLight', 'bigLight.png');
 		game.load.image('cabinet', 'filingCabinet.png');
 		game.load.image('keyCard303', 'keyCard303.png');
+
+
+		game.load.image('floor1ElevatorCode', 'floor1ElevatorCode.png');
+		game.load.image('floor2ElevatorCode', 'floor2ElevatorCode.png');
+		game.load.image('floor3ElevatorCode', 'floor3ElevatorCode.png');
+		game.load.image('morgueElevatorCode', 'morgueElevatorCode.png');
+		game.load.image('entranceFloorElevatorCode', 'entranceFloorElevatorCode.png');
+
+
 		game.load.image('bookShelf', 'bookShelf.jpg');
 		game.load.image('bed', 'hospitalBed.png');
 		game.load.image('medBox', 'MedBox.png');
@@ -57,6 +68,7 @@ var load = {
 		game.load.image('doubleDoor', 'doubleDoor.png');
 		game.load.image('table', 'Table.png');
 		game.load.image('interactableE', 'interactableE.png');
+		game.load.image('burntLabDoor', 'burntLabDoor.png');
 
 
 		// file
@@ -146,6 +158,7 @@ var load = {
 		game.load.json('room101', 'room101.json');
 		game.load.json('room103', 'room103.json');
 		game.load.json('room105', 'room105.json');
+		game.load.json('burntLab', 'Level5-burntLab.json');
 
 		// sound
 		game.load.path = '../game/assets/audio/';

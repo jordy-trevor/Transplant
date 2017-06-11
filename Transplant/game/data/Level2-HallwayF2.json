@@ -8,9 +8,9 @@
 		{"frame" : "verticalPipes", "xPos" : 3120, "yPos" : 270, "xScale" : ".75", "yScale": ".75", "pushable" : false, "climbable" : true, "collidable" : "none", "gravityEnabled" : false, "hidable" : true},						
 		{"frame" : "verticalPipes", "xPos" : 2080, "yPos" : 190, "xScale" : ".75", "yScale": ".75", "pushable" : false, "climbable" : true, "collidable" : "none", "gravityEnabled" : false, "hidable" : true},						
 		{"frame" : "medBox", "xPos" : 3620, "yPos" : 405, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "cabinet", "xPos" : 4055, "yPos" : 384, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},		
-		{"frame" : "cabinet", "xPos" : 3995, "yPos" : 384, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},	
-		{"frame" : "cabinet", "xPos" : 4115, "yPos" : 384, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "cabinet", "xPos" : 4055, "yPos" : 389, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},		
+		{"frame" : "cabinet", "xPos" : 3995, "yPos" : 389, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},	
+		{"frame" : "cabinet", "xPos" : 4115, "yPos" : 389, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "bed", "xPos" : 3200, "yPos" : 415, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "none", "gravityEnabled" : false, "hidable" : true},		
 		{"frame" : "wheelChair", "xPos" : 3705, "yPos" : 410, "xScale" : "-1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "bookShelf", "xPos" : 1080, "yPos" : 308, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
@@ -43,7 +43,7 @@
 
 	],
 	"keyCardData" : [
-
+		{"frame" : "floor3ElevatorCode", "xPos" : 4775, "yPos" : 450, "name" : "floor3ElevatorCode"}
 	],
 	"noteData" : [
 
