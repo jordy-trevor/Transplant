@@ -20,6 +20,7 @@ var load = {
 		game.load.image('shadowsHallTwo', 'shadowsHallTwo.png');
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
+		game.load.image('runTutorial', 'runTutorial.jpg');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -43,6 +44,15 @@ var load = {
 		game.load.image('bigLight', 'bigLight.png');
 		game.load.image('cabinet', 'filingCabinet.png');
 		game.load.image('keyCard303', 'keyCard303.png');
+
+
+		game.load.image('floor1ElevatorCode', 'floor1ElevatorCode.png');
+		game.load.image('floor2ElevatorCode', 'floor2ElevatorCode.png');
+		game.load.image('floor3ElevatorCode', 'floor3ElevatorCode.png');
+		game.load.image('morgueElevatorCode', 'morgueElevatorCode.png');
+		game.load.image('entranceFloorElevatorCode', 'entranceFloorElevatorCode.png');
+
+
 		game.load.image('bookShelf', 'bookShelf.jpg');
 		game.load.image('bed', 'hospitalBed.png');
 		game.load.image('medBox', 'MedBox.png');
