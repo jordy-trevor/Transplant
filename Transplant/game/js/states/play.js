@@ -41,7 +41,7 @@ var ground; //the ground player stands on
 var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
 // ----------- Camera Variables ---------------------
-var playerCamera = false; //is the camera on the player?
+var playerCamera = false; //has the camera been reset on the player?
 //Has the player seen this level before?
 var seenLevel1 = false;
 var seenLevel2 = false;
@@ -225,7 +225,7 @@ var playState = {
 		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
 		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-			console.log('player ' + player.body.touching.down + ' isClimbing: ' + isClimbing);
+			console.log('seen:' + seenLevel2);
 		}
 		//Climb objects
 		if(climb && foreground == true && (player.body.velocity.y == 0 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
@@ -425,8 +425,10 @@ var playState = {
 			game.camera.x += 5; //camera move speed
 			canMove = false; //stop player from moving
 			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
+			console.log('part 1');
 			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
 				seenLevel2 = true; //Player has now seen the level
+				console.log('part 2');
 			}
 		}
 		//Put the camera back on the player when camera pan ends
@@ -434,6 +436,7 @@ var playState = {
 			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
+			console.log('part 3');
 		}
 		//Third Hallway
 		if(levelData.backgroundData == 'HallBG' && seenLevel3 == false){
@@ -818,6 +821,11 @@ var generateLevel = function(levelName) {
 	}
 	//Default set camera to lock on player
 	game.camera.follow(player, Phaser.PLATFORMER);
+
+	//When camera hasn't panned a level yet
+	if(seenLevel1 == false || seenLevel2 == false || seenLevel3 == false || seenLevel4 == false){
+		game.camera.x = 0; //set camera position to left-end of screen.
+	}
 
 	// generate enemies
 	for (var index = 0; index < levelData.enemyData.length; index++) {
