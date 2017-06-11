@@ -9,7 +9,7 @@ Clive: Sound</br>
 Side facing 2D game created using the Phaser game libraries. 
 
 ## How to Run the Game
-Download the game files and open the 'index.html' file with your browser by either right clicking on it and choosing a browser to open with, or by dragging it into the url bar of your browser.
+Visit https://alpacalunch.itch.io/transplant to play!
 
 ## Instructions
 Keyboard | Action
