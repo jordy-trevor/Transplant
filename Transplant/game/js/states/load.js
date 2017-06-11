@@ -21,6 +21,7 @@ var load = {
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
 		game.load.image('runTutorial', 'runTutorial.jpg');
+		game.load.image('burntLab', 'burntLab.jpg');
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -32,6 +33,7 @@ var load = {
 		game.load.image('box', 'box.png');
 		game.load.atlas('atlas', 'patient.png', 'patient.json');
 		game.load.atlas('atlas2', 'ducktor.png', 'ducktor.json');
+		game.load.atlas('atlas3', 'lab ducktor.png', 'lab ducktor.json');
 		game.load.atlas('elevatorAtlas', 'elevatorPanel.png', 'elevatorPanel.json');
 		
 		//Additional assests
@@ -65,6 +67,8 @@ var load = {
 		game.load.image('verticalPipes', 'verticalPipes.png');
 		game.load.image('doubleDoor', 'doubleDoor.png');
 		game.load.image('table', 'Table.png');
+		game.load.image('interactableE', 'interactableE.png');
+		game.load.image('burntLabDoor', 'burntLabDoor.png');
 
 
 
@@ -106,6 +110,7 @@ var load = {
 		game.load.json('room101', 'room101.json');
 		game.load.json('room103', 'room103.json');
 		game.load.json('room105', 'room105.json');
+		game.load.json('burntLab', 'Level5-burntLab.json');
 
 		// sound
 		game.load.path = '../game/assets/audio/';

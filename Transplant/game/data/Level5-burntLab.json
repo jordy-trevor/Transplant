@@ -1,0 +1,28 @@
+{	
+	"worldBounds" : {"x" : 5400, "y" : 600},
+	"shadowData" : "",
+	"backgroundData" : "burntLab",
+	"playerStartData" : [{"x" : 199, "y" : 450}],
+	"obstacleData" : [ 
+	
+
+	],
+	"enemyData" : [
+		
+	],
+	"doorData" : [
+		{"name" : "door1", "leadsTo": "labRoom", "xPos" : 402, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door2", "leadsTo": "labRoom", "xPos" : 974, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door3", "leadsTo": "labRoom", "xPos" : 1769, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door4", "leadsTo": "labRoom", "xPos" : 2188, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door5", "leadsTo": "labRoom", "xPos" : 2694, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door6", "leadsTo": "labRoom", "xPos" : 3652, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door7", "leadsTo": "labRoom", "xPos" : 4157, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door8", "leadsTo": "labRoom", "xPos" : 4617, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"}
+
+		
+	],
+	"keyCardData" : [],
+	"noteData" : []
+
+}

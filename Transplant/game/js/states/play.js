@@ -2,12 +2,13 @@
 
 // ----------- GROUPS ------------------------------
 var backgroundGroup; // background
-var doorGroup; //group to distinguish what will be a door
+var doorGroup; //group to distinguish what will be a door/elevator
 var group1; //right in front of background
 var obstacleHideGroup; //Obstacle group for objects that youv can hide behind
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
-var obstaclePushGroup; //Obstacle group for objects that player can push
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
+var obstaclePushGroup; //Obstacle group for objects that player can push
+var obstacleEnemyPushGroup; // Obstacles that only enemies can push
 var noteGroup; //group for notes
 var enemyGroup; //group for enemies
 var keyCardGroup; // group for keyCards
@@ -16,30 +17,36 @@ var group3; //Layer above everything to do lighting
 var platform; //ground layer when standing up
 var platform2; //ground layer when crouching over
 // ----------- Player Variables ---------------------
-var foreground = true; //variable to keep track of which layer player will be in
+var foreground = true; //variable to keep track of which layer player will be in with a short variable name
 var isClimbing = false; //variable to check if player is climbing or not
-var canControl = true; //variable to check if player has control at the moment
+var canControl = true; //variable to check if player has control of normal left and right movement at the moment
 var player; //the player
-var hitPlatform; //did player hit the ground or an object?
-var climb; //can the player climb right now?
+var hitPlatform; //did player hit the ground or an obstacleGroup?
+var climb; //Is the player in front of a climbable object?
 var hide; //is the player overlapping with a hidable object?
 var distanceFromGround; //player's y-distance from the ground
-var playerGravity = 800;
-var playerDirection = 1;
+var playerGravity = 800; //Gravity on the player's y-axis
+var playerDirection = 1; //Which direction is the player facing? 1 is right
 var hidePlatform; //hit detection on ground when player is hiding
-var playerSpawnX = 120; // where to spawn the player at the start of the game
-var pushCollide; //check if player is collidiing with pushable objects
+var playerSpawnX = 120; // where to spawn the player when a level is generated
 var pushOverlap; //check if player is overlapping with pushable objects
 var inventory = ['none']; // an array of strings that holds the names of keys collected thus far
 var canMove = true; //Checks if player can move at this time
 var isJumping = false; //is the player jumping right now?
+var isColliding = false; //is the player colliding with the obstacles from the hide, climb, and normal obstacle groups
 // 'none' allows players to open doors that are no locked
 // ----------- Other Variables ---------------------
 var door1; //door in the starting room
 var ground; //the ground player stands on
 var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
-
+// ----------- Camera Variables ---------------------
+var playerCamera = false; //has the camera been reset on the player?
+//Has the player seen this level before?
+var seenLevel1 = false;
+var seenLevel2 = false;
+var seenLevel3 = false;
+var seenLevel4 = false;
 
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button0; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
@@ -48,11 +55,6 @@ var inventoryOpen = false; // var to help with killing of inventory sprites
 var elevatorOpen = false;
 
 var playState = {
-	preload: function(){
-		console.log('Play: preload');
-		//preload more things if needed
-	},
-
 	create: function() {
 		console.log('Play: create');
 		
@@ -63,27 +65,26 @@ var playState = {
 		playerFootsteps = game.add.audio('indoorFootsteps');
 		doorSound = game.add.audio('doorOpenClose');
 
-		
-
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
-		doorGroup = game.add.group();
+		doorGroup = game.add.group(); //Doors/elevator
 		group1 = game.add.group();//layer above background
 		obstacleHideGroup = game.add.group(); //hidable objects
 		obstacleGroup = game.add.group(); // obstacles
-		obstaclePushGroup = game.add.group(); //pushable objects
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
+		obstaclePushGroup = game.add.group(); //pushable objects
+		obstacleEnemyPushGroup = game.add.group();
 		noteGroup = game.add.group(); //notes
 		enemyGroup = game.add.group(); // enemies
 		keyCardGroup = game.add.group(); // keyCards
 		group2 = game.add.group();//top layer
 		group3 = game.add.group();//Lighting layer
 
-		//Groups unrelated to layers
-		platforms = game.add.group();
-		platforms2 = game.add.group();
+		//Groups unrelated to layers and is for the ground
+		platforms = game.add.group(); //Ground everything rests on
+		platforms2 = game.add.group(); //Ground only player rests on when hiding
 
-
+		//Generate this level from menuState
 		generateLevel('level0');
 
 		//Bring these groups to the forefront
@@ -96,9 +97,15 @@ var playState = {
 		this.input.keyboard.addKey(Phaser.Keyboard.A);
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
 		this.input.keyboard.addKey(Phaser.Keyboard.S);
+		this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
 
 		//Key press won't affect browser
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
+		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SHIFT);
 
 		//Use H key to swap between layers
 		this.hideKey = game.input.keyboard.addKey(Phaser.Keyboard.H);
@@ -108,7 +115,7 @@ var playState = {
 		this.jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		this.jumpKey.onDown.add(this.jump, this);
 
-		//Use E key to open the door
+		//Use E key to interact with notes, doors, and elevators
 		this.interactKey = game.input.keyboard.addKey(Phaser.Keyboard.E);
 		this.interactKey.onDown.add(this.interact);
 
@@ -118,25 +125,54 @@ var playState = {
 	},
 
 	update: function(){
+		//Collision and overlap checks for the player
 		if(foreground == true){
-			pushCollide = game.physics.arcade.collide(player, obstaclePushGroup);
-			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup]);
+			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup,obstaclePushGroup,obstacleEnemyPushGroup]);
 		}
 		else{
 			hitPlatform = game.physics.arcade.collide(player, [platforms,obstacleGroup]);
 		}
+		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup, obstacleEnemyPushGroup]);
+		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
+		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
+		if(isColliding == true){
+			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
+		}
+		if(foreground == false){
+			hidePlatform = game.physics.arcade.collide(player, platforms2);
+		}
 
-		pushOverlap = game.physics.arcade.overlap(player,[obstaclePushGroup,obstacleGroup]);
+		//collision checks for enemies
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
 		game.physics.arcade.collide(enemyGroup, obstacleGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
 		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
+		game.physics.arcade.collide(enemyGroup, obstacleEnemyPushGroup);
+
 		// keyCard can hit stuff
 		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
 		game.physics.arcade.collide(keyCardGroup, platforms);
 		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
-		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
-		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
+
+		// spawn 'E' when you approach interactable object or door
+		noteGroup.forEach( function(c) {
+			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
+				c.popup = game.add.sprite( c.body.position.x, c.body.position.y - 20, 'interactableE');
+				c.poppingUp = true;
+			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
+				c.popup.kill();
+				c.poppingUp = false;
+			} 
+		});
+		doorGroup.forEach( function(c) {
+			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
+				c.popup = game.add.sprite( c.body.position.x + c.body.width/2 -20, c.body.position.y - 30, 'interactableE');
+				c.poppingUp = true;
+			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
+				c.popup.kill();
+				c.poppingUp = false;
+			} 
+		});
 
 		// send you back to the start for getting caught
 		enemyGroup.forEach(function (c) {
@@ -186,15 +222,14 @@ var playState = {
 			}
 		});
 
-		if(foreground == false){
-			hidePlatform = game.physics.arcade.collide(player, platforms2);
-		}
-
+		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
-		
+		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+			console.log('seen:' + seenLevel2);
+		}
 		//Climb objects
-		if(climb && foreground == true && (player.body.velocity.y < 15.1 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (player.body.velocity.y == 0 || isJumping == true) && player.position.y > 69.25){
+		if(climb && foreground == true && (player.body.velocity.y == 0 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || (distanceFromGround <= 45) || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -240,27 +275,28 @@ var playState = {
 			}
 		}
 
-		//reset variables away from climbing
+		//reset variables
+		//reset away from climb
 		if(!climb){
 			isClimbing = false;
 			player.body.gravity.y = playerGravity;
 		}
 
-		//Allow left to right movement when not climbing but not when climbing something
+		//Allow left to right movement when not climbing but not when climbing something and reset jumping variable
 		if(isClimbing == true){
 			canControl = false;
 			isJumping = false;
 		}
 		else if(isClimbing == false){
 			canControl = true;
-			player.body.gravity.y = playerGravity;
+			player.body.gravity.y = playerGravity; //set player gravity back to normal
 		}
-		//reset jump variable when landing
-		if(hitPlatform){
+		//reset jump variable when landing on something
+		if((hitPlatform && player.body.touching.down) || (player.body.touching.down && player.body.velocity.y == 0)){
 			isJumping = false;
 		}
 		//Give control back when touching the ground
-		if (hitPlatform || pushCollide) {
+		if (hitPlatform) {
 			canControl = true;
 			isClimbing = false;
 		}
@@ -281,7 +317,12 @@ var playState = {
 			playerDirection --; //player was moving left
 			if(foreground == true){
 				//Allow player to move on the ground and move in the air while jumping
-				player.body.velocity.x = -150;
+				if(game.input.keyboard.isDown(Phaser.Keyboard.SHIFT)){
+						player.body.velocity.x = -250; //sprint speed
+					}
+					else{
+						player.body.velocity.x = -150; //normal speed
+					}
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkLeft');
@@ -303,7 +344,7 @@ var playState = {
 			else{
 				//Crawling animation
 				player.animations.play('crawlLeft');
-				player.body.velocity.x = -75;
+				player.body.velocity.x = -75; //crawl speed
 			}
 		}
 		else if(game.input.keyboard.isDown(Phaser.Keyboard.D) && canControl == true && canMove == true){
@@ -311,7 +352,12 @@ var playState = {
 			playerDirection ++; //player was moving right
 			if(foreground == true){
 				//Allow player to move on the ground and move in the air while jumping
-				player.body.velocity.x = 150;
+				if(game.input.keyboard.isDown(Phaser.Keyboard.SHIFT)){
+						player.body.velocity.x = 250; //sprint speed
+					}
+					else{
+						player.body.velocity.x = 150; //normal speed
+					}
 				if(player.body.touching.down){
 					//Walking animation
 					player.animations.play('walkRight');
@@ -331,15 +377,16 @@ var playState = {
 				}
 			}
 			else{
-				//crawling animations
+				//crawling animation
 				player.animations.play('crawlRight');
-				player.body.velocity.x = 75;
+				player.body.velocity.x = 75; //crawl speed
 			}
 		}
 
 		else{
 			//stand still
 			player.animations.stop();
+			//when player is on top of something and not in the air or climbing
 			if((!isClimbing || player.body.touching.down) && foreground == true){
 				if(playerDirection == 0){
 					player.frame = 53; //Face Left
@@ -349,8 +396,79 @@ var playState = {
 				}
    			}
    		}
+
+   		//Reach game over screen when at the final level
    		if(levelData.backgroundData == "endingBackground" && player.position.x >= 3500){
 			game.state.start('end');
+		}
+
+		//Camera pans a level when player first enters to show players the challenges ahead
+		//First Hallway
+		if(levelData.backgroundData == 'hallRoomSprite' && seenLevel1 == false){
+			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
+			game.camera.x += 5; //camera move speed
+			canMove = false; //stop player from moving
+			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
+			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
+				seenLevel1 = true; //Player has now seen the level
+			}
+		}
+		//Put the camera back on the player when camera pan ends
+		else if(levelData.backgroundData == 'hallRoomSprite' && seenLevel1 == true && playerCamera == false){
+			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
+			canMove = true; // Player can move again
+			playerCamera = true; //Variable set to true
+		}
+		//Second Hallway
+		if(levelData.backgroundData == 'hall2' && seenLevel2 == false){
+			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
+			game.camera.x += 5; //camera move speed
+			canMove = false; //stop player from moving
+			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
+			console.log('part 1');
+			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
+				seenLevel2 = true; //Player has now seen the level
+				console.log('part 2');
+			}
+		}
+		//Put the camera back on the player when camera pan ends
+		else if(levelData.backgroundData == 'hall2' && seenLevel2 == true && playerCamera == false){
+			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
+			canMove = true; // Player can move again
+			playerCamera = true; //Variable set to true
+			console.log('part 3');
+		}
+		//Third Hallway
+		if(levelData.backgroundData == 'HallBG' && seenLevel3 == false){
+			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
+			game.camera.x += 5; //camera move speed
+			canMove = false; //stop player from moving
+			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
+			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
+				seenLevel3 = true; //Player has now seen the level
+			}
+		}
+		//Put the camera back on the player when camera pan ends
+		else if(levelData.backgroundData == 'HallBG' && seenLevel3 == true && playerCamera == false){
+			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
+			canMove = true; // Player can move again
+			playerCamera = true; //Variable set to true
+		}
+		//Fourth Hallway
+		if(levelData.backgroundData == 'lab' && seenLevel4 == false){
+			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
+			game.camera.x += 5; //camera move speed
+			canMove = false; //stop player from moving
+			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
+			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
+				seenLevel4 = true; //Player has now seen the level
+			}
+		}
+		//Put the camera back on the player when camera pan ends
+		else if(levelData.backgroundData == 'lab' && seenLevel4 == true && playerCamera == false){
+			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
+			canMove = true; // Player can move again
+			playerCamera = true; //Variable set to true
 		}
 	},
 	hide: function(){
@@ -389,7 +507,7 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if(canMove == true){	
-			if((hitPlatform && distanceFromGround <= 40) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| player.body.touching.down){
+			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| (player.body.touching.down && player.body.velocity.y == 0)){
 				if(foreground == true){
 					player.animations.stop();
 					if(playerDirection == 0){
@@ -432,13 +550,11 @@ var playState = {
 				doorEntering = doorGroup.children[i];
 				// only enter the door if the key exists in your inventory
 				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
-					//play door audio
-					doorSound.play();
 					console.log('now entering: ' + doorEntering.name);
-					if (doorEntering.name == 'elevator' && elevatorOpen == false) {
+					if (doorEntering.name == 'elevator' && elevatorOpen == false && canMove == true) {
 						console.log('show elevator');
-						canMove = false;
 						elevatorOpen = true;
+						canMove = false;
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
 						var elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
@@ -474,6 +590,7 @@ var playState = {
 									button0.destroy();
 									buttonEnter.destroy();
 									elevatorText.destroy();
+									elevatorOpen = false;
 									canMove = true;
 								}
 								elevatorText.setText(elevatorString);
@@ -495,12 +612,16 @@ var playState = {
 						buttonEnter.destroy();
 						elevatorText.destroy();
 						canMove = true;
-						elevatorOpen = false
+						elevatorOpen = false;
 					} else {
-						playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
-						this.generateLevel(doorEntering.leadsTo);
-					
-						console.log(doorEntering.leadsTo);
+						if(canMove == true){
+							playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
+							//play door audio
+							doorSound.play();
+							this.generateLevel(doorEntering.leadsTo);
+						
+							console.log(doorEntering.leadsTo);
+						}
 					}
 					break;
 				}
@@ -591,31 +712,32 @@ var generateLevel = function(levelName) {
 
 	console.log('generated');
 
-	backgroundGroup.forEach(function (c) {c.kill();});
-	doorGroup.forEach(function (c) {c.kill();});
-	group1.forEach(function (c) {c.kill();});
-	obstacleHideGroup.forEach(function (c) {c.kill();}); 
-	obstacleGroup.forEach(function (c) {c.kill();});
-	obstaclePushGroup.forEach(function (c) {c.kill();});
-	obstacleClimbGroup.forEach(function (c) {c.kill();});
-	noteGroup.forEach(function (c) {c.kill();});
-	keyCardGroup.forEach(function (c) {c.kill()});
-	while(enemyGroup.length > 0) {
-		// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
-		enemyGroup.forEach(function (c) {c.kill(); c.destroy(); console.log('destroyed');});
-	}
-	
-	group2.forEach(function (c) {c.kill();});
-	group3.forEach(function (c) {c.kill();});
-	platforms.forEach(function (c) {c.kill();});
-	platforms2.forEach(function (c) {c.kill();});
+	// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
+	while(backgroundGroup.length > 0) { backgroundGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(doorGroup.length > 0) { doorGroup.forEach(function (c) {if(c.popup != undefined) {c.popup.destroy();} c.kill(); c.destroy(); });}
+	while(group1.length > 0) { group1.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstacleHideGroup.length > 0) { obstacleHideGroup.forEach(function (c) {c.kill(); c.destroy(); });} 
+	while(obstacleGroup.length > 0) { obstacleGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstacleClimbGroup.length > 0) { obstacleClimbGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstaclePushGroup.length > 0) { obstaclePushGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(noteGroup.length > 0) { noteGroup.forEach(function (c) {if(c.popup != undefined) {c.popup.destroy();} c.kill(); c.destroy();});}
+	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill(); c.destroy();});}
+	while(enemyGroup.length > 0) { enemyGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstacleEnemyPushGroup.length > 0) { obstacleEnemyPushGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 
+	
+	while(group2.length > 0) {group2.forEach(function (c) {c.kill(); c.destroy();});}
+	while(group3.length > 0) {group3.forEach(function (c) {c.kill(); c.destroy();});}
+	while(platforms.length > 0) {platforms.forEach(function (c) {c.kill(); c.destroy();});}
+	while(platforms2.length > 0) {platforms2.forEach(function (c) {c.kill(); c.destroy();});}
+
+	//Current level data
 	levelData = game.cache.getJSON(levelName);
 
 	//Set camera bounds
-	//Change this to work per level in the JSON
 	game.world.setBounds(0, 0, levelData.worldBounds.x, levelData.worldBounds.y);
 
+	//Background image
 	var background = game.add.sprite(0,0, levelData.backgroundData);
 	game.world.sendToBack(background);
 	backgroundGroup.add(background);
@@ -634,7 +756,7 @@ var generateLevel = function(levelName) {
 		doorGroup.add(doorTemp);
 	}
 
-	// generate all enemies from the data
+	// generate all objects from the data
 	for (var index = 0; index < levelData.obstacleData.length; index++) {
 		// set element to the object and use it's parameters
 		var obstacleTemp = new Obstacle(game, levelData.obstacleData[index].frame, levelData.obstacleData[index].xPos, levelData.obstacleData[index].yPos, levelData.obstacleData[index].xScale, levelData.obstacleData[index].yScale, levelData.obstacleData[index].pushable, levelData.obstacleData[index].climbable, levelData.obstacleData[index].collidable, levelData.obstacleData[index].gravityEnabled, levelData.obstacleData[index].hidable);
@@ -645,13 +767,17 @@ var generateLevel = function(levelName) {
 		else if(obstacleTemp.hidable == true){
 			obstacleHideGroup.add(obstacleTemp);
 		}
+		else if(obstacleTemp.pushable == "enemy") {
+			obstacleEnemyPushGroup.add(obstacleTemp);
+			console.log('this one is enemypush');
+		}
 		else if(obstacleTemp.pushable == true){
 			obstaclePushGroup.add(obstacleTemp);
-		}
+		} 
 		else{
 			obstacleGroup.add(obstacleTemp);
 		}
-		//console.log(obstacleTemp);
+		console.log(obstacleTemp.pushable);
 	} 
 
 	//generate notes
@@ -685,8 +811,9 @@ var generateLevel = function(levelName) {
 	//animations for crawling
 	player.animations.add('crawlRight',[14,15,16,17,18,19,20], 10, true);
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
-	if(foreground == true){
-		group2.add(player); //set player to top layer
+	//Reset variables
+	if(foreground == true){ //If level generates while player is in the top layer/group 3
+		group2.add(player); //set player to top layer/foreground
 	}
 	else{//for if player gets caught while crouching
 		//move player to the foreground
@@ -694,8 +821,13 @@ var generateLevel = function(levelName) {
 		group2.add(player);
 		foreground=true;
 	}
-
+	//Default set camera to lock on player
 	game.camera.follow(player, Phaser.PLATFORMER);
+
+	//When camera hasn't panned a level yet
+	if(seenLevel1 == false || seenLevel2 == false || seenLevel3 == false || seenLevel4 == false){
+		game.camera.x = 0; //set camera position to left-end of screen.
+	}
 
 	// generate enemies
 	for (var index = 0; index < levelData.enemyData.length; index++) {
@@ -720,7 +852,7 @@ var generateLevel = function(levelName) {
 		}
 	}
 	
-	// platforms
+	// platforms for normal walking
 	platforms.enableBody = true;
 	ground = platforms.create(0, game.world.height - 100, 'grass'); //Note use a better placeholder art next time
 	ground.scale.setTo(100, 0.5);

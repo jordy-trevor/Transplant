@@ -6,5 +6,6 @@
 	"obstacleData" : [],
 	"enemyData" : [],
 	"doorData" : [],
+	"keyCardData" : [],
 	"noteData" : []
 }
