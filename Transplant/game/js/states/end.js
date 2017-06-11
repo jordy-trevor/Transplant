@@ -6,7 +6,7 @@ var endState = {
 		//button.alpha = 0;
 
 		//Make transparent
-		//end.alpha = 0;
+		end.alpha = 0;
 
 		//Adding fade effects
 		game.add.tween(end).to( {alpha: 1}, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);

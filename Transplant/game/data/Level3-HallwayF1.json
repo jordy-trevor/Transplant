@@ -46,7 +46,7 @@
 		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "spawnAtx" : 621, "keyRequired" : "none"},
 		{"name" : "door103", "leadsTo" : "room103", "xPos" : 2655, "yPos" : 336, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "door105", "leadsTo" : "room105", "xPos" : 4192, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
-		{"name" : "doubleDoor", "leadsTo" : "endLevel", "xPos" : 5200, "yPos" : 339, "frame" : "doubleDoor", "spawnAtx" : 160, "keyRequired": "none"}
+		{"name" : "doubleDoor", "leadsTo" : "labLevel", "xPos" : 5200, "yPos" : 339, "frame" : "doubleDoor", "spawnAtx" : 160, "keyRequired": "none"}
 
 	],
 	"keyCardData" : [],
