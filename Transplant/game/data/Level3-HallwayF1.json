@@ -50,6 +50,8 @@
 
 	],
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+		{"name" : "2 news article", "leadsTo" : "2 news article", "xPos" : 1150, "yPos" : 360, "frame" : "2 news article"}
+	]
 
 }

@@ -40,6 +40,8 @@ var door1; //door in the starting room
 var ground; //the ground player stands on
 var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
+var creepyDoor;
+var doorWasOpened = false;
 // ----------- Camera Variables ---------------------
 var playerCamera = false; //has the camera been reset on the player?
 //Has the player seen this level before?
@@ -122,6 +124,7 @@ var playState = {
 		// Use I key for inventory
 		this.inventoryKey = game.input.keyboard.addKey(Phaser.Keyboard.I);
 		this.inventoryKey.onDown.add(this.inventory);
+
 	},
 
 	update: function(){
@@ -531,16 +534,26 @@ var playState = {
 			//if player is overlaping with the noteGroup
 			if(game.physics.arcade.overlap(player, noteReading)){
 				if(canMove == true){	
-					//Add the blown up version of the sprite on screen and stop player from moving
-					read = game.add.sprite(100, -125, noteReading.leadsTo);
-					read.alpha = 1;
-					read.fixedToCamera = true;
-					canMove = false;
+					if(noteReading.name == 'random patient') {
+						read = game.add.sprite(noteReading.position.x - 240, noteReading.position.y - 150, 'speech bubble');
+						read.scale.x = 0.3;
+						read.scale.y = 0.3;
+						canMove = false;
+					} else {
+						//Add the blown up version of the sprite on screen and stop player from moving
+						read = game.add.sprite(100, -125, noteReading.leadsTo);
+						read.alpha = 1;
+						read.fixedToCamera = true;
+						canMove = false;
+						console.log('reading');
+					}
+					
 				}
 				else{
 					//Destroy the blown up version of the sprite on screen and allow player to move again
 					read.destroy();
 					canMove = true;
+					console.log('destroy');
 				}
 			}
 		}
@@ -549,7 +562,7 @@ var playState = {
 			
 				doorEntering = doorGroup.children[i];
 				// only enter the door if the key exists in your inventory
-				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1){
+				if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) > -1 ){
 					console.log('now entering: ' + doorEntering.name);
 					if (doorEntering.name == 'elevator' && elevatorOpen == false && canMove == true) {
 						console.log('show elevator');
@@ -613,6 +626,13 @@ var playState = {
 						elevatorText.destroy();
 						canMove = true;
 						elevatorOpen = false;
+					} else if (doorEntering.name == 'creepyDoor' && doorWasOpened == false ) {
+						console.log('open creepy');		
+						creepyDoor.animations.play('open door');
+						doorWasOpened = true;
+					}  else if (doorEntering.name == 'creepyDoor' && doorWasOpened == true ){
+						console.log('open  empty creepy');
+						creepyDoor.animations.play('empty open door');
 					} else {
 						if(canMove == true){
 							playerSpawnX = doorEntering.spawnAtx; // set appropriate place to spawn
@@ -780,18 +800,23 @@ var generateLevel = function(levelName) {
 		console.log(obstacleTemp.pushable);
 	} 
 
-	//generate notes
+	// generate notes
 	for (var index = 0; index < levelData.noteData.length; index++) {
 		// set element to the object and use it's parameters
 		var noteTemp = new Note(game, levelData.noteData[index].frame, levelData.noteData[index].name, levelData.noteData[index].leadsTo, levelData.noteData[index].xPos, levelData.noteData[index].yPos);
-		noteTemp.scale.setTo(0.05, 0.05);
-		if(levelData.backgroundData == 'startRoomSprite'){
+		console.log(noteTemp.leadsTo);
+		noteTemp.alpha = 1;
+		noteTemp.scale.setTo(0.05, 0.05); 
+		if(noteTemp.leadsTo == 'family portrait'){
 			noteTemp.scale.setTo(0.075, 0.1);
-			noteTemp.alpha = 0;
+			noteTemp.alpha = 0;	
+		}  else if (noteTemp.name == 'random patient') {
+			noteTemp.scale.setTo(0.21, 0.21);
 		}
 		game.physics.enable(noteTemp);
 		game.add.existing(noteTemp);
 		noteGroup.add(noteTemp);
+		
 	} 
 
 	//Player object
@@ -833,6 +858,7 @@ var generateLevel = function(levelName) {
 	for (var index = 0; index < levelData.enemyData.length; index++) {
 		// set element to the object and use it's parameters
 		var enemyTemp = new Enemy(game, levelData.enemyData[index].key, levelData.enemyData[index].frame, levelData.enemyData[index].xPos, levelData.enemyData[index].yPos, levelData.enemyData[index].walkSpeed, levelData.enemyData[index].runSpeed, levelData.enemyData[index].walkDist, levelData.enemyData[index].turnTime, levelData.enemyData[index].facing, player);
+		if (levelData.enemyData[index].target == "none") { enemyTemp.target == "none";}
 		enemyTemp.scale.x = 0.17;
 		enemyTemp.scale.y = 0.145;
 		console.log(enemyTemp.target);
@@ -850,6 +876,28 @@ var generateLevel = function(levelName) {
 			game.add.existing(keyCardTemp);
 			keyCardGroup.add(keyCardTemp);
 		}
+	}
+
+	// create creepy door girl for level 1
+	if (levelName == 'level1') {
+		creepyDoor = new Door(game, 'door animation', 'creepyDoor', undefined, 4492, 339, 0, 'none');
+		creepyDoor.animations.add('empty open door', [8,9,10,11,12,13,14,14,14,14,14,14,14,14,12,11,10,9,8], 10, false);
+		creepyDoor.animations.add('open door', [0,1,2,3,4,5,6,7,7,7,7,7,7,7,7,7,7,7,7,6,5,4,3,2,1,0], 10, false);
+    	game.physics.enable(creepyDoor);
+		game.add.existing(creepyDoor);
+    	doorGroup.add(creepyDoor);
+	}
+
+	// create coughing girl for level 1
+	if (levelName == 'level3') {
+		var sittingGirl = game.add.sprite(2725, 350, 'coughingDaughter');
+		sittingGirl.scale.x = 0.07;
+		sittingGirl.scale.y = 0.07;
+		sittingGirl.animations.add('cough', [0,1,2,0], 5, false);
+
+    	game.time.events.loop(Phaser.Timer.SECOND * 5, function(){sittingGirl.animations.play('cough')}, this);
+    	obstacleGroup.add(sittingGirl);
+
 	}
 	
 	// platforms for normal walking

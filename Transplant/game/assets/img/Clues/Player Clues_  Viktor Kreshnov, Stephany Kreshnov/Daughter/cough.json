@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "cough 1.png",
+	"frame": {"x":1,"y":1,"w":920,"h":1224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":20,"w":920,"h":1224},
+	"sourceSize": {"w":967,"h":1244}
+},
+{
+	"filename": "cough 2.png",
+	"frame": {"x":923,"y":1,"w":920,"h":1158},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":86,"w":920,"h":1158},
+	"sourceSize": {"w":967,"h":1244}
+},
+{
+	"filename": "cough 3.png",
+	"frame": {"x":1845,"y":1,"w":920,"h":1220},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":24,"w":920,"h":1220},
+	"sourceSize": {"w":967,"h":1244}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "cough.png",
+	"format": "RGBA8888",
+	"size": {"w":2766,"h":1226},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2b1769c2d2e3f482ecb2062dd57c68b0:04553b78597ec9dad2e08df302ea1136:0b2a58ad60019c3badf2403db8324cbe$"
+}
+}

@@ -59,13 +59,61 @@ var load = {
 		game.load.image('interactableE', 'interactableE.png');
 
 
+		// file
+		game.load.path = '../game/assets/img/Files/';
+		game.load.image('stephanyFile', 'File 1 - Stephany.png');
+		game.load.image('viktorFile', 'File 2 - Viktor.png');
+		game.load.image('patientFile', 'File 3 - patientViktor.png');
+		game.load.image('predecessorFile', 'File 4 - predecessor.png');
 
-		//notes
+
+		// clues
+		// Dr. Moretti
+		game.load.path = '../game/assets/img/Clues/Doctor Clues_ Dr. Moretti/';
+		game.load.image('complaint', 'complaint.png');
+		game.load.image('news article', 'news article.png');
+		game.load.image('random patient', 'random patient.png');
+		game.load.image('speech bubble', 'speech bubble.png');
+		game.load.image('welcome letter', 'welcome letter.png');
+		// Viktor, Stephany
+		game.load.path = '../game/assets/img/Clues/Player Clues_  Viktor Kreshnov, Stephany Kreshnov/';
+		game.load.image('contract', 'contract.png');
+		game.load.atlas('coughingDaughter', 'Daughter/cough.png', 'Daughter/cough.json');
+		game.load.atlas('daughter', 'Daughter/daughter.png', 'Daughter/daughter.json');
+		game.load.image('daughterInBed', 'daughterInBed.png');
+		game.load.atlas('door animation', 'Door Animation/door animation.png', 'Door Animation/door animation.json');
+		game.load.image('family portrait', 'family portrait.jpg');
+		// creepy lab stuff
+		game.load.image('headless body 1', 'headless body 1.png');
+		game.load.image('healdess body 2', 'headless body 2.png');
+		game.load.image('headless body 3', 'headless body 3.png');
+		game.load.image('headless body 4', 'headless body 4.png');
+		game.load.image('headless mouse 1', 'headless mouse 1.png');
+		game.load.image('headless mouse 2', 'headless mouse 2.png');
+		game.load.image('jar 1', 'jar 1.png');
+		game.load.image('jar 2', 'jar 2.png');
+		game.load.image('jar 3', 'jar 3.png');
+		game.load.image('text message', 'text message.png');
+		game.load.image('tool 1', 'tool 1.png');
+		game.load.image('tool 2', 'tool 2.png');
+		game.load.image('tool 3', 'tool 3.png');
+		game.load.image('tool 4', 'tool 4.png');
+		game.load.image('tool 5', 'tool 5.png');
+		// Petronov (predecessor)
+		game.load.path = '../game/assets/img/Clues/Predecessor Clues_  Petronov Rozhok/';
+		game.load.image('2 news article', '2 news article.png'); // 19
+		game.load.image('corpse tag', 'corpse tag.png');
+		game.load.image('corpse', 'corpse.png');
+		game.load.image('gas cans', 'gas cans.png');
+		game.load.image('predecessorContract', 'predecessorContract.png');
+
+
+		// notes
+		game.load.path = '../game/assets/img/';
 		game.load.image('newsArticle', 'newsArticle.png');
 		game.load.image('medCabinet', 'medicalCabinet.jpg');
 		game.load.image('wheelChair', 'wheelchair.png');
-		game.load.image('note1', 'familyPortrait.jpg');
-		game.load.image('complaint', 'complaint.png');
+	
 
 
 		// inventory

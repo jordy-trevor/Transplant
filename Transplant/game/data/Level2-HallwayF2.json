@@ -34,7 +34,6 @@
 	],
 	"enemyData" : [
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 3580, "yPos" : 400, "walkSpeed" : 50, "runSpeed" : 220, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
-
 	],
 	"doorData" : [
 		{"name" : "door201", "leadsTo": "doctorOffice", "xPos" : 850, "yPos" : 337, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
@@ -46,7 +45,9 @@
 	"keyCardData" : [
 
 	],
-	"noteData" : []
+	"noteData" : [
+
+	]
 
 
 }
