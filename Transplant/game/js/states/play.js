@@ -728,6 +728,8 @@ var generateLevel = function(levelName) {
 	while(noteGroup.length > 0) { noteGroup.forEach(function (c) {if(c.popup != undefined) {c.popup.destroy();} c.kill(); c.destroy();});}
 	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill(); c.destroy();});}
 	while(enemyGroup.length > 0) { enemyGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(obstacleEnemyPushGroup.length > 0) { obstacleEnemyPushGroup.forEach(function (c) {c.kill(); c.destroy(); });}
+
 	
 	while(group2.length > 0) {group2.forEach(function (c) {c.kill(); c.destroy();});}
 	while(group3.length > 0) {group3.forEach(function (c) {c.kill(); c.destroy();});}
