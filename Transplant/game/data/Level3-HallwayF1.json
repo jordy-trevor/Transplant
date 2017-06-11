@@ -24,10 +24,10 @@
 		{"frame" : "horizontalPipes", "xPos" : 3155, "yPos" : 20, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "horizontalPipes", "xPos" : 3335, "yPos" : 20, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "horizontalPipes", "xPos" : 3515, "yPos" : 20, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "airVentPart", "xPos" : 3620, "yPos" : 220, "xScale" : ".8", "yScale" : ".5", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "airVentPart", "xPos" : 3765, "yPos" : 220, "xScale" : ".8", "yScale" : ".5", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "box", "xPos" : 3625, "yPos" : 380, "xScale" : "1.5", "yScale" : "2.65", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "box", "xPos" : 3810, "yPos" : 429, "xScale" : "0.9", "yScale" : "0.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
+		{"frame" : "airVentPart", "xPos" : 3720, "yPos" : 220, "xScale" : ".8", "yScale" : ".5", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "airVentPart", "xPos" : 3865, "yPos" : 220, "xScale" : ".8", "yScale" : ".5", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : true},
+		{"frame" : "box", "xPos" : 3725, "yPos" : 380, "xScale" : "1.5", "yScale" : "2.65", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "box", "xPos" : 3960, "yPos" : 429, "xScale" : "0.9", "yScale" : "0.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "cabinet", "xPos" : 4530, "yPos" : 389, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 4670, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "box", "xPos" : 4875, "yPos" : 380, "xScale" : "1.5", "yScale" : "2.65", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false}
@@ -38,7 +38,7 @@
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 850, "yPos" : 277, "walkSpeed" : 0, "runSpeed" : 220, "walkDist" : 0, "turnTime" : 0, "facing" : "right", "target" : "player"},
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 1545, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 2.5, "facing" : "right", "target" : "player"},
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 2285, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 7, "facing" : "left", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 4210, "yPos" : 400, "walkSpeed" : 50, "runSpeed" : 220, "walkDist" : 480, "turnTime" : 2, "facing" : "right", "target" : "player"}
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 4280, "yPos" : 400, "walkSpeed" : 50, "runSpeed" : 220, "walkDist" : 440, "turnTime" : 2, "facing" : "right", "target" : "player"}
 
 	],
 	"doorData" : [
@@ -50,6 +50,8 @@
 
 	],
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+		{"name" : "2 news article", "leadsTo" : "2 news article", "xPos" : 1150, "yPos" : 360, "frame" : "2 news article"}
+	]
 
 }

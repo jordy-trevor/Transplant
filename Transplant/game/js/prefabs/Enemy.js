@@ -42,15 +42,18 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function() {
 	// if you are within 100 sight range of the player, you see them
 	// can only see the player when they are at the same y level as you
-	if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
+	if (this.target != "none") {
+		if (((this.body.position.x - this.target.body.position.x > -450 && this.body.position.x - this.target.body.position.x < 0 && this.wasFacing == 'right' )
 		|| (this.body.position.x - this.target.body.position.x < 450 && this.body.position.x - this.target.body.position.x > 0 && this.wasFacing == 'left')) 
-		&&  (!hide||foreground == true) == true && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2 + 20 && (this.target.body.y - this.target.body.height/2) < this.body.y + this.body.height/2 + 20){
-		this.seesPlayer = true;
-		this.walkSpeed = this.runSpeed; // changed speed to runspeed, which in turn triggers proper animation
+		&&  (!hide||foreground == true) && (this.target.body.y + this.target.body.height/2) > this.body.y - this.body.height/2 + 20 && (this.target.body.y - this.target.body.height/2) < this.body.y + this.body.height/2 + 20){
+			this.seesPlayer = true;
+			this.walkSpeed = this.runSpeed; // changed speed to runspeed, which in turn triggers proper animation
+		}
 	}
-	//console.log(this.facing);
+	
 
-	if ( this.seesPlayer ) {
+
+	if ( this.seesPlayer && this.target != "none") {
 		// chase player
 		if ( this.body.position.x <= this.target.body.position.x) {
 			this.body.velocity.x = this.walkSpeed;
