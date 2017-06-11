@@ -10,9 +10,9 @@
 		{"frame" : "verticalPipes", "xPos" : 2006, "yPos" : 314, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},				
 		{"frame" : "horizontalPipes", "xPos" : 2171, "yPos" : 222, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},				
 		{"frame" : "airVentPart", "xPos" : 2362, "yPos" : 233, "xScale" : "1.2", "yScale": "0.8", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},				
-		{"frame" : "airVentPart", "xPos" : 2897, "yPos" : 233, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},				
+		{"frame" : "airVentPart", "xPos" : 2957, "yPos" : 233, "xScale" : "1.5", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},				
 		{"frame" : "box", "xPos" : 2691, "yPos" : 360, "xScale" : "1.5", "yScale" : "2.88", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "box", "xPos" : 3397, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "box", "xPos" : 3527, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "bed", "xPos" : 2990, "yPos" : 453, "xScale" : "1", "yScale": "1", "pushable" : "enemy", "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false}	
 
 
