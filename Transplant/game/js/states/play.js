@@ -54,7 +54,6 @@ var seenLevel4 = false;
 var elevatorBackground; var elevatorText; var button0; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
 var invFloor1; var invFloor2; var invFloor3; var invEntrance; var invBack; var inv105; var inv203; var inv303; var invMorgue; var inv201; var inv205;
 var inventoryOpen = false; // var to help with killing of inventory sprites
-var popUpDisplay; var popUpDisplay2; // made global so that popup created on item pickup an follow the character
 var elevatorOpen = false;
 var elevatorString = ''; // needs to be global for button keyboard integration
 
@@ -232,25 +231,28 @@ var playState = {
 			// if you are touching this enemy and this enemy sees you
 			if(game.physics.arcade.overlap(player, k)) {	
 
-				popUpDisplay = game.add.sprite(player.body.position.x -100, 470, 'inventoryBackgroundInventory');
+				var popUpDisplay = game.add.sprite(450, 470, 'inventoryBackgroundInventory');
 				popUpDisplay.scale.x = 0.2;
 				popUpDisplay.scale.y = 0.16;
-				popUpDisplay2;
+				var popUpDisplay2;
 
 
-				if(k.name == 'floor1ElevatorCode') { popUpDisplay2 = game.add.sprite(player.body.position.x -50, 520, 'floor1ElevatorCodeInventory');} 
-				if (k.name == 'floor2ElevatorCode') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'floor2ElevatorCodeInventory');} 
-				if (k.name == 'floor3ElevatorCode') { popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'floor3ElevatorCodeInventory');} 
-				if (k.name == 'morgueElevatorCode') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'morgueElevatorCodeInventory');} 
-				if (k.name == 'entranceFloorElevatorCode') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'entranceFloorElevatorCodeInventory');} 
-				if (k.name == 'keyCard105') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'keyCard105Inventory');} 
-				if (k.name == 'keyCard201') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'keyCard201Inventory');} 
-				if (k.name == 'keyCard203') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'keyCard203Inventory');} 
-				if (k.name == 'keyCard205') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'keyCard205Inventory');} 
-				if (k.name == 'keyCard303') {popUpDisplay2 = game.add.sprite(player.body.position.x-50, 520, 'keyCard303Inventory');} 
+				if (k.name == 'floor1ElevatorCode') { popUpDisplay2 = game.add.sprite(500, 520, 'floor1ElevatorCodeInventory');} 
+				if (k.name == 'floor2ElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'floor2ElevatorCodeInventory');} 
+				if (k.name == 'floor3ElevatorCode') { popUpDisplay2 = game.add.sprite(500, 520, 'floor3ElevatorCodeInventory');} 
+				if (k.name == 'morgueElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'morgueElevatorCodeInventory');} 
+				if (k.name == 'entranceFloorElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'entranceFloorElevatorCodeInventory');} 
+				if (k.name == 'keyCard105') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard105Inventory');} 
+				if (k.name == 'keyCard201') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard201Inventory');} 
+				if (k.name == 'keyCard203') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard203Inventory');} 
+				if (k.name == 'keyCard205') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard205Inventory');} 
+				if (k.name == 'keyCard303') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard303Inventory');} 
 
 				popUpDisplay2.scale.x = 0.4;
 				popUpDisplay2.scale.y = 0.4;
+				popUpDisplay.fixedToCamera = true;
+				popUpDisplay2.fixedToCamera = true;
+
 				
 				inventory.push(k.name);
 				console.log('hit key');
@@ -260,9 +262,6 @@ var playState = {
 				game.time.events.add(Phaser.Timer.SECOND * 5, function(){ popUpDisplay.kill(); popUpDisplay.destroy(); popUpDisplay2.kill(); popUpDisplay2.destroy();}, this);
 			}
 		});
-
-		if (popUpDisplay != undefined) {popUpDisplay.position.x = player.body.position.x -100; console.log('its here');}
-		if (popUpDisplay2 != undefined) {popUpDisplay2.position.x = player.body.position.x -50;}
 
 		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
