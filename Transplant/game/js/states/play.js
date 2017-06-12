@@ -159,8 +159,8 @@ var playState = {
 
 		// spawn 'E' when you approach interactable object or door
 		noteGroup.forEach( function(c) {
-			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
-				c.popup = game.add.sprite( c.body.position.x, c.body.position.y - 20, 'interactableE');
+			if (((c.body.position.x - player.body.position.x > -50 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 50 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
+				c.popup = game.add.sprite( c.body.position.x + 10, c.body.position.y - 20, 'interactableE');
 				c.poppingUp = true;
 			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
 				c.popup.kill();
@@ -168,7 +168,7 @@ var playState = {
 			} 
 		});
 		doorGroup.forEach( function(c) {
-			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
+			if (((c.body.position.x - player.body.position.x > -50 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 50 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
 				c.popup = game.add.sprite( c.body.position.x + c.body.width/2 -20, c.body.position.y - 30, 'interactableE');
 				c.poppingUp = true;
 			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
