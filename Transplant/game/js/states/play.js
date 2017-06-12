@@ -226,15 +226,40 @@ var playState = {
 			}
 		});
 
-		// send you back to the start for getting caught
+		// put the key into your inventory after colliding with it
 		keyCardGroup.forEach(function (k) {
 			// if you are touching this enemy and this enemy sees you
-			if(game.physics.arcade.overlap(player, k)) {			
+			if(game.physics.arcade.overlap(player, k)) {	
+
+				var popUpDisplay = game.add.sprite(450, 470, 'inventoryBackgroundInventory');
+				popUpDisplay.scale.x = 0.2;
+				popUpDisplay.scale.y = 0.16;
+				var popUpDisplay2;
+
+
+				if (k.name == 'floor1ElevatorCode') { popUpDisplay2 = game.add.sprite(500, 520, 'floor1ElevatorCodeInventory');} 
+				if (k.name == 'floor2ElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'floor2ElevatorCodeInventory');} 
+				if (k.name == 'floor3ElevatorCode') { popUpDisplay2 = game.add.sprite(500, 520, 'floor3ElevatorCodeInventory');} 
+				if (k.name == 'morgueElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'morgueElevatorCodeInventory');} 
+				if (k.name == 'entranceFloorElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'entranceFloorElevatorCodeInventory');} 
+				if (k.name == 'keyCard105') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard105Inventory');} 
+				if (k.name == 'keyCard201') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard201Inventory');} 
+				if (k.name == 'keyCard203') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard203Inventory');} 
+				if (k.name == 'keyCard205') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard205Inventory');} 
+				if (k.name == 'keyCard303') {popUpDisplay2 = game.add.sprite(500, 520, 'keyCard303Inventory');} 
+
+				popUpDisplay2.scale.x = 0.4;
+				popUpDisplay2.scale.y = 0.4;
+				popUpDisplay.fixedToCamera = true;
+				popUpDisplay2.fixedToCamera = true;
+
+				
 				inventory.push(k.name);
 				console.log('hit key');
 				k.kill();
 				k.destroy();
 				console.log(inventory);
+				game.time.events.add(Phaser.Timer.SECOND * 5, function(){ popUpDisplay.kill(); popUpDisplay.destroy(); popUpDisplay2.kill(); popUpDisplay2.destroy();}, this);
 			}
 		});
 

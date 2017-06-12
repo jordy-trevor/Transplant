@@ -7,7 +7,9 @@
 	"doorData" : [
 		{"frame" : "normalDoor", "name" : "door1", "leadsTo" : "level1", "xPos" : 610, "yPos" : 324, "spawnAtx" : 199, "keyRequired": "none"}
 	],
-	"keyCardData" : [],
+	"keyCardData" : [
+
+	],
 	"noteData" : [
 		{"name" : "familyPortrait", "leadsTo" : "family portrait", "xPos" : 325, "yPos" : 340, "frame" : "family portrait"},
 		{"name" : "viktor File", "leadsTo" : "viktorFile", "xPos" : 900, "yPos" : 430, "frame" : "viktorFile"}
