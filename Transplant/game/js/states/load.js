@@ -101,6 +101,7 @@ var load = {
 		game.load.image('daughterInBed', 'daughterInBed.png');
 		game.load.atlas('door animation', 'Door Animation/door animation.png', 'Door Animation/door animation.json');
 		game.load.image('family portrait', 'family portrait.jpg');
+		game.load.image('bills', 'bills.png');
 		// creepy lab stuff
 		game.load.image('headless body 1', 'headless body 1.png');
 		game.load.image('healdess body 2', 'headless body 2.png');

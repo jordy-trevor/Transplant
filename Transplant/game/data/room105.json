@@ -18,7 +18,9 @@
 	"enemyData" : [],
 	"keyCardData" : [],
 	"noteData" : [
-		{"name" : "stephanyFile", "leadsTo" : "stephanyFile", "xPos" : 650, "yPos" : 380, "frame" : "stephanyFile"}
+		{"name" : "stephanyFile", "leadsTo" : "stephanyFile", "xPos" : 650, "yPos" : 380, "frame" : "stephanyFile"},
+		{"name" : "bills", "leadsTo" : "bills", "xPos" : 300, "yPos" : 380, "frame" : "bills"}
+
 	]
 
 }

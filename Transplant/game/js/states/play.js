@@ -541,7 +541,9 @@ var playState = {
 						canMove = false;
 					} else {
 						//Add the blown up version of the sprite on screen and stop player from moving
-						read = game.add.sprite(100, -125, noteReading.leadsTo);
+						read = game.add.sprite(50, -50, noteReading.leadsTo);
+						read.scale.x = 0.8;
+						read.scale.y = 0.8;
 						read.alpha = 1;
 						read.fixedToCamera = true;
 						canMove = false;
