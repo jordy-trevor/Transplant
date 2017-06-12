@@ -14,6 +14,9 @@
 		{"name" : "door1", "leadsTo": "burntLab", "xPos" : 200, "yPos" : 344, "frame" : "burntLabDoor", "spawnAtx" : 2188, "keyRequired" : "none"}	
 	],
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+		{"name" : "contract", "leadsTo" : "contract", "xPos" : 653, "yPos" : 350, "frame" : "contract"}
+
+	]
 
 }

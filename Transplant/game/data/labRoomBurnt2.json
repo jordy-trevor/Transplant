@@ -14,6 +14,9 @@
 		{"name" : "door1", "leadsTo": "burntLab", "xPos" : 200, "yPos" : 344, "frame" : "burntLabDoor", "spawnAtx" : 974, "keyRequired" : "none"}	
 	],
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+		{"name" : "patientFile", "leadsTo" : "patientFile", "xPos" : 475, "yPos" : 350, "frame" : "patientFile"}
+
+	]
 
 }
