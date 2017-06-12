@@ -488,7 +488,7 @@ var playState = {
 			playerCamera = true; //Variable set to true
 		}
 		//Third Hallway
-		if(levelData.backgroundData == 'HallBG' && seenLevel3 == false){
+		if(levelData.backgroundData == 'hall3' && seenLevel3 == false){
 			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
 			game.camera.x += 5; //camera move speed
 			canMove = false; //stop player from moving
@@ -498,7 +498,7 @@ var playState = {
 			}
 		}
 		//Put the camera back on the player when camera pan ends
-		else if(levelData.backgroundData == 'HallBG' && seenLevel3 == true && playerCamera == false){
+		else if(levelData.backgroundData == 'hall3' && seenLevel3 == true && playerCamera == false){
 			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
