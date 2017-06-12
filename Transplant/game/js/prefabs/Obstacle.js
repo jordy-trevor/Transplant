@@ -69,12 +69,18 @@ Obstacle.prototype.update = function() {
 	var collision6 = game.physics.arcade.collide(obstacleEnemyPushGroup, this);
 
 	//Check collision with the player
-	if (this.collidable == 'full' || this.collidable == 'top') {
+	if (this.collidable == 'top') {
 		if(isClimbing == false){
 			isColliding = true;
 		}
 		else{
 			isColliding = false;
+		}
+	}
+	if(this.collidable == 'full'){
+		game.physics.arcade.collide(player, obstacleGroup);
+		if(foreground == true){
+			game.physics.arcade.collide(player, [obstacleGroup,obstaclePushGroup]);
 		}
 	}
 
@@ -108,9 +114,24 @@ Obstacle.prototype.update = function() {
 				this.body.immovable = true;
 				this.body.allowGravity = false;
 			}
+			else if(collision1){
+				this.body.velocity.y = 0;
+				this.body.gravity.y = 0;
+				this.body.allowGravity = false;
+			}
+			else if(collision5){
+				if((player.position.y >= this.position.y)){
+					this.body.velocity.x = 0;
+					this.body.velocity.y = 0;
+					this.body.gravity.y = 0;
+					this.body.allowGravity = false;
+				}
+			}
 			else{
 				this.body.immovable = false;
 				this.body.drag.x = 300;
+				this.body.allowGravity = true;
+				this.body.gravity.y = playerGravity;
 			}
 		}
 	}

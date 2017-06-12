@@ -55,6 +55,7 @@ var elevatorBackground; var elevatorText; var button0; var button1; var button2;
 var invFloor1; var invFloor2; var invFloor3; var invEntrance; var invBack; var inv105; var inv203; var inv303; var invMorgue; var inv201; var inv205;
 var inventoryOpen = false; // var to help with killing of inventory sprites
 var elevatorOpen = false;
+var elevatorString = ''; // needs to be global for button keyboard integration
 
 var playState = {
 	create: function() {
@@ -100,6 +101,18 @@ var playState = {
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
 		this.input.keyboard.addKey(Phaser.Keyboard.S);
 		this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+		this.input.keyboard.addKey(Phaser.Keyboard.ONE);
+		this.input.keyboard.addKey(Phaser.Keyboard.TWO);
+		this.input.keyboard.addKey(Phaser.Keyboard.THREE);
+		this.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+		this.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+		this.input.keyboard.addKey(Phaser.Keyboard.SIX);
+		this.input.keyboard.addKey(Phaser.Keyboard.SEVEN);
+		this.input.keyboard.addKey(Phaser.Keyboard.EIGHT);
+		this.input.keyboard.addKey(Phaser.Keyboard.NINE);
+		this.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+		this.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
 
 		//Key press won't affect browser
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
@@ -139,7 +152,7 @@ var playState = {
 		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
 		if(isColliding == true){
-			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
+			game.physics.arcade.collide(player, [obstacleClimbGroup,obstacleHideGroup]);
 		}
 		if(foreground == false){
 			hidePlatform = game.physics.arcade.collide(player, platforms2);
@@ -159,8 +172,8 @@ var playState = {
 
 		// spawn 'E' when you approach interactable object or door
 		noteGroup.forEach( function(c) {
-			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
-				c.popup = game.add.sprite( c.body.position.x, c.body.position.y - 20, 'interactableE');
+			if (((c.body.position.x - player.body.position.x > -50 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 50 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
+				c.popup = game.add.sprite( c.body.position.x + 10, c.body.position.y - 20, 'interactableE');
 				c.poppingUp = true;
 			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
 				c.popup.kill();
@@ -168,7 +181,7 @@ var playState = {
 			} 
 		});
 		doorGroup.forEach( function(c) {
-			if (((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
+			if (((c.body.position.x - player.body.position.x > -50 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 50 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == false) {
 				c.popup = game.add.sprite( c.body.position.x + c.body.width/2 -20, c.body.position.y - 30, 'interactableE');
 				c.poppingUp = true;
 			} else if (!((c.body.position.x - player.body.position.x > -80 && c.body.position.x - player.body.position.x < 0 ) || (c.body.position.x - player.body.position.x < 80 && c.body.position.x - player.body.position.x > 0 )) && c.poppingUp == true) {
@@ -227,18 +240,21 @@ var playState = {
 
 		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
-		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-			console.log('seen:' + seenLevel2);
-		}
+
 		//Climb objects
 		if(climb && foreground == true && (player.body.velocity.y == 0 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || (distanceFromGround <= 45) || isJumping == true) && player.position.y > 69.25){
+			if(isJumping == false){
+				player.body.velocity.y = 0;
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || distanceFromGround <= 45 || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
 				player.frame ++; //Go through each frame of climb
 				//player goes up
-				player.body.position.y -= 2;
+				if((hitPlatform && distanceFromGround <=40) || (!hitPlatform && distanceFromGround > 39)){
+					player.body.position.y -= 2;
+				}
 				isClimbing = true; //disable normal left and right movement
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
@@ -283,6 +299,7 @@ var playState = {
 		if(!climb){
 			isClimbing = false;
 			player.body.gravity.y = playerGravity;
+			canControl = true;
 		}
 
 		//Allow left to right movement when not climbing but not when climbing something and reset jumping variable
@@ -290,16 +307,18 @@ var playState = {
 			canControl = false;
 			isJumping = false;
 		}
-		else if(isClimbing == false){
+		/*else if(isClimbing == false){
 			canControl = true;
-			player.body.gravity.y = playerGravity; //set player gravity back to normal
+			//player.body.gravity.y = playerGravity; //set player gravity back to normal
+		}*/
+		if(isJumping == true){
+			canControl = true;
 		}
 		//reset jump variable when landing on something
 		if((hitPlatform && player.body.touching.down) || (player.body.touching.down && player.body.velocity.y == 0)){
 			isJumping = false;
 		}
-		//Give control back when touching the ground
-		if (hitPlatform) {
+		if(hitPlatform && distanceFromGround <= 40){
 			canControl = true;
 			isClimbing = false;
 		}
@@ -326,7 +345,7 @@ var playState = {
 					else{
 						player.body.velocity.x = -150; //normal speed
 					}
-				if(player.body.touching.down){
+				if((player.body.touching.down || distanceFromGround <= 40) || (hitPlatform && player.body.velocity.y <=4)){
 					//Walking animation
 					player.animations.play('walkLeft');
 					//Walking sound
@@ -361,7 +380,7 @@ var playState = {
 					else{
 						player.body.velocity.x = 150; //normal speed
 					}
-				if(player.body.touching.down){
+				if((player.body.touching.down || distanceFromGround <= 40) || (hitPlatform && player.body.velocity.y <=4)){
 					//Walking animation
 					player.animations.play('walkRight');
 					//Walking sound
@@ -390,7 +409,7 @@ var playState = {
 			//stand still
 			player.animations.stop();
 			//when player is on top of something and not in the air or climbing
-			if((!isClimbing || player.body.touching.down) && foreground == true){
+			if((!isClimbing && ((player.body.touching.down && hitPlatform) || player.body.velocity.y == 0)) && foreground == true){
 				if(playerDirection == 0){
 					player.frame = 53; //Face Left
 				}
@@ -428,10 +447,8 @@ var playState = {
 			game.camera.x += 5; //camera move speed
 			canMove = false; //stop player from moving
 			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
-			console.log('part 1');
 			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
 				seenLevel2 = true; //Player has now seen the level
-				console.log('part 2');
 			}
 		}
 		//Put the camera back on the player when camera pan ends
@@ -439,7 +456,6 @@ var playState = {
 			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
-			console.log('part 3');
 		}
 		//Third Hallway
 		if(levelData.backgroundData == 'HallBG' && seenLevel3 == false){
@@ -473,12 +489,57 @@ var playState = {
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
 		}
+
+
+
+		// elevator interaction
+		// Add keyboard input version
+		if (elevatorOpen == true) {
+			game.input.keyboard.onUpCallback = function(e) {
+				if (e.keyCode == Phaser.Keyboard.ONE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.TWO) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.THREE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FOUR) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FIVE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.SIX) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.SEVEN) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.EIGHT) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.NINE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.ZERO) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.ENTER) {var shouldDestroy = false;
+						if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;} 
+						else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
+						else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;}
+						else {elevatorString = 'Invalid'}
+						if (shouldDestroy == true) {
+							elevatorBackground.destroy();
+							button1.destroy();
+							button2.destroy();
+							button3.destroy();
+							button4.destroy();
+							button5.destroy();
+							button6.destroy();
+							button7.destroy();
+							button8.destroy();
+							button9.destroy();
+							button0.destroy();
+							buttonEnter.destroy();
+							elevatorText.destroy();
+							elevatorOpen = false;
+							canMove = true;
+						}
+						elevatorText.setText(elevatorString);}
+			}
+		}
+			
+				
 	},
 	hide: function(){
 		if(isClimbing == false && !climb && !hide && !pushOverlap && canMove == true){ //Don't allow player to hide when in front of the object
 			if(foreground==true && distanceFromGround <= 40){
 				//move player from foreground to layer behind the object
-				player.body.setSize(90, 145, 63, 4);			
+				player.body.setSize(90, 145, 63, 4);
+				player.body.velocity.y = 0;
 				group2.remove(player);
 				group1.add(player);
 				foreground=false;
@@ -510,11 +571,11 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if(canMove == true){	
-			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| (player.body.touching.down && player.body.velocity.y == 0)){
+			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40) || (player.body.touching.down && player.body.velocity.y == 0)){
 				if(foreground == true){
 					player.animations.stop();
 					if(playerDirection == 0){
-						player.frame = 41; // Jumping Left
+						player.frame = 43; // Jumping Left
 					}
 					if(playerDirection == 1){
 						player.frame = 35; //Jumping Right
@@ -522,6 +583,7 @@ var playState = {
 					player.body.velocity.y = -400; //jump height
 					isClimbing = false;
 					isJumping = true;
+					player.body.gravity.y = playerGravity;
 				}
 			}
 		}
@@ -541,11 +603,12 @@ var playState = {
 						canMove = false;
 					} else {
 						//Add the blown up version of the sprite on screen and stop player from moving
-						read = game.add.sprite(100, -125, noteReading.leadsTo);
+						read = game.add.sprite(50, -50, noteReading.leadsTo);
+						read.scale.x = 0.8;
+						read.scale.y = 0.8;
 						read.alpha = 1;
 						read.fixedToCamera = true;
 						canMove = false;
-						console.log('reading');
 					}
 					
 				}
@@ -569,18 +632,18 @@ var playState = {
 						elevatorOpen = true;
 						canMove = false;
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
-						var elevatorString = '';
+						elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
-						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}} , this, 'button1', 'button1');
-						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}} , this, 'button2', 'button2');
-						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}} , this, 'button3', 'button3');
-						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}} , this, 'button4', 'button4');
-						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}} , this, 'button5', 'button5');
-						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);}} , this, 'button6', 'button6');
-						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}} , this, 'button7', 'button7');
-						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);}} , this, 'button8', 'button8');
-						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);}} , this, 'button9', 'button9');
-						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}} , this, 'button0', 'button0');
+						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);} } , this, 'button1', 'button1');
+						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);} } , this, 'button2', 'button2');
+						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);} } , this, 'button3', 'button3');
+						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);} } , this, 'button4', 'button4');
+						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);} } , this, 'button5', 'button5');
+						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} } , this, 'button6', 'button6');
+						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);} } , this, 'button7', 'button7');
+						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} } , this, 'button8', 'button8');
+						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} } , this, 'button9', 'button9');
+						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);} } , this, 'button0', 'button0');
 						buttonEnter = game.add.button(305, 490, 'elevatorAtlas', 
 							function() { 
 								// if the code entered matches properly, generate level and close panel
@@ -608,6 +671,7 @@ var playState = {
 								}
 								elevatorText.setText(elevatorString);
 							}, this, 'buttonEnt', 'buttonEnt');
+
 					} else if (doorEntering.name == 'elevator' && elevatorOpen == true) {
 						console.log('kill elevator');
 						console.log(canMove);

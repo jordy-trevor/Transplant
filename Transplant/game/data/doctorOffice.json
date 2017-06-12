@@ -9,7 +9,12 @@
 		{"name" : "door201", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 850, "keyRequired": "none"}
 	],
 	"enemyData" : [],
-	"keyCardData" : [],
-	"noteData" : []
+	"keyCardData" : [
+		{"frame" : "keyCard105", "xPos" : 850, "yPos" : 450, "name" : "keyCard105"}
+
+	],
+	"noteData" : [
+		{"name" : "welcome letter", "leadsTo" : "welcome letter", "xPos" : 650, "yPos" : 380, "frame" : "welcome letter"}
+	]
 
 }
