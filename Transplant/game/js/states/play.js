@@ -55,6 +55,7 @@ var elevatorBackground; var elevatorText; var button0; var button1; var button2;
 var invFloor1; var invFloor2; var invFloor3; var invEntrance; var invBack; var inv105; var inv203; var inv303; var invMorgue; var inv201; var inv205;
 var inventoryOpen = false; // var to help with killing of inventory sprites
 var elevatorOpen = false;
+var elevatorString = ''; // needs to be global for button keyboard integration
 
 var playState = {
 	create: function() {
@@ -100,6 +101,18 @@ var playState = {
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
 		this.input.keyboard.addKey(Phaser.Keyboard.S);
 		this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+		this.input.keyboard.addKey(Phaser.Keyboard.ONE);
+		this.input.keyboard.addKey(Phaser.Keyboard.TWO);
+		this.input.keyboard.addKey(Phaser.Keyboard.THREE);
+		this.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+		this.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+		this.input.keyboard.addKey(Phaser.Keyboard.SIX);
+		this.input.keyboard.addKey(Phaser.Keyboard.SEVEN);
+		this.input.keyboard.addKey(Phaser.Keyboard.EIGHT);
+		this.input.keyboard.addKey(Phaser.Keyboard.NINE);
+		this.input.keyboard.addKey(Phaser.Keyboard.ZERO);
+		this.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
 
 		//Key press won't affect browser
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
@@ -473,6 +486,50 @@ var playState = {
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
 		}
+
+
+
+		// elevator interaction
+		// Add keyboard input version
+		if (elevatorOpen == true) {
+			game.input.keyboard.onUpCallback = function(e) {
+				if (e.keyCode == Phaser.Keyboard.ONE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.TWO) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.THREE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FOUR) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FIVE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.SIX) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.SEVEN) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.EIGHT) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.NINE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.ZERO) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.ENTER) {var shouldDestroy = false;
+						if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;} 
+						else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
+						else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;}
+						else {elevatorString = 'Invalid'}
+						if (shouldDestroy == true) {
+							elevatorBackground.destroy();
+							button1.destroy();
+							button2.destroy();
+							button3.destroy();
+							button4.destroy();
+							button5.destroy();
+							button6.destroy();
+							button7.destroy();
+							button8.destroy();
+							button9.destroy();
+							button0.destroy();
+							buttonEnter.destroy();
+							elevatorText.destroy();
+							elevatorOpen = false;
+							canMove = true;
+						}
+						elevatorText.setText(elevatorString);}
+			}
+		}
+			
+				
 	},
 	hide: function(){
 		if(isClimbing == false && !climb && !hide && !pushOverlap && canMove == true){ //Don't allow player to hide when in front of the object
@@ -570,18 +627,18 @@ var playState = {
 						elevatorOpen = true;
 						canMove = false;
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
-						var elevatorString = '';
+						elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
-						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}} , this, 'button1', 'button1');
-						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}} , this, 'button2', 'button2');
-						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}} , this, 'button3', 'button3');
-						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}} , this, 'button4', 'button4');
-						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}} , this, 'button5', 'button5');
-						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);}} , this, 'button6', 'button6');
-						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}} , this, 'button7', 'button7');
-						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);}} , this, 'button8', 'button8');
-						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);}} , this, 'button9', 'button9');
-						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}} , this, 'button0', 'button0');
+						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);} } , this, 'button1', 'button1');
+						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);} } , this, 'button2', 'button2');
+						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);} } , this, 'button3', 'button3');
+						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);} } , this, 'button4', 'button4');
+						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);} } , this, 'button5', 'button5');
+						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} } , this, 'button6', 'button6');
+						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);} } , this, 'button7', 'button7');
+						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} } , this, 'button8', 'button8');
+						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} } , this, 'button9', 'button9');
+						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);} } , this, 'button0', 'button0');
 						buttonEnter = game.add.button(305, 490, 'elevatorAtlas', 
 							function() { 
 								// if the code entered matches properly, generate level and close panel
@@ -609,6 +666,7 @@ var playState = {
 								}
 								elevatorText.setText(elevatorString);
 							}, this, 'buttonEnt', 'buttonEnt');
+
 					} else if (doorEntering.name == 'elevator' && elevatorOpen == true) {
 						console.log('kill elevator');
 						console.log(canMove);
