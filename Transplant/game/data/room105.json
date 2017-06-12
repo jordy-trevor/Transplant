@@ -1,14 +1,7 @@
 {	
 	"worldBounds" : {"x" : 1200, "y" : 600},
-	"backgroundData" : "patientRoom",
+	"backgroundData" : "daughterRoom",
 	"obstacleData" : [ 
-		{"frame" : "bookShelf", "xPos" : 1000, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "medBox", "xPos" : 508, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medBox", "xPos" : 591, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "daughterInBed", "xPos" : 591, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "none", "gravityEnabled" : false, "hidable" : false}
-
 	],
 
 	"doorData" : [
@@ -18,8 +11,8 @@
 	"enemyData" : [],
 	"keyCardData" : [],
 	"noteData" : [
-		{"name" : "stephanyFile", "leadsTo" : "stephanyFile", "xPos" : 650, "yPos" : 380, "frame" : "stephanyFile"},
-		{"name" : "bills", "leadsTo" : "bills", "xPos" : 300, "yPos" : 380, "frame" : "bills"}
+		{"name" : "stephanyFile", "leadsTo" : "stephanyFile", "xPos" : 883, "yPos" : 360, "frame" : "stephanyFile"},
+		{"name" : "bills", "leadsTo" : "bills", "xPos" : 263, "yPos" : 360, "frame" : "bills"}
 
 	]
 

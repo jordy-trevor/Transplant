@@ -1,0 +1,20 @@
+{	
+	"worldBounds" : {"x" : 1200, "y" : 600},
+	"backgroundData" : "labRoom",
+	"obstacleData" : [ 
+		
+	],
+
+	"doorData" : [
+		{"name" : "room1", "leadsTo" : "labLevel", "xPos" : 200, "yPos" : 344, "frame" : "labDoor", "spawnAtx" : 4617, "keyRequired": "none"}
+	],
+	"enemyData" : [],
+	"keyCardData" : [
+
+	],
+	"noteData" : [
+		{"name" : "text message", "leadsTo" : "text message", "xPos" : 478, "yPos" : 350, "frame" : "text message"}
+
+	]
+
+}

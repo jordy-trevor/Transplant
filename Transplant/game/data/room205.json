@@ -1,23 +1,17 @@
 {	
 	"worldBounds" : {"x" : 1200, "y" : 600},
-	"backgroundData" : "patientRoom",
+	"backgroundData" : "hrOffice",
 	"obstacleData" : [ 
-		{"frame" : "bookShelf", "xPos" : 1000, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "medBox", "xPos" : 508, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medBox", "xPos" : 591, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
-
 	],
 
 	"doorData" : [
 
-		{"name" : "door205", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4192, "keyRequired": "none"}
+		{"name" : "door205", "leadsTo" : "level2", "xPos" : 600, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4192, "keyRequired": "none"}
 	],
 	"enemyData" : [],
 	"keyCardData" : [],
 	"noteData" : [
-		{"name" : "note12", "leadsTo" : "complaint", "xPos" : 1135, "yPos" : 168, "frame" : "complaint"}
+		{"name" : "note12", "leadsTo" : "complaint", "xPos" : 945, "yPos" : 350, "frame" : "complaint"}
 	]
 
 }

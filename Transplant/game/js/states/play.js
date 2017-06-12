@@ -67,6 +67,11 @@ var playState = {
 		//initializes sound effects
 		playerFootsteps = game.add.audio('indoorFootsteps');
 		doorSound = game.add.audio('doorOpenClose');
+		doorLockedSound = game.add.audio('doorLocked');
+		buttonPressSound = game.add.audio('buttonPress');
+		boxSlidingSound = game.add.audio('boxSliding');
+		pageTurnSound = game.add.audio('pageTurn');
+		itemGrabSound = game.add.audio('itemGrab');
 
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
@@ -231,11 +236,11 @@ var playState = {
 			// if you are touching this enemy and this enemy sees you
 			if(game.physics.arcade.overlap(player, k)) {	
 
+				itemGrabSound.play('', '', 5, false);
 				var popUpDisplay = game.add.sprite(450, 470, 'inventoryBackgroundInventory');
 				popUpDisplay.scale.x = 0.2;
 				popUpDisplay.scale.y = 0.16;
 				var popUpDisplay2;
-
 
 				if (k.name == 'floor1ElevatorCode') { popUpDisplay2 = game.add.sprite(500, 520, 'floor1ElevatorCodeInventory');} 
 				if (k.name == 'floor2ElevatorCode') {popUpDisplay2 = game.add.sprite(500, 520, 'floor2ElevatorCodeInventory');} 
@@ -521,20 +526,22 @@ var playState = {
 		// Add keyboard input version
 		if (elevatorOpen == true) {
 			game.input.keyboard.onUpCallback = function(e) {
-				if (e.keyCode == Phaser.Keyboard.ONE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.TWO) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.THREE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.FOUR) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.FIVE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.SIX) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} }
-				if (e.keyCode == Phaser.Keyboard.SEVEN) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.EIGHT) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} }
-				if (e.keyCode == Phaser.Keyboard.NINE) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} }
-				if (e.keyCode == Phaser.Keyboard.ZERO) {if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.ENTER) {var shouldDestroy = false;
+				if (e.keyCode == Phaser.Keyboard.ONE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.TWO) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.THREE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FOUR) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FIVE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.SIX) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.SEVEN) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.EIGHT) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.NINE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.ZERO) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.ENTER) { buttonPressSound.play(); var shouldDestroy = false;
 						if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;} 
 						else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
 						else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;}
+						else if(elevatorString == '0117') {playerSpawnX = 214; generateLevel('morgueFloor'); shouldDestroy = true;}
+						else if (elevatorString == '0379') {playerSpawnX = 214; generateLevel('receptionFloor'); shouldDestroy = true;}
 						else {elevatorString = 'Invalid'}
 						if (shouldDestroy == true) {
 							elevatorBackground.destroy();
@@ -628,6 +635,7 @@ var playState = {
 						canMove = false;
 					} else {
 						//Add the blown up version of the sprite on screen and stop player from moving
+						pageTurnSound.play();
 						read = game.add.sprite(50, -50, noteReading.leadsTo);
 						read.scale.x = 0.8;
 						read.scale.y = 0.8;
@@ -659,23 +667,26 @@ var playState = {
 						elevatorBackground = game.add.sprite(100, 20, 'elevatorAtlas', 'elevatorPanel');
 						elevatorString = '';
 						elevatorText = game.add.text(175, 193, elevatorString);
-						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);} } , this, 'button1', 'button1');
-						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);} } , this, 'button2', 'button2');
-						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);} } , this, 'button3', 'button3');
-						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);} } , this, 'button4', 'button4');
-						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);} } , this, 'button5', 'button5');
-						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} } , this, 'button6', 'button6');
-						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);} } , this, 'button7', 'button7');
-						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} } , this, 'button8', 'button8');
-						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} } , this, 'button9', 'button9');
-						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);} } , this, 'button0', 'button0');
+						button1 = game.add.button(145, 325, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);} } , this, 'button1', 'button1');
+						button2 = game.add.button(225, 325, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);} } , this, 'button2', 'button2');
+						button3 = game.add.button(305, 325, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);} } , this, 'button3', 'button3');
+						button4 = game.add.button(145, 380, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);} } , this, 'button4', 'button4');
+						button5 = game.add.button(225, 380, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);} } , this, 'button5', 'button5');
+						button6 = game.add.button(305, 380, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} } , this, 'button6', 'button6');
+						button7 = game.add.button(145, 435, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);} } , this, 'button7', 'button7');
+						button8 = game.add.button(225, 435, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} } , this, 'button8', 'button8');
+						button9 = game.add.button(305, 435, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} } , this, 'button9', 'button9');
+						button0 = game.add.button(225, 490, 'elevatorAtlas', function() { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);} } , this, 'button0', 'button0');
 						buttonEnter = game.add.button(305, 490, 'elevatorAtlas', 
 							function() { 
+								buttonPressSound.play(); 
 								// if the code entered matches properly, generate level and close panel
 								var shouldDestroy = false;
 								if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;} 
 								else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
 								else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;}
+								else if(elevatorString == '0117') {playerSpawnX = 214; generateLevel('morgueFloor'); shouldDestroy = true;}
+								else if (elevatorString == '0379') {playerSpawnX = 214; generateLevel('receptionFloor'); shouldDestroy = true;}
 								else {elevatorString = 'Invalid'}
 								if (shouldDestroy == true) {
 									elevatorBackground.destroy();
@@ -733,6 +744,10 @@ var playState = {
 						}
 					}
 					break;
+				} else {
+					if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) <= -1){
+						doorLockedSound.play();
+					}
 				}
 			}
 		}

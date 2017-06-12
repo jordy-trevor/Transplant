@@ -1,0 +1,22 @@
+{	
+	"worldBounds" : {"x" : 1200, "y" : 600},
+	"shadowData" : "",
+	"backgroundData" : "labRoomBurnt",
+	"playerStartData" : [{"x" : 199, "y" : 450}],
+	"obstacleData" : [ 
+	
+
+	],
+	"enemyData" : [
+		
+	],
+	"doorData" : [
+		{"name" : "door1", "leadsTo": "burntLab", "xPos" : 200, "yPos" : 344, "frame" : "burntLabDoor", "spawnAtx" : 2188, "keyRequired" : "none"}	
+	],
+	"keyCardData" : [],
+	"noteData" : [
+		{"name" : "contract", "leadsTo" : "contract", "xPos" : 653, "yPos" : 350, "frame" : "contract"}
+
+	]
+
+}

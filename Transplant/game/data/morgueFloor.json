@@ -1,0 +1,22 @@
+{	
+	"worldBounds" : {"x" : 2400, "y" : 600},
+	"shadowData" : "shadowsMorgue",
+	"backgroundData" : "morgueFloor",
+	"obstacleData" : [ 
+		
+	],
+
+	"doorData" : [
+		{"name" : "elevator", "leadsTo" : "", "xPos" : 214, "yPos" : 332, "frame" : "elevator", "spawnAtx" : 610, "keyRequired": "none"}
+	],
+	"enemyData" : [],
+	"keyCardData" : [
+		{"frame" : "entranceFloorElevatorCode", "xPos" : 1821, "yPos" : 450, "name" : "entranceFloorElevatorCode"}
+
+	],
+	"noteData" : [
+		{"name" : "corpse", "leadsTo" : "corpse tag", "xPos" : 1475, "yPos" : 385, "frame" : "corpse"}
+
+	]
+
+}

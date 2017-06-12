@@ -11,8 +11,8 @@
 		{"frame" : "horizontalPipes", "xPos" : 2171, "yPos" : 222, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},				
 		{"frame" : "airVentPart", "xPos" : 2362, "yPos" : 233, "xScale" : "1.2", "yScale": "0.7", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},				
 		{"frame" : "airVentPart", "xPos" : 2897, "yPos" : 233, "xScale" : "1.5", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},				
-		{"frame" : "box", "xPos" : 2641, "yPos" : 360, "xScale" : "1.5", "yScale" : "2.48", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "box", "xPos" : 3527, "yPos" : 420, "xScale" : "1.1", "yScale" : "1.55", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "pile2", "xPos" : 2641, "yPos" : 360, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "pile1", "xPos" : 3527, "yPos" : 420, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "bed", "xPos" : 2990, "yPos" : 453, "xScale" : "1", "yScale": "1", "pushable" : "enemy", "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false}	
 
 
@@ -25,11 +25,11 @@
 
 	],
 	"doorData" : [
-		{"name" : "door1", "leadsTo": "labRoom", "xPos" : 402, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door2", "leadsTo": "labRoom", "xPos" : 1769, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door3", "leadsTo": "labRoom", "xPos" : 3652, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door4", "leadsTo": "labRoom", "xPos" : 4157, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door5", "leadsTo": "labRoom", "xPos" : 4617, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door1", "leadsTo": "labRoom", "xPos" : 402, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 116, "keyRequired" : "none"},
+		{"name" : "door2", "leadsTo": "labRoom2", "xPos" : 1769, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 116, "keyRequired" : "none"},
+		{"name" : "door3", "leadsTo": "labRoom3", "xPos" : 3652, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door4", "leadsTo": "labRoom4", "xPos" : 4157, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door5", "leadsTo": "labRoom5", "xPos" : 4617, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
 		{"name" : "doubleDoor", "leadsTo" : "burntLab", "xPos" : 5020, "yPos" : 339, "frame" : "doubleDoor", "spawnAtx" : 160, "keyRequired": "none"}
 
 

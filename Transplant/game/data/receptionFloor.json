@@ -1,0 +1,20 @@
+{	
+	"worldBounds" : {"x" : 2156, "y" : 600},
+	"shadowData" : "",
+	"backgroundData" : "receptionFloor",
+	"obstacleData" : [ 
+		
+	],
+
+	"doorData" : [
+		{"name" : "elevator", "leadsTo" : "", "xPos" : 216, "yPos" : 335, "frame" : "elevator", "spawnAtx" : 610, "keyRequired": "none"},
+		{"name" : "exitDoor", "leadsTo" : "endLevel", "xPos" : 1908, "yPos" : 328, "frame" : "exitDoor", "spawnAtx" : 200, "keyRequired": "none"}
+
+	],
+	"enemyData" : [],
+	"keyCardData" : [
+	],
+	"noteData" : [
+	]
+
+}
