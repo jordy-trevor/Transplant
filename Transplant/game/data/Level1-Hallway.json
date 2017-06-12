@@ -39,7 +39,7 @@
 	],
 	"keyCardData" : [
 		{"frame" : "keyCard303", "xPos" : 2785, "yPos" : 230, "name" : "keyCard303"},
-		{"frame" : "floor1ElevatorCode", "xPos" : 2090, "yPos" : 180, "name" : "floor1ElevatorCode"},		
+		{"frame" : "floor3ElevatorCode", "xPos" : 2090, "yPos" : 180, "name" : "floor3ElevatorCode"},		
 		{"frame" : "floor2ElevatorCode", "xPos" : 4775, "yPos" : 450, "name" : "floor2ElevatorCode"}
 
 

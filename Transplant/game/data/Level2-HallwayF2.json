@@ -43,7 +43,7 @@
 
 	],
 	"keyCardData" : [
-		{"frame" : "floor3ElevatorCode", "xPos" : 4775, "yPos" : 450, "name" : "floor3ElevatorCode"}
+		{"frame" : "floor1ElevatorCode", "xPos" : 4775, "yPos" : 450, "name" : "floor1ElevatorCode"}
 	],
 	"noteData" : [
 
