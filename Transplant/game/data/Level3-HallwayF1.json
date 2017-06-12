@@ -36,8 +36,8 @@
 	],
 	"enemyData" : [
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 850, "yPos" : 277, "walkSpeed" : 0, "runSpeed" : 220, "walkDist" : 0, "turnTime" : 0, "facing" : "right", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 1545, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 2.5, "facing" : "right", "target" : "player"},
-		{"key" : "atlas2", "frame": "1.png", "xPos" : 2285, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 7, "facing" : "left", "target" : "player"},
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 1545, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 5, "facing" : "right", "target" : "player"},
+		{"key" : "atlas2", "frame": "1.png", "xPos" : 2285, "yPos" : 0, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 5, "facing" : "left", "target" : "player"},
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 4280, "yPos" : 400, "walkSpeed" : 50, "runSpeed" : 220, "walkDist" : 440, "turnTime" : 2, "facing" : "right", "target" : "player"}
 
 
