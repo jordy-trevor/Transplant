@@ -152,7 +152,7 @@ var playState = {
 		climb = game.physics.arcade.overlap(player, obstacleClimbGroup);
 		hide = game.physics.arcade.overlap(player, obstacleHideGroup);
 		if(isColliding == true){
-			game.physics.arcade.collide(player, [obstacleGroup,obstacleClimbGroup,obstacleHideGroup]);
+			game.physics.arcade.collide(player, [obstacleClimbGroup,obstacleHideGroup]);
 		}
 		if(foreground == false){
 			hidePlatform = game.physics.arcade.collide(player, platforms2);
@@ -240,18 +240,21 @@ var playState = {
 
 		//check player distance from the floor
 		distanceFromGround = (game.world.height-128) - player.position.y; //continually calculate
-		if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
-			console.log('seen:' + seenLevel2);
-		}
+
 		//Climb objects
 		if(climb && foreground == true && (player.body.velocity.y == 0 || isJumping == true || isClimbing == true) && canMove == true){ //can only climb when in front of the object
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || (distanceFromGround <= 45) || isJumping == true) && player.position.y > 69.25){
+			if(isJumping == false){
+				player.body.velocity.y = 0;
+			}
+			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || distanceFromGround <= 45 || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
 				player.frame ++; //Go through each frame of climb
 				//player goes up
-				player.body.position.y -= 2;
+				if((hitPlatform && distanceFromGround <=40) || (!hitPlatform && distanceFromGround > 39)){
+					player.body.position.y -= 2;
+				}
 				isClimbing = true; //disable normal left and right movement
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
@@ -296,6 +299,7 @@ var playState = {
 		if(!climb){
 			isClimbing = false;
 			player.body.gravity.y = playerGravity;
+			canControl = true;
 		}
 
 		//Allow left to right movement when not climbing but not when climbing something and reset jumping variable
@@ -303,16 +307,18 @@ var playState = {
 			canControl = false;
 			isJumping = false;
 		}
-		else if(isClimbing == false){
+		/*else if(isClimbing == false){
 			canControl = true;
-			player.body.gravity.y = playerGravity; //set player gravity back to normal
+			//player.body.gravity.y = playerGravity; //set player gravity back to normal
+		}*/
+		if(isJumping == true){
+			canControl = true;
 		}
 		//reset jump variable when landing on something
 		if((hitPlatform && player.body.touching.down) || (player.body.touching.down && player.body.velocity.y == 0)){
 			isJumping = false;
 		}
-		//Give control back when touching the ground
-		if (hitPlatform) {
+		if(hitPlatform && distanceFromGround <= 40){
 			canControl = true;
 			isClimbing = false;
 		}
@@ -339,7 +345,7 @@ var playState = {
 					else{
 						player.body.velocity.x = -150; //normal speed
 					}
-				if(player.body.touching.down){
+				if((player.body.touching.down || distanceFromGround <= 40) || (hitPlatform && player.body.velocity.y <=4)){
 					//Walking animation
 					player.animations.play('walkLeft');
 					//Walking sound
@@ -374,7 +380,7 @@ var playState = {
 					else{
 						player.body.velocity.x = 150; //normal speed
 					}
-				if(player.body.touching.down){
+				if((player.body.touching.down || distanceFromGround <= 40) || (hitPlatform && player.body.velocity.y <=4)){
 					//Walking animation
 					player.animations.play('walkRight');
 					//Walking sound
@@ -403,7 +409,7 @@ var playState = {
 			//stand still
 			player.animations.stop();
 			//when player is on top of something and not in the air or climbing
-			if((!isClimbing || player.body.touching.down) && foreground == true){
+			if((!isClimbing && ((player.body.touching.down && hitPlatform) || player.body.velocity.y == 0)) && foreground == true){
 				if(playerDirection == 0){
 					player.frame = 53; //Face Left
 				}
@@ -441,10 +447,8 @@ var playState = {
 			game.camera.x += 5; //camera move speed
 			canMove = false; //stop player from moving
 			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
-			console.log('part 1');
 			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
 				seenLevel2 = true; //Player has now seen the level
-				console.log('part 2');
 			}
 		}
 		//Put the camera back on the player when camera pan ends
@@ -452,7 +456,6 @@ var playState = {
 			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
-			console.log('part 3');
 		}
 		//Third Hallway
 		if(levelData.backgroundData == 'HallBG' && seenLevel3 == false){
@@ -535,7 +538,8 @@ var playState = {
 		if(isClimbing == false && !climb && !hide && !pushOverlap && canMove == true){ //Don't allow player to hide when in front of the object
 			if(foreground==true && distanceFromGround <= 40){
 				//move player from foreground to layer behind the object
-				player.body.setSize(90, 145, 63, 4);			
+				player.body.setSize(90, 145, 63, 4);
+				player.body.velocity.y = 0;
 				group2.remove(player);
 				group1.add(player);
 				foreground=false;
@@ -567,11 +571,11 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if(canMove == true){	
-			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40)|| (player.body.touching.down && player.body.velocity.y == 0)){
+			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40) || (player.body.touching.down && player.body.velocity.y == 0)){
 				if(foreground == true){
 					player.animations.stop();
 					if(playerDirection == 0){
-						player.frame = 41; // Jumping Left
+						player.frame = 43; // Jumping Left
 					}
 					if(playerDirection == 1){
 						player.frame = 35; //Jumping Right
@@ -579,6 +583,7 @@ var playState = {
 					player.body.velocity.y = -400; //jump height
 					isClimbing = false;
 					isJumping = true;
+					player.body.gravity.y = playerGravity;
 				}
 			}
 		}
