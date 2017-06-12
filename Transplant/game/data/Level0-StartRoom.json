@@ -9,7 +9,8 @@
 	],
 	"keyCardData" : [],
 	"noteData" : [
-		{"name" : "familyPortrait", "leadsTo" : "note1", "xPos" : 325, "yPos" : 340, "frame" : "note1"}
+		{"name" : "familyPortrait", "leadsTo" : "family portrait", "xPos" : 325, "yPos" : 340, "frame" : "family portrait"},
+		{"name" : "viktor File", "leadsTo" : "viktorFile", "xPos" : 900, "yPos" : 430, "frame" : "viktorFile"}
 	]
 
 }

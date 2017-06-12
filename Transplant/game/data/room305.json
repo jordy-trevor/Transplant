@@ -1,21 +1,21 @@
 {	
 	"worldBounds" : {"x" : 1200, "y" : 600},
-	"backgroundData" : "patientRoom",
+	"backgroundData" : "runTutorial",
 	"obstacleData" : [ 
-		{"frame" : "bookShelf", "xPos" : 1000, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "bookShelf", "xPos" : 1135, "yPos" : 303, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : true, "collidable" : "top", "gravityEnabled" : false, "hidable" : false},
-		{"frame" : "medBox", "xPos" : 508, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
-		{"frame" : "medBox", "xPos" : 591, "yPos" : 379, "xScale" : "1", "yScale": "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true}
 
 	],
 
 	"doorData" : [
 
-		{"name" : "door305", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4492, "keyRequired": "none"}
+		{"name" : "door305", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4492, "keyRequired": "none"},
+		{"name" : "door305", "leadsTo" : "level1", "xPos" : 965, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4492, "keyRequired": "locked"}
 	],
-	"enemyData" : [],
+	"enemyData" : [		{"key" : "atlas2", "frame": "1.png", "xPos" : 1100, "yPos" : 400, "walkSpeed" : 60, "runSpeed" : 220, "walkDist" : 1, "turnTime" : 2, "facing" : "right", "target" : "player"}
+
+	],
+
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+	]
 
 }

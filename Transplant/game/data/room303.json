@@ -15,8 +15,12 @@
 		{"name" : "door303", "leadsTo" : "room303", "xPos" : 2105, "yPos" : 336, "frame" : "transitionDoor"},
 		{"name" : "door303", "leadsTo" : "level1", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 2105, "keyRequired": "none"}
 	],
-	"enemyData" : [],
+	"enemyData" : [
+		
+	],
 	"keyCardData" : [],
-	"noteData" : []
+	"noteData" : [
+		{"name" : "random patient", "leadsTo" : "", "xPos" : 700, "yPos" : 410, "frame" : "random patient"}
+	]
 
 }
