@@ -1,20 +1,20 @@
 {	
 	"worldBounds" : {"x" : 1200, "y" : 600},
-	"backgroundData" : "patientRoom",
+	"backgroundData" : "doctorOffice",
 	"obstacleData" : [ 
 		
 	],
 
 	"doorData" : [
-		{"name" : "door201", "leadsTo" : "level2", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 850, "keyRequired": "none"}
+		{"name" : "door201", "leadsTo" : "level2", "xPos" : 184, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 850, "keyRequired": "none"}
 	],
 	"enemyData" : [],
 	"keyCardData" : [
-		{"frame" : "keyCard105", "xPos" : 850, "yPos" : 450, "name" : "keyCard105"}
+		{"frame" : "keyCard105", "xPos" : 1127, "yPos" : 450, "name" : "keyCard105"}
 
 	],
 	"noteData" : [
-		{"name" : "welcome letter", "leadsTo" : "welcome letter", "xPos" : 650, "yPos" : 380, "frame" : "welcome letter"}
+		{"name" : "welcome letter", "leadsTo" : "welcome letter", "xPos" : 328, "yPos" : 350, "frame" : "welcome letter"}
 	]
 
 }

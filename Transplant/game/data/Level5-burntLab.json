@@ -11,15 +11,15 @@
 		
 	],
 	"doorData" : [
-		{"name" : "door1", "leadsTo": "labRoom", "xPos" : 402, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door2", "leadsTo": "labRoom", "xPos" : 974, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door3", "leadsTo": "labRoom", "xPos" : 1769, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door4", "leadsTo": "labRoom", "xPos" : 2188, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door5", "leadsTo": "labRoom", "xPos" : 2694, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door6", "leadsTo": "labRoom", "xPos" : 3652, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door7", "leadsTo": "labRoom", "xPos" : 4157, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door8", "leadsTo": "labRoom", "xPos" : 4617, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"}
-
+		{"name" : "door1", "leadsTo": "labRoomBurnt", "xPos" : 402, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door2", "leadsTo": "labRoomBurnt2", "xPos" : 974, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door3", "leadsTo": "labRoomBurnt3", "xPos" : 1769, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door4", "leadsTo": "labRoomBurnt4", "xPos" : 2188, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door5", "leadsTo": "labRoomBurnt5", "xPos" : 2694, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door6", "leadsTo": "labRoomBurnt6", "xPos" : 3652, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door7", "leadsTo": "labRoomBurnt7", "xPos" : 4157, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door8", "leadsTo": "labRoomBurnt8", "xPos" : 4617, "yPos" : 337, "frame" : "burntLabDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "doubledoor", "leadsTo": "morgueFloor", "xPos" : 5089, "yPos" : 337, "frame" : "doubleDoor", "spawnAtx" : 214, "keyRequired" : "none"}
 		
 	],
 	"keyCardData" : [],
