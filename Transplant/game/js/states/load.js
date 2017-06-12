@@ -91,6 +91,8 @@ var load = {
 		game.load.image('interactableE', 'interactableE.png');
 		game.load.image('burntLabDoor', 'burntLabDoor.png');
 		game.load.image('exitDoor', 'exitDoor.jpg');
+		game.load.image('pile1', 'pile1.png');
+		game.load.image('pile2', 'pile-2.png');
 
 
 
