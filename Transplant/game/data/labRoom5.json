@@ -13,6 +13,8 @@
 
 	],
 	"noteData" : [
+		{"name" : "text message", "leadsTo" : "text message", "xPos" : 478, "yPos" : 350, "frame" : "text message"}
+
 	]
 
 }

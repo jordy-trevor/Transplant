@@ -1,6 +1,6 @@
 {	
 	"worldBounds" : {"x" : 1200, "y" : 600},
-	"backgroundData" : "labRoom",
+	"backgroundData" : "labRoomCreepy",
 	"obstacleData" : [ 
 		
 	],
