@@ -45,9 +45,14 @@ var load = {
 		game.load.image('stairs', 'Stairs.png');
 		game.load.image('bigLight', 'bigLight.png');
 		game.load.image('cabinet', 'filingCabinet.png');
+
+
+		// key cards
+		game.load.image('keyCard105', 'keyCard105.png');
+		game.load.image('keyCard201', 'keyCard201.png');
+		game.load.image('keyCard203', 'keyCard203.png');
+		game.load.image('keyCard205', 'keyCard205.png');
 		game.load.image('keyCard303', 'keyCard303.png');
-
-
 		game.load.image('floor1ElevatorCode', 'floor1ElevatorCode.png');
 		game.load.image('floor2ElevatorCode', 'floor2ElevatorCode.png');
 		game.load.image('floor3ElevatorCode', 'floor3ElevatorCode.png');
@@ -69,6 +74,7 @@ var load = {
 		game.load.image('table', 'Table.png');
 		game.load.image('interactableE', 'interactableE.png');
 		game.load.image('burntLabDoor', 'burntLabDoor.png');
+
 
 
 		// file
@@ -95,6 +101,7 @@ var load = {
 		game.load.image('daughterInBed', 'daughterInBed.png');
 		game.load.atlas('door animation', 'Door Animation/door animation.png', 'Door Animation/door animation.json');
 		game.load.image('family portrait', 'family portrait.jpg');
+		game.load.image('bills', 'bills.png');
 		// creepy lab stuff
 		game.load.image('headless body 1', 'headless body 1.png');
 		game.load.image('healdess body 2', 'headless body 2.png');
@@ -140,6 +147,7 @@ var load = {
 		game.load.image('keyCard203Inventory', 'inventory/Room 203 Key Card.png');
 		game.load.image('keyCard205Inventory', 'inventory/Room 205 Key Card.png');
 		game.load.image('keyCard303Inventory', 'inventory/Room 303 Key Card.png');
+
 		
 
 		// load in level files
@@ -156,8 +164,8 @@ var load = {
 		game.load.json('room203', 'room203.json');
 		game.load.json('room205', 'room205.json');
 		game.load.json('room101', 'room101.json');
-		game.load.json('room103', 'room103.json');
 		game.load.json('room105', 'room105.json');
+		game.load.json('room107', 'room107.json');
 		game.load.json('burntLab', 'Level5-burntLab.json');
 
 		// sound
