@@ -17,11 +17,24 @@ var load = {
 		game.load.image('patientRoom', 'patientRoom.jpg');
 		game.load.image('HallBG', 'HallBG.jpg');
 		game.load.image('hall2', 'HallTwo.jpg');
+		game.load.image('hall3', 'HallThree.jpg');
 		game.load.image('shadowsHallTwo', 'shadowsHallTwo.png');
 		game.load.image('lab', 'lab.jpg');
 		game.load.image('gameOver', 'gameOver.jpg');
 		game.load.image('runTutorial', 'runTutorial.jpg');
 		game.load.image('burntLab', 'burntLab.jpg');
+		game.load.image('doctorOffice', 'doctorOffice.jpg');
+		game.load.image('hrOffice', 'hrOffice.jpg');
+		game.load.image('daughterRoom', 'daughterRoom.jpg');
+		game.load.image('receptionFloor', 'Reception.jpg');
+		game.load.image('morgueFloor', 'morgue.png');
+		game.load.image('shadowsHallThree', 'shadowsHallThree.png');
+		game.load.image('shadowsMorgue', 'shadowsMorgue.png');
+		game.load.image('operatingRoom', 'operatingRoom.jpg');
+		game.load.image('labRoom', 'labRoom.jpg');	
+		game.load.image('labRoomBurnt', 'labRoomBurnt.jpg');	
+		game.load.image('operatingRoomBurnt', 'operatingRoomBurnt.jpg');
+
 
 		//title screen
 		game.load.image('title', 'titleScreen.png');
@@ -74,6 +87,7 @@ var load = {
 		game.load.image('table', 'Table.png');
 		game.load.image('interactableE', 'interactableE.png');
 		game.load.image('burntLabDoor', 'burntLabDoor.png');
+		game.load.image('exitDoor', 'exitDoor.jpg');
 
 
 
@@ -167,6 +181,21 @@ var load = {
 		game.load.json('room105', 'room105.json');
 		game.load.json('room107', 'room107.json');
 		game.load.json('burntLab', 'Level5-burntLab.json');
+		game.load.json('receptionFloor', 'receptionFloor.json');
+		game.load.json('morgueFloor', 'morgueFloor.json');
+		game.load.json('labRoom', 'labRoom.json');
+		game.load.json('labRoom2', 'labRoom2.json');
+		game.load.json('labRoom3', 'labRoom3.json');
+		game.load.json('labRoom4', 'labRoom4.json');
+		game.load.json('labRoom5', 'labRoom5.json');
+		game.load.json('labRoomBurnt', 'labRoomBurnt.json');
+		game.load.json('labRoomBurnt2', 'labRoomBurnt2.json');
+		game.load.json('labRoomBurnt3', 'labRoomBurnt3.json');
+		game.load.json('labRoomBurnt4', 'labRoomBurnt4.json');
+		game.load.json('labRoomBurnt5', 'labRoomBurnt5.json');
+		game.load.json('labRoomBurnt6', 'labRoomBurnt6.json');
+		game.load.json('labRoomBurnt7', 'labRoomBurnt7.json');
+		game.load.json('labRoomBurnt8', 'labRoomBurnt8.json');
 
 		// sound
 		game.load.path = '../game/assets/audio/';

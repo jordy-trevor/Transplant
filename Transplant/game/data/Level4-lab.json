@@ -25,11 +25,11 @@
 
 	],
 	"doorData" : [
-		{"name" : "door1", "leadsTo": "labRoom", "xPos" : 402, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door2", "leadsTo": "labRoom", "xPos" : 1769, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door3", "leadsTo": "labRoom", "xPos" : 3652, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door4", "leadsTo": "labRoom", "xPos" : 4157, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
-		{"name" : "door5", "leadsTo": "labRoom", "xPos" : 4617, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door1", "leadsTo": "labRoom", "xPos" : 402, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 116, "keyRequired" : "none"},
+		{"name" : "door2", "leadsTo": "labRoom2", "xPos" : 1769, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 116, "keyRequired" : "none"},
+		{"name" : "door3", "leadsTo": "labRoom3", "xPos" : 3652, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door4", "leadsTo": "labRoom4", "xPos" : 4157, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
+		{"name" : "door5", "leadsTo": "labRoom5", "xPos" : 4617, "yPos" : 337, "frame" : "labDoor", "spawnAtx" : 200, "keyRequired" : "none"},
 		{"name" : "doubleDoor", "leadsTo" : "burntLab", "xPos" : 5020, "yPos" : 339, "frame" : "doubleDoor", "spawnAtx" : 160, "keyRequired": "none"}
 
 

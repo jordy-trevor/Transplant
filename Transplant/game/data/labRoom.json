@@ -1,0 +1,18 @@
+{	
+	"worldBounds" : {"x" : 1200, "y" : 600},
+	"backgroundData" : "operatingRoom",
+	"obstacleData" : [ 
+		
+	],
+
+	"doorData" : [
+		{"name" : "room1", "leadsTo" : "labLevel", "xPos" : 116, "yPos" : 340, "frame" : "labDoor", "spawnAtx" : 402, "keyRequired": "none"}
+	],
+	"enemyData" : [],
+	"keyCardData" : [
+
+	],
+	"noteData" : [
+	]
+
+}
