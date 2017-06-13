@@ -20,6 +20,7 @@ var endState = {
 		seenLevel4 = false;
 		seenLevel5 = false;
 
+		//End screen and menu button
 		var end = game.add.tileSprite(0,0,1200,800, 'gameOver');
 		button = game.add.button(1055, 535, 'menuButton', this.actionOnClick, this, 1, 1);
 
@@ -35,13 +36,16 @@ var endState = {
 		game.add.tween(button).to( {alpha: 0.5}, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 	},
 	over: function(){
+		//when hover over
 		button.alpha = 1;
 	},
 	out: function(){
+		//when not hovering
 		button.alpha = 0.5;
 	},
 	actionOnClick: function(){
-		music.stop();
-		game.state.start('menu');
+		//When clicked on by mouse
+		music.stop(); //stop music from playing
+		game.state.start('menu'); //send to title screen
 	}
 };

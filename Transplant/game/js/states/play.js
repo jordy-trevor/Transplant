@@ -3,7 +3,7 @@
 // ----------- GROUPS ------------------------------
 var backgroundGroup; // background
 var doorGroup; //group to distinguish what will be a door/elevator
-var group1; //right in front of background
+var backLayer; //right in front of background
 var obstacleHideGroup; //Obstacle group for objects that youv can hide behind
 var obstacleGroup;	//Obstacle group for obejcts with full hit box
 var obstacleClimbGroup; //Obstacle group for objects that player can climb and only top hitbox
@@ -12,8 +12,8 @@ var obstacleEnemyPushGroup; // Obstacles that only enemies can push
 var noteGroup; //group for notes
 var enemyGroup; //group for enemies
 var keyCardGroup; // group for keyCards
-var group2; //top layer
-var group3; //Layer above everything to do lighting
+var normalLayer; //top layer
+var topLayer; //Layer above everything to do lighting
 var platform; //ground layer when standing up
 var platform2; //ground layer when crouching over
 // ----------- Player Variables ---------------------
@@ -78,7 +78,7 @@ var playState = {
 		//Layers from Back to Front
 		backgroundGroup = game.add.group();// background
 		doorGroup = game.add.group(); //Doors/elevator
-		group1 = game.add.group();//layer above background
+		backLayer = game.add.group();//layer above background
 		obstacleHideGroup = game.add.group(); //hidable objects
 		obstacleGroup = game.add.group(); // obstacles
 		obstacleClimbGroup = game.add.group(); //climbable obstacles
@@ -87,19 +87,19 @@ var playState = {
 		noteGroup = game.add.group(); //notes
 		enemyGroup = game.add.group(); // enemies
 		keyCardGroup = game.add.group(); // keyCards
-		group2 = game.add.group();//top layer
-		group3 = game.add.group();//Lighting layer
+		normalLayer = game.add.group();//top layer
+		topLayer = game.add.group();//Lighting layer
 
 		//Groups unrelated to layers and is for the ground
 		platforms = game.add.group(); //Ground everything rests on
-		platforms2 = game.add.group(); //Ground only player rests on when hiding
+		platforms2 = game.add.group(); //Ground only the player rests on when hiding
 
 		//Generate this level from menuState
 		generateLevel('level0');
 
 		//Bring these groups to the forefront
-		game.world.bringToTop(group2);
-		game.world.bringToTop(group3);
+		game.world.bringToTop(normalLayer);
+		game.world.bringToTop(topLayer);
 
 
 		//Adding use of various keys 
@@ -141,7 +141,7 @@ var playState = {
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SHIFT);
 
-		//Use H key to swap between layers
+		//Use H key to swap between layers to hide
 		this.hideKey = game.input.keyboard.addKey(Phaser.Keyboard.H);
 		this.hideKey.onDown.add(this.hide, this);
 
@@ -179,15 +179,10 @@ var playState = {
 
 		//collision checks for enemies
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
-		game.physics.arcade.collide(enemyGroup, obstacleGroup);
-		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
-		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
-		game.physics.arcade.collide(enemyGroup, obstacleEnemyPushGroup);
+		game.physics.arcade.collide(enemyGroup, [obstacleGroup, obstacleHideGroup, obstacleClimbGroup, obstacleEnemyPushGroup]);
 
 		// keyCard can hit stuff
-		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
-		game.physics.arcade.collide(keyCardGroup, platforms);
-		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
+		game.physics.arcade.collide(keyCardGroup, [obstacleGroup, platforms, obstacleHideGroup]);
 
 		// spawn 'E' when you approach interactable object or door
 		noteGroup.forEach( function(c) {
@@ -247,7 +242,7 @@ var playState = {
 
 		// put the key into your inventory after colliding with it
 		keyCardGroup.forEach(function (k) {
-			// if you are touching this enemy and this enemy sees you
+			// if you are over a keycard
 			if(game.physics.arcade.overlap(player, k)) {	
 
 				itemGrabSound.play('', '', 5, false);
@@ -372,7 +367,7 @@ var playState = {
 			canControl = true;
 			isClimbing = false;
 		}
-		
+
 
 		//Movement system
 		player.body.velocity.x = 0; //reset player velocity
@@ -470,6 +465,7 @@ var playState = {
 
    		//Reach game over screen when at the final level
    		if(levelData.backgroundData == "endingBackground" && player.position.x >= 1200){
+   			//fading in and out after certain distance
    			if(fadeMade == false){
    				fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
    				fadeStart.alpha = 0;
@@ -477,6 +473,7 @@ var playState = {
    				game.add.tween(fadeStart).to( {alpha: 0.5}, 1000, Phaser.Easing.Linear.None, true, 0, 6000, true).loop(true);
    				fadeMade = true;
    			}
+   			//Send player to game over screen
    			else if(player.position.x >= 3500){;
    				fadeStart.destroy();
 				game.state.start('end');
@@ -617,8 +614,8 @@ var playState = {
 				//move player from foreground to layer behind the object
 				player.body.setSize(90, 145, 63, 4);
 				player.body.velocity.y = 0;
-				group2.remove(player);
-				group1.add(player);
+				normalLayer.remove(player);
+				backLayer.add(player);
 				foreground=false;
 				if(playerDirection == 0){
 					player.frame = 21;
@@ -626,13 +623,13 @@ var playState = {
 				if(playerDirection == 1){
 					player.frame = 14;
 				}
-				player.position.y = game.world.height - 200; //set player to hide platform
+				player.position.y = game.world.height - 190; //set player to hide platform
 			}
 			else if(foreground == false && hidePlatform){
 				//move player to the foreground
 				player.body.setSize(90, 270, 63, 4);	
-				group1.remove(player);
-				group2.add(player);
+				backLayer.remove(player);
+				normalLayer.add(player);
 				foreground=true;
 				if(playerDirection == 0){
 					player.frame = 53; //Face Left
@@ -888,7 +885,7 @@ var generateLevel = function(levelName) {
 	// destroy can cause forEach to skip index. While loop helps ensure that all enemies get destroyed.
 	while(backgroundGroup.length > 0) { backgroundGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 	while(doorGroup.length > 0) { doorGroup.forEach(function (c) {if(c.popup != undefined) {c.popup.destroy();} c.kill(); c.destroy(); });}
-	while(group1.length > 0) { group1.forEach(function (c) {c.kill(); c.destroy(); });}
+	while(backLayer.length > 0) { backLayer.forEach(function (c) {c.kill(); c.destroy(); });}
 	while(obstacleHideGroup.length > 0) { obstacleHideGroup.forEach(function (c) {c.kill(); c.destroy(); });} 
 	while(obstacleGroup.length > 0) { obstacleGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 	while(obstacleClimbGroup.length > 0) { obstacleClimbGroup.forEach(function (c) {c.kill(); c.destroy(); });}
@@ -897,10 +894,8 @@ var generateLevel = function(levelName) {
 	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill(); c.destroy();});}
 	while(enemyGroup.length > 0) { enemyGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 	while(obstacleEnemyPushGroup.length > 0) { obstacleEnemyPushGroup.forEach(function (c) {c.kill(); c.destroy(); });}
-
-	
-	while(group2.length > 0) {group2.forEach(function (c) {c.kill(); c.destroy();});}
-	while(group3.length > 0) {group3.forEach(function (c) {c.kill(); c.destroy();});}
+	while(normalLayer.length > 0) {normalLayer.forEach(function (c) {c.kill(); c.destroy();});}
+	while(topLayer.length > 0) {topLayer.forEach(function (c) {c.kill(); c.destroy();});}
 	while(platforms.length > 0) {platforms.forEach(function (c) {c.kill(); c.destroy();});}
 	while(platforms2.length > 0) {platforms2.forEach(function (c) {c.kill(); c.destroy();});}
 
@@ -918,7 +913,7 @@ var generateLevel = function(levelName) {
 	//Lighting filter for room
 	if(levelData.shadowData != ""){
 		var shadows = game.add.sprite(0,0, levelData.shadowData); 
-		group3.add(shadows);
+		topLayer.add(shadows);
 	}
 
 	// generate all doors from the data
@@ -997,12 +992,12 @@ var generateLevel = function(levelName) {
 	player.animations.add('crawlLeft',[21,22,23,24,25,26,27], 10, true);
 	//Reset variables
 	if(foreground == true){ //If level generates while player is in the top layer/group 3
-		group2.add(player); //set player to top layer/foreground
+		normalLayer.add(player); //set player to top layer/foreground
 	}
 	else{//for if player gets caught while crouching
 		//move player to the foreground
-		group1.remove(player);
-		group2.add(player);
+		backLayer.remove(player);
+		normalLayer.add(player);
 		foreground=true;
 	}
 	//Default set camera to lock on player
@@ -1015,12 +1010,11 @@ var generateLevel = function(levelName) {
 
 	//Fade when player enters a new level
 	timer = game.time.create();
-	//fade to black screen in a 500 ms timeframe
+	//fade to black screen in a 250 ms timeframe
 	var fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
 	fadeStart.fixedToCamera =  true;
 	game.add.tween(fadeStart).to( {alpha: 0}, 250, Phaser.Easing.Linear.None, true, 0, 0, false);
 	timer.add(250, function (){
-		//then fade out of black back to visibility
 		fadeStart.destroy();
 	},this);
 	//start the timer when function starts
