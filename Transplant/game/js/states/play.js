@@ -42,6 +42,7 @@ var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
 var creepyDoor;
 var doorWasOpened = false;
+var fadeMade = false;
 // ----------- Camera Variables ---------------------
 var playerCamera = false; //has the camera been reset on the player?
 //Has the player seen this level before?
@@ -462,10 +463,18 @@ var playState = {
    			}
    		}
 
-
    		//Reach game over screen when at the final level
-   		if(levelData.backgroundData == "endingBackground" && player.position.x >= 3500){
-			game.state.start('end');
+   		if(levelData.backgroundData == "endingBackground" && player.position.x >= 1200){
+   			if(fadeMade == false){
+   				fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
+   				fadeStart.fixedToCamera =  true;
+   				game.add.tween(fadeStart).to( {alpha: 0.5}, 1000, Phaser.Easing.Linear.None, true, 0, 6000, true).loop(true);
+   				fadeMade = true;
+   			}
+   			else if(player.position.x >= 3500){;
+   				fadeStart.destroy();
+				game.state.start('end');
+			}
 		}
 
 		//Camera pans a level when player first enters to show players the challenges ahead
@@ -897,8 +906,10 @@ var generateLevel = function(levelName) {
 	backgroundGroup.add(background);
 
 	//Lighting filter for room
-	var shadows = game.add.sprite(0,0, levelData.shadowData); 
-	group3.add(shadows);
+	if(levelData.shadowData != ""){
+		var shadows = game.add.sprite(0,0, levelData.shadowData); 
+		group3.add(shadows);
+	}
 
 	// generate all doors from the data
 	for (var index = 0; index < levelData.doorData.length; index++) {
