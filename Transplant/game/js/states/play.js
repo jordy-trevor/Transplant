@@ -352,10 +352,6 @@ var playState = {
 				isJumping = false;
 			}
 		}
-		/*else if(isClimbing == false){
-			canControl = true;
-			//player.body.gravity.y = playerGravity; //set player gravity back to normal
-		}*/
 		if(isJumping == true){
 			canControl = true;
 		}
@@ -674,6 +670,8 @@ var playState = {
 						read = game.add.sprite(noteReading.position.x - 240, noteReading.position.y - 150, 'speech bubble');
 						read.scale.x = 0.3;
 						read.scale.y = 0.3;
+						player.body.velocity.x = 0;
+						player.body.velocity.y = 0;
 						canMove = false;
 					} else {
 						//Add the blown up version of the sprite on screen and stop player from moving
@@ -683,7 +681,10 @@ var playState = {
 						read.scale.y = 0.8;
 						read.alpha = 1;
 						read.fixedToCamera = true;
+						player.body.velocity.x = 0;
+						player.body.velocity.y = 0;
 						canMove = false;
+						topLayer.add(read);
 						if (noteReading.name == 'text message') {
 							read.scale.x = 0.3;
 							read.scale.y = 0.3;
@@ -791,7 +792,7 @@ var playState = {
 					}
 					break;
 				} else {
-					if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) <= -1){
+					if(game.physics.arcade.overlap(player, doorEntering) && inventory.indexOf(doorEntering.keyRequired) <= -1 && canMove == true){
 						doorLockedSound.play();
 					}
 				}

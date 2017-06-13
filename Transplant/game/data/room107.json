@@ -12,7 +12,7 @@
 
 	"doorData" : [
 
-		{"name" : "door107", "leadsTo" : "level3", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4192, "keyRequired": "none"}
+		{"name" : "door107", "leadsTo" : "level3", "xPos" : 160, "yPos" : 324, "frame" : "darkDoor", "spawnAtx" : 4000, "keyRequired": "none"}
 	],
 	"enemyData" : [],
 	"keyCardData" : [],

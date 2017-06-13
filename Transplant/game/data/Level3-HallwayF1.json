@@ -16,7 +16,7 @@
 		{"frame" : "box", "xPos" : 1945, "yPos" : 0, "xScale" : "0.9", "yScale" : "0.9", "pushable" : true, "climbable" : false, "collidable" : "full", "gravityEnabled" : true, "hidable" : false},
 		{"frame" : "pile1", "xPos" : 2505, "yPos" : 430, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		
-		{"frame" : "box", "xPos" : 3213, "yPos" : 455, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
+		{"frame" : "pile1", "xPos" : 3213, "yPos" : 455, "xScale" : "1", "yScale" : "0.65", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false},
 		{"frame" : "cabinet", "xPos" : 3130, "yPos" : 389, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "cabinet", "xPos" : 3190, "yPos" : 389, "xScale" : "1", "yScale" : "1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "medicalLocker", "xPos" : 3300, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
@@ -44,8 +44,8 @@
 	"doorData" : [
 		{"name" : "door101", "leadsTo": "room101", "xPos" : 1460, "yPos" : 337, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "elevator", "leadsTo": "", "xPos" : 621, "yPos" : 332, "frame" : "elevator", "spawnAtx" : 621, "keyRequired" : "none"},
-		{"name" : "door105", "leadsTo" : "room105", "xPos" : 2655, "yPos" : 336, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "keyCard105"},
-		{"name" : "door107", "leadsTo" : "room107", "xPos" : 4192, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
+		{"name" : "door105", "leadsTo" : "room105", "xPos" : 2655, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "keyCard105"},
+		{"name" : "door107", "leadsTo" : "room107", "xPos" : 4000, "yPos" : 339, "frame" : "darkDoor", "spawnAtx" : 160, "keyRequired": "none"},
 		{"name" : "doubleDoor", "leadsTo" : "labLevel", "xPos" : 5200, "yPos" : 339, "frame" : "doubleDoor", "spawnAtx" : 160, "keyRequired": "none"}
 
 	],
