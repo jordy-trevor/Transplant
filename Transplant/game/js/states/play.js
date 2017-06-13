@@ -42,6 +42,7 @@ var ground2; //the ground player will stand on when hiding
 var levelData; //json file being used
 var creepyDoor;
 var doorWasOpened = false;
+var fadeMade = false;
 // ----------- Camera Variables ---------------------
 var playerCamera = false; //has the camera been reset on the player?
 //Has the player seen this level before?
@@ -49,6 +50,7 @@ var seenLevel1 = false;
 var seenLevel2 = false;
 var seenLevel3 = false;
 var seenLevel4 = false;
+var seenLevel5 = false;
 
 // elevator panel that must be created global for proper destruction afterwards
 var elevatorBackground; var elevatorText; var button0; var button1; var button2; var button3; var button4; var button5; var button6; var button7; var button8; var button9; var buttonEnter;
@@ -101,6 +103,7 @@ var playState = {
 
 
 		//Adding use of various keys 
+		this.cursors = game.input.keyboard.createCursorKeys();
 		this.input.keyboard.addKey(Phaser.Keyboard.W);
 		this.input.keyboard.addKey(Phaser.Keyboard.A);
 		this.input.keyboard.addKey(Phaser.Keyboard.D);
@@ -117,6 +120,17 @@ var playState = {
 		this.input.keyboard.addKey(Phaser.Keyboard.NINE);
 		this.input.keyboard.addKey(Phaser.Keyboard.ZERO);
 		this.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_3);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_4);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_5);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_6);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_7);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_8);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_9);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_0);
+		this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_ENTER);
 
 
 		//Key press won't affect browser
@@ -276,7 +290,7 @@ var playState = {
 			if(isJumping == false){
 				player.body.velocity.y = 0;
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.W) && (isClimbing == true || distanceFromGround <= 45 || isJumping == true) && player.position.y > 69.25){
+			if((this.cursors.up.isDown|| game.input.keyboard.isDown(Phaser.Keyboard.W)) && (isClimbing == true || distanceFromGround <= 45 || isJumping == true) && player.position.y > 69.25){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -289,7 +303,7 @@ var playState = {
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.S) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.W)){
+			if((this.cursors.down.isDown || game.input.keyboard.isDown(Phaser.Keyboard.S)) && !hitPlatform && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && (!this.cursors.up.isDown || !game.input.keyboard.isDown(Phaser.Keyboard.W))){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom of climb frames
 				}
@@ -300,7 +314,7 @@ var playState = {
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.A) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && !game.input.keyboard.isDown(Phaser.Keyboard.D)){
+			if((this.cursors.left.isDown || game.input.keyboard.isDown(Phaser.Keyboard.A)) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && (!this.cursors.right.isDown || !game.input.keyboard.isDown(Phaser.Keyboard.D))){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom of climb frames
 				}
@@ -311,7 +325,7 @@ var playState = {
 				player.body.velocity.y = 0;
 				player.body.gravity.y = 0; //player doesn't automatically fall off
 			}
-			if(game.input.keyboard.isDown(Phaser.Keyboard.D) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+			if((this.cursors.right.isDown || game.input.keyboard.isDown(Phaser.Keyboard.D)) && (isClimbing == true || isJumping == true) && !game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
 				if(player.frame >= 13 || player.frame <= 0){ //reset the frames
 					player.frame = 0; //set to bottom climb frames
 				}
@@ -364,7 +378,7 @@ var playState = {
 			playerDirection = 0; //Left
 		}
 
-		if(game.input.keyboard.isDown(Phaser.Keyboard.A) && canControl == true && canMove == true){
+		if((this.cursors.left.isDown || game.input.keyboard.isDown(Phaser.Keyboard.A)) && canControl == true && canMove == true){
 			//move left
 			playerDirection --; //player was moving left
 			if(foreground == true){
@@ -399,7 +413,7 @@ var playState = {
 				player.body.velocity.x = -75; //crawl speed
 			}
 		}
-		else if(game.input.keyboard.isDown(Phaser.Keyboard.D) && canControl == true && canMove == true){
+		else if((this.cursors.right.isDown || game.input.keyboard.isDown(Phaser.Keyboard.D)) && canControl == true && canMove == true){
 			//move right
 			playerDirection ++; //player was moving right
 			if(foreground == true){
@@ -450,8 +464,18 @@ var playState = {
    		}
 
    		//Reach game over screen when at the final level
-   		if(levelData.backgroundData == "endingBackground" && player.position.x >= 3500){
-			game.state.start('end');
+   		if(levelData.backgroundData == "endingBackground" && player.position.x >= 1200){
+   			if(fadeMade == false){
+   				fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
+   				fadeStart.alpha = 0;
+   				fadeStart.fixedToCamera =  true;
+   				game.add.tween(fadeStart).to( {alpha: 0.5}, 1000, Phaser.Easing.Linear.None, true, 0, 6000, true).loop(true);
+   				fadeMade = true;
+   			}
+   			else if(player.position.x >= 3500){;
+   				fadeStart.destroy();
+				game.state.start('end');
+			}
 		}
 
 		//Camera pans a level when player first enters to show players the challenges ahead
@@ -488,7 +512,7 @@ var playState = {
 			playerCamera = true; //Variable set to true
 		}
 		//Third Hallway
-		if(levelData.backgroundData == 'HallBG' && seenLevel3 == false){
+		if(levelData.backgroundData == 'hall3' && seenLevel3 == false){
 			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
 			game.camera.x += 5; //camera move speed
 			canMove = false; //stop player from moving
@@ -498,7 +522,7 @@ var playState = {
 			}
 		}
 		//Put the camera back on the player when camera pan ends
-		else if(levelData.backgroundData == 'HallBG' && seenLevel3 == true && playerCamera == false){
+		else if(levelData.backgroundData == 'hall3' && seenLevel3 == true && playerCamera == false){
 			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
@@ -519,6 +543,22 @@ var playState = {
 			canMove = true; // Player can move again
 			playerCamera = true; //Variable set to true
 		}
+		//Fifth Hallway
+		if(levelData.backgroundData == 'burntLab' && seenLevel5 == false){
+			game.camera.follow(null, Phaser.PLATFORMER); //Make camera unfollow player to follow nothing
+			game.camera.x += 5; //camera move speed
+			canMove = false; //stop player from moving
+			playerCamera = false; //This variable is just to make it so that when the game.camera follows the player again, it won't have to be updated continually
+			if(game.camera.x >= (levelData.worldBounds.x - 1200)){ //Once panning reaches the end
+				seenLevel5 = true; //Player has now seen the level
+			}
+		}
+		//Put the camera back on the player when camera pan ends
+		else if(levelData.backgroundData == 'burntLab' && seenLevel5 == true && playerCamera == false){
+			game.camera.follow(player, Phaser.PLATFORMER); //Camera is locked onto player
+			canMove = true; // Player can move again
+			playerCamera = true; //Variable set to true
+		}
 
 
 
@@ -526,17 +566,17 @@ var playState = {
 		// Add keyboard input version
 		if (elevatorOpen == true) {
 			game.input.keyboard.onUpCallback = function(e) {
-				if (e.keyCode == Phaser.Keyboard.ONE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.TWO) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.THREE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.FOUR) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.FIVE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.SIX) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} }
-				if (e.keyCode == Phaser.Keyboard.SEVEN) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.EIGHT) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} }
-				if (e.keyCode == Phaser.Keyboard.NINE) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} }
-				if (e.keyCode == Phaser.Keyboard.ZERO) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}}
-				if (e.keyCode == Phaser.Keyboard.ENTER) { buttonPressSound.play(); var shouldDestroy = false;
+				if (e.keyCode == Phaser.Keyboard.ONE || e.keyCode == Phaser.Keyboard.NUMPAD_1) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '1'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.TWO || e.keyCode == Phaser.Keyboard.NUMPAD_2) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '2'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.THREE || e.keyCode == Phaser.Keyboard.NUMPAD_3) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '3'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FOUR || e.keyCode == Phaser.Keyboard.NUMPAD_4) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '4'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.FIVE || e.keyCode == Phaser.Keyboard.NUMPAD_5) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '5'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.SIX || e.keyCode == Phaser.Keyboard.NUMPAD_6) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '6'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.SEVEN || e.keyCode == Phaser.Keyboard.NUMPAD_7) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '7'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.EIGHT || e.keyCode == Phaser.Keyboard.NUMPAD_8) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '8'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.NINE || e.keyCode == Phaser.Keyboard.NUMPAD_9) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '9'; elevatorText.setText(elevatorString);} }
+				if (e.keyCode == Phaser.Keyboard.ZERO || e.keyCode == Phaser.Keyboard.NUMPAD_0) { buttonPressSound.play(); if(elevatorString == "Invalid") { elevatorString = '';} if(elevatorString.length < 4) {elevatorString += '0'; elevatorText.setText(elevatorString);}}
+				if (e.keyCode == Phaser.Keyboard.ENTER || e.keyCode == Phaser.Keyboard.NUMPAD_ENTER) { buttonPressSound.play(); var shouldDestroy = false;
 						if(elevatorString == '1379') {playerSpawnX = 621; generateLevel('level3'); shouldDestroy = true;} 
 						else if(elevatorString == '2821') {playerSpawnX = 621; generateLevel('level2'); shouldDestroy = true;}
 						else if(elevatorString == '3462') {playerSpawnX = 621; generateLevel('level1'); shouldDestroy = true;}
@@ -871,8 +911,10 @@ var generateLevel = function(levelName) {
 	backgroundGroup.add(background);
 
 	//Lighting filter for room
-	var shadows = game.add.sprite(0,0, levelData.shadowData); 
-	group3.add(shadows);
+	if(levelData.shadowData != ""){
+		var shadows = game.add.sprite(0,0, levelData.shadowData); 
+		group3.add(shadows);
+	}
 
 	// generate all doors from the data
 	for (var index = 0; index < levelData.doorData.length; index++) {
@@ -962,9 +1004,22 @@ var generateLevel = function(levelName) {
 	game.camera.follow(player, Phaser.PLATFORMER);
 
 	//When camera hasn't panned a level yet
-	if(seenLevel1 == false || seenLevel2 == false || seenLevel3 == false || seenLevel4 == false){
+	if(seenLevel1 == false || seenLevel2 == false || seenLevel3 == false || seenLevel4 == false || seenLevel5 == false){
 		game.camera.x = 0; //set camera position to left-end of screen.
 	}
+
+	//Fade when player enters a new level
+	timer = game.time.create();
+	//fade to black screen in a 500 ms timeframe
+	var fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
+	fadeStart.fixedToCamera =  true;
+	game.add.tween(fadeStart).to( {alpha: 0}, 250, Phaser.Easing.Linear.None, true, 0, 0, false);
+	timer.add(250, function (){
+		//then fade out of black back to visibility
+		fadeStart.destroy();
+	},this);
+	//start the timer when function starts
+	timer.start();
 
 	// generate enemies
 	for (var index = 0; index < levelData.enemyData.length; index++) {
