@@ -28,6 +28,8 @@ var menuState = {
 		playButton.alpha = 0.5;
 	},
 	actionOnClick: function() { //when player clicks on playButton
+		title.destroy();
+		playButton.destroy();
 		this.state.start('controls'); //Switch to the next state
 	}
 };
