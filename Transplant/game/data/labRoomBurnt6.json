@@ -13,9 +13,11 @@
 	"doorData" : [
 		{"name" : "door1", "leadsTo": "burntLab", "xPos" : 200, "yPos" : 344, "frame" : "burntLabDoor", "spawnAtx" : 3652, "keyRequired" : "none"}	
 	],
-	"keyCardData" : [],
+	"keyCardData" : [
+		{"frame" : "keyCard205", "xPos" : 700, "yPos" : 400, "name" : "keyCard205"}	
+	],
 	"noteData" : [
-		{"name" : "predecessorContract", "leadsTo" : "predecessorContract", "xPos" : 104, "yPos" : 350, "frame" : "predecessorContract"}		
+		{"name" : "predecessorContract", "leadsTo" : "predecessorContract", "xPos" : 104, "yPos" : 350, "frame" : "predecessorContract"}
 	]
 
 }

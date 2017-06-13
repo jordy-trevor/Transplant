@@ -12,7 +12,6 @@
 	"enemyData" : [],
 	"keyCardData" : [
 		{"frame" : "entranceFloorElevatorCode", "xPos" : 1821, "yPos" : 450, "name" : "entranceFloorElevatorCode"}
-
 	],
 	"noteData" : [
 		{"name" : "corpse", "leadsTo" : "corpse tag", "xPos" : 1475, "yPos" : 385, "frame" : "corpse"}
