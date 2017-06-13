@@ -27,16 +27,19 @@ function Enemy(game, key, frame, xPos, yPos, walkSpeed, runSpeed, walkDist, turn
 	this.wasFacing = facing; // used to make enemy wait at end of each walk duration
 	this.turning = false; // used for turning
 	this.target = target;
+	this.isAware = true;
+	this.isNearPlayer = false;
 
 	this.seesPlayer = false;
 
 	this.animations.add('walkRight', [0,1,2,3,4,5,6,7], 10, true);
 	this.animations.add('walkLeft', [8,9,10,11,12,13,14,15], 10, true);
+	monsterAwareSound = game.add.audio('monsterAware');
+
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
-
 
 // create update function specifically for this
 Enemy.prototype.update = function() {
@@ -49,6 +52,11 @@ Enemy.prototype.update = function() {
 
 			this.seesPlayer = true;
 			this.walkSpeed = this.runSpeed; // changed speed to runspeed, which in turn triggers proper animation
+			if (this.isAware == true) {
+				monsterAwareSound.play();
+				this.isAware = false;
+			}
+
 		}
 	}
 	

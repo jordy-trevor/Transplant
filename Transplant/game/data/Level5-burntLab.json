@@ -22,7 +22,9 @@
 		{"name" : "doubledoor", "leadsTo": "morgueFloor", "xPos" : 5089, "yPos" : 337, "frame" : "doubleDoor", "spawnAtx" : 214, "keyRequired" : "none"}
 		
 	],
-	"keyCardData" : [],
+	"keyCardData" : [
+		{"frame" : "morgueElevatorCode", "xPos" : 1821, "yPos" : 450, "name" : "morgueElevatorCode"}
+	],
 	"noteData" : []
 
 }

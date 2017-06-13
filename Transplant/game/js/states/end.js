@@ -1,5 +1,6 @@
 var endState = {
 	create: function(){
+		inventory = ['none'];
 		var end = game.add.tileSprite(0,0,1200,800, 'gameOver');
 		var button = game.add.button(1055, 535, 'menuButton', this.actionOnClick, this);
 		//button.scale.setTo(1.65,0.5);

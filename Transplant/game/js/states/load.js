@@ -209,6 +209,13 @@ var load = {
 		game.load.audio('hospitalMusic', 'hospitalMusic.mp3');
 		game.load.audio('indoorFootsteps', 'indoorFootsteps.mp3');
 		game.load.audio('doorOpenClose', 'doorOpenClose.mp3');
+		game.load.audio('doorLocked', 'doorLocked.mp3');
+		game.load.audio('buttonPress', 'buttonPress.mp3');
+		game.load.audio('boxSliding', 'boxSliding.mp3');
+		game.load.audio('monsterAware', 'monsterAware.mp3');
+		game.load.audio('monsterFootstep', 'monsterFootstep.mp3');
+		game.load.audio('pageTurn', 'pageTurn.mp3');
+		game.load.audio('itemGrab', 'itemGrab.mp3');
 
 
 	},

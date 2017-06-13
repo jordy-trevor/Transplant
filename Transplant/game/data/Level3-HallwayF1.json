@@ -32,7 +32,6 @@
 		{"frame" : "medicalLocker", "xPos" : 4670, "yPos" : 375, "xScale" : "1", "yScale": "1.1", "pushable" : false, "climbable" : false, "collidable" : "top", "gravityEnabled" : false, "hidable" : true},
 		{"frame" : "pile2", "xPos" : 4875, "yPos" : 380, "xScale" : "1", "yScale" : ".8", "pushable" : false, "climbable" : false, "collidable" : "full", "gravityEnabled" : false, "hidable" : false}
 
-
 	],
 	"enemyData" : [
 		{"key" : "atlas2", "frame": "1.png", "xPos" : 850, "yPos" : 277, "walkSpeed" : 0, "runSpeed" : 220, "walkDist" : 0, "turnTime" : 0, "facing" : "right", "target" : "player"},
