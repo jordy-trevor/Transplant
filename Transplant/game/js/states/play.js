@@ -642,6 +642,10 @@ var playState = {
 						read.alpha = 1;
 						read.fixedToCamera = true;
 						canMove = false;
+						if (noteReading.name == 'text message') {
+							read.scale.x = 0.3;
+							read.scale.y = 0.3;
+						}
 					}
 					
 				}
@@ -916,6 +920,10 @@ var generateLevel = function(levelName) {
 			noteTemp.alpha = 0;	
 		}  else if (noteTemp.name == 'random patient') {
 			noteTemp.scale.setTo(0.21, 0.21);
+		} else if (noteTemp.name == 'corpse') {
+			noteTemp.scale.setTo(0.25, 0.25);
+		} else if (noteTemp.name == 'text message') {
+			noteTemp.scale.setTo(0.025, 0.025);
 		}
 		game.physics.enable(noteTemp);
 		game.add.existing(noteTemp);
