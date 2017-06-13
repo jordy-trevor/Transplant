@@ -467,6 +467,7 @@ var playState = {
    		if(levelData.backgroundData == "endingBackground" && player.position.x >= 1200){
    			if(fadeMade == false){
    				fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
+   				fadeStart.alpha = 0;
    				fadeStart.fixedToCamera =  true;
    				game.add.tween(fadeStart).to( {alpha: 0.5}, 1000, Phaser.Easing.Linear.None, true, 0, 6000, true).loop(true);
    				fadeMade = true;

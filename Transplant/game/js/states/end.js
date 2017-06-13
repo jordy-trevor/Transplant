@@ -1,18 +1,47 @@
+var button;
+
 var endState = {
 	create: function(){
+		//Reset variables
 		inventory = ['none'];
+		foreground = true;
+		isClimbing = false;
+		canControl = true;
+		playerSpawnX = 120;
+		canMove = true;
+		isJumping = false;
+		isColliding = false;
+		doorWasOpened = false;
+		fadeMade = false;
+		playerCamera = false;
+		seenLevel1 = false;
+		seenLevel2 = false;
+		seenLevel3 = false;
+		seenLevel4 = false;
+		seenLevel5 = false;
+
 		var end = game.add.tileSprite(0,0,1200,800, 'gameOver');
-		var button = game.add.button(1055, 535, 'menuButton', this.actionOnClick, this);
-		//button.scale.setTo(1.65,0.5);
-		//button.alpha = 0;
+		button = game.add.button(1055, 535, 'menuButton', this.actionOnClick, this, 1, 1);
+
+		button.onInputOver.add(this.over, this);
+		button.onInputOut.add(this.out, this);
 
 		//Make transparent
 		end.alpha = 0;
+		button.alpha = 0;
 
 		//Adding fade effects
 		game.add.tween(end).to( {alpha: 1}, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+		game.add.tween(button).to( {alpha: 0.5}, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+	},
+	over: function(){
+		button.alpha = 1;
+	},
+	out: function(){
+		button.alpha = 0.5;
 	},
 	actionOnClick: function(){
+		music.stop();
 		game.state.start('menu');
 	}
 };
