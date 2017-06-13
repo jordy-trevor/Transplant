@@ -349,7 +349,13 @@ var playState = {
 		//Allow left to right movement when not climbing but not when climbing something and reset jumping variable
 		if(isClimbing == true){
 			canControl = false;
-			isJumping = false;
+			//Specific edge case for when player stands on top of 2 boxes stacked on top of each other
+			if((!hitPlatform && player.body.touching.down && player.body.velocity.y > 17 && player.body.velocity.y <18 && !hide && !pushOverlap)){
+				isJumping = true;
+			}
+			else{
+				isJumping = false;
+			}
 		}
 		/*else if(isClimbing == false){
 			canControl = true;
@@ -366,10 +372,10 @@ var playState = {
 			canControl = true;
 			isClimbing = false;
 		}
+		
 
 		//Movement system
 		player.body.velocity.x = 0; //reset player velocity
-
 		//Check Direction player is moving in
 		if(playerDirection >= 1){
 			playerDirection = 1; //Right
@@ -377,7 +383,6 @@ var playState = {
 		if(playerDirection <= 0){
 			playerDirection = 0; //Left
 		}
-
 		if((this.cursors.left.isDown || game.input.keyboard.isDown(Phaser.Keyboard.A)) && canControl == true && canMove == true){
 			//move left
 			playerDirection --; //player was moving left
@@ -643,7 +648,7 @@ var playState = {
 		//Scenario checks to see if you can jump
 		//Touching the ground, while climbing, in front of a climbable object on the ground, on top of obstacleGroup
 		if(canMove == true){	
-			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40) || (player.body.touching.down && player.body.velocity.y == 0)){
+			if((hitPlatform && player.body.touching.down) || isClimbing == true || (climb == true && distanceFromGround <= 40) || (player.body.touching.down && player.body.velocity.y == 0) || (!hitPlatform && player.body.touching.down && player.body.velocity.y > 17 && player.body.velocity.y <18 && !hide && !pushOverlap)){
 				if(foreground == true){
 					player.animations.stop();
 					if(playerDirection == 0){

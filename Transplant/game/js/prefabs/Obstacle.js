@@ -121,10 +121,13 @@ Obstacle.prototype.update = function() {
 			}
 			else if(collision5){
 				if((player.position.y >= this.position.y)){
-					this.body.velocity.x = 0;
 					this.body.velocity.y = 0;
 					this.body.gravity.y = 0;
 					this.body.allowGravity = false;
+				}
+				else if (player.position.y < this.position.y){
+					this.body.allowGravity = true;
+					this.body.gravity.y = playerGravity;
 				}
 			}
 			else{
