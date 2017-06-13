@@ -92,7 +92,7 @@ var playState = {
 
 		//Groups unrelated to layers and is for the ground
 		platforms = game.add.group(); //Ground everything rests on
-		platforms2 = game.add.group(); //Ground only player rests on when hiding
+		platforms2 = game.add.group(); //Ground only the player rests on when hiding
 
 		//Generate this level from menuState
 		generateLevel('level0');
@@ -141,7 +141,7 @@ var playState = {
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
 		this.input.keyboard.addKeyCapture(Phaser.Keyboard.SHIFT);
 
-		//Use H key to swap between layers
+		//Use H key to swap between layers to hide
 		this.hideKey = game.input.keyboard.addKey(Phaser.Keyboard.H);
 		this.hideKey.onDown.add(this.hide, this);
 
@@ -179,15 +179,10 @@ var playState = {
 
 		//collision checks for enemies
 		var enemyHitPlatform = game.physics.arcade.collide(enemyGroup, [platforms,obstacleGroup]);
-		game.physics.arcade.collide(enemyGroup, obstacleGroup);
-		game.physics.arcade.collide(enemyGroup, obstacleHideGroup);
-		game.physics.arcade.collide(enemyGroup, obstacleClimbGroup);
-		game.physics.arcade.collide(enemyGroup, obstacleEnemyPushGroup);
+		game.physics.arcade.collide(enemyGroup, [obstacleGroup, obstacleHideGroup, obstacleClimbGroup, obstacleEnemyPushGroup]);
 
 		// keyCard can hit stuff
-		game.physics.arcade.collide(keyCardGroup, obstacleGroup);
-		game.physics.arcade.collide(keyCardGroup, platforms);
-		game.physics.arcade.collide(keyCardGroup, obstacleHideGroup);
+		game.physics.arcade.collide(keyCardGroup, [obstacleGroup, platforms, obstacleHideGroup]);
 
 		// spawn 'E' when you approach interactable object or door
 		noteGroup.forEach( function(c) {
@@ -247,7 +242,7 @@ var playState = {
 
 		// put the key into your inventory after colliding with it
 		keyCardGroup.forEach(function (k) {
-			// if you are touching this enemy and this enemy sees you
+			// if you are over a keycard
 			if(game.physics.arcade.overlap(player, k)) {	
 
 				itemGrabSound.play('', '', 5, false);
@@ -470,6 +465,7 @@ var playState = {
 
    		//Reach game over screen when at the final level
    		if(levelData.backgroundData == "endingBackground" && player.position.x >= 1200){
+   			//fading in and out after certain distance
    			if(fadeMade == false){
    				fadeStart = game.add.tileSprite(0,0,1200,800, 'blackScreen');
    				fadeStart.alpha = 0;
@@ -477,6 +473,7 @@ var playState = {
    				game.add.tween(fadeStart).to( {alpha: 0.5}, 1000, Phaser.Easing.Linear.None, true, 0, 6000, true).loop(true);
    				fadeMade = true;
    			}
+   			//Send player to game over screen
    			else if(player.position.x >= 3500){;
    				fadeStart.destroy();
 				game.state.start('end');
@@ -897,8 +894,6 @@ var generateLevel = function(levelName) {
 	while(keyCardGroup.length > 0) { keyCardGroup.forEach(function (c) {c.kill(); c.destroy();});}
 	while(enemyGroup.length > 0) { enemyGroup.forEach(function (c) {c.kill(); c.destroy(); });}
 	while(obstacleEnemyPushGroup.length > 0) { obstacleEnemyPushGroup.forEach(function (c) {c.kill(); c.destroy(); });}
-
-	
 	while(normalLayer.length > 0) {normalLayer.forEach(function (c) {c.kill(); c.destroy();});}
 	while(topLayer.length > 0) {topLayer.forEach(function (c) {c.kill(); c.destroy();});}
 	while(platforms.length > 0) {platforms.forEach(function (c) {c.kill(); c.destroy();});}
